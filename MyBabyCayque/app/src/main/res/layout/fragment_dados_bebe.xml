@@ -2,30 +2,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="8dp"
     android:orientation="vertical"
-    tools:context="br.ufop.cayque.mybabycayque.DadosBebeFragment"
-    android:layout_margin="8dp">
+    tools:context="br.ufop.cayque.mybabycayque.DadosBebeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <EditText
-        android:id="@+id/edtNomeBebe"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nome do bebê..."
-        android:inputType="text" />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edtNomeBebe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome do bebê..."
+            android:inputType="text" />
+
+    </android.support.design.widget.TextInputLayout>
 
 
-    <TextView
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Data de Nascimento: " />
+        android:layout_height="wrap_content">
 
-    <DatePicker
-        android:id="@+id/dateNasci"
-        android:layout_width="wrap_content"
-        android:layout_height="118dp"
-        android:calendarViewShown="false"
-        android:datePickerMode="spinner" />
+        <EditText
+            android:id="@+id/dateNasci"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Data de Nascimento..."
+            android:focusableInTouchMode="false" />
+    </android.support.design.widget.TextInputLayout>
 
 
     <LinearLayout
@@ -49,14 +55,14 @@
                 android:id="@+id/radioButtonMasc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Masculino" />
+                android:text="Menino" />
 
 
             <RadioButton
                 android:id="@+id/radioButtonFem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Feminino" />
+                android:text="Menina" />
 
         </RadioGroup>
 
@@ -74,9 +80,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/botao_personalizado_salvar"
+            android:onClick="salvaBebe"
             android:text="Salvar"
-            android:textColor="#FFFFFF"
-            android:onClick="salvaBebe"/>
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/btnDadosBebeCancelar"
@@ -85,7 +91,7 @@
             android:layout_weight="1"
             android:background="@drawable/botao_personalizado_cancelar"
             android:text="Cancelar"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 </LinearLayout>

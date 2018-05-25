@@ -9,8 +9,16 @@ import java.util.Date;
 public class Outros extends Atividades {
     private String nota;
 
-    public Outros(TiposAtivi nome, Date data, Date hora, String nota) {
-        super(nome, data, hora);
+    public Outros(int id, TiposAtivi tipo, int diaInicio, int mesInico, int anoInicio, int diaTermino, int mesTermino, int anoTermino, String nota) {
+        super(id, tipo, diaInicio, mesInico, anoInicio, diaTermino, mesTermino, anoTermino);
+        this.nota = nota;
+    }
+
+    public String getNota() {
+        return nota;
+    }
+
+    public void setNota(String nota) {
         this.nota = nota;
     }
 

@@ -9,11 +9,27 @@ import java.util.Date;
 public class Mamadeiras extends Atividades {
 
     private float quantidade; //em ml
-    private boolean tomouTudo;
+    private int tomouTudo; //1 se sim e 0 se nao
 
-    public Mamadeiras(TiposAtivi nome, Date data, Date hora, float quantidade, boolean tomouTudo) {
-        super(nome, data, hora);
+    public Mamadeiras(int id, TiposAtivi tipo, int diaInicio, int mesInico, int anoInicio, int diaTermino, int mesTermino, int anoTermino, float quantidade, int tomouTudo) {
+        super(id, tipo, diaInicio, mesInico, anoInicio, diaTermino, mesTermino, anoTermino);
         this.quantidade = quantidade;
+        this.tomouTudo = tomouTudo;
+    }
+
+    public float getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(float quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public int getTomouTudo() {
+        return tomouTudo;
+    }
+
+    public void setTomouTudo(int tomouTudo) {
         this.tomouTudo = tomouTudo;
     }
 

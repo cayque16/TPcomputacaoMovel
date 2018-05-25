@@ -9,8 +9,16 @@ import java.util.Date;
 public class Soneca extends Atividades {
     private float horasDormidas;
 
-    public Soneca(TiposAtivi nome, Date data, Date hora, float horasDormidas) {
-        super(nome, data, hora);
+    public Soneca(int id, TiposAtivi tipo, int diaInicio, int mesInico, int anoInicio, int diaTermino, int mesTermino, int anoTermino, float horasDormidas) {
+        super(id, tipo, diaInicio, mesInico, anoInicio, diaTermino, mesTermino, anoTermino);
+        this.horasDormidas = horasDormidas;
+    }
+
+    public float getHorasDormidas() {
+        return horasDormidas;
+    }
+
+    public void setHorasDormidas(float horasDormidas) {
         this.horasDormidas = horasDormidas;
     }
 

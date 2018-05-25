@@ -9,8 +9,16 @@ import java.util.Date;
 public class Fraldas extends Atividades {
     private String motivo; //xixi ou coco
 
-    public Fraldas(TiposAtivi nome, Date data, Date hora, String motivo) {
-        super(nome, data, hora);
+    public Fraldas(int id, TiposAtivi tipo, int diaInicio, int mesInico, int anoInicio, int diaTermino, int mesTermino, int anoTermino, String motivo) {
+        super(id, tipo, diaInicio, mesInico, anoInicio, diaTermino, mesTermino, anoTermino);
+        this.motivo = motivo;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
         this.motivo = motivo;
     }
 

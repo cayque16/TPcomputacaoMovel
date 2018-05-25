@@ -10,8 +10,16 @@ public class Mamadas extends Atividades {
 
     private String peito;
 
-    public Mamadas(TiposAtivi nome, Date data, Date hora, String peito) {
-        super(nome, data, hora);
+    public Mamadas(int id, TiposAtivi tipo, int diaInicio, int mesInico, int anoInicio, int diaTermino, int mesTermino, int anoTermino, String peito) {
+        super(id, tipo, diaInicio, mesInico, anoInicio, diaTermino, mesTermino, anoTermino);
+        this.peito = peito;
+    }
+
+    public String getPeito() {
+        return peito;
+    }
+
+    public void setPeito(String peito) {
         this.peito = peito;
     }
 
