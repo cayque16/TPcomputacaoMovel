@@ -7,29 +7,26 @@ import java.util.Date;
  */
 
 public abstract class Atividades {
-    private int id;
     private TiposAtivi tipo;
     private int diaInicio,mesInico,anoInicio;
+    private int horaInicio,minuInicio,seguInicio;
     private int diaTermino,mesTermino,anoTermino;
-    private static int idAtual = 0;
+    private int horaTermino,minuTermino,seguTermino;
 
-    public Atividades(int id, TiposAtivi tipo, int diaInicio, int mesInico, int anoInicio, int diaTermino, int mesTermino, int anoTermino) {
-        this.id = id;
+    public Atividades(TiposAtivi tipo, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino) {
         this.tipo = tipo;
         this.diaInicio = diaInicio;
         this.mesInico = mesInico;
         this.anoInicio = anoInicio;
+        this.horaInicio = horaInicio;
+        this.minuInicio = minuInicio;
+        this.seguInicio = seguInicio;
         this.diaTermino = diaTermino;
         this.mesTermino = mesTermino;
         this.anoTermino = anoTermino;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+        this.horaTermino = horaTermino;
+        this.minuTermino = minuTermino;
+        this.seguTermino = seguTermino;
     }
 
     public TiposAtivi getTipo() {
@@ -88,12 +85,52 @@ public abstract class Atividades {
         this.anoTermino = anoTermino;
     }
 
-    public static int getIdAtual() {
-        return idAtual;
+    public int getHoraInicio() {
+        return horaInicio;
     }
 
-    public static void setIdAtual(int idAtual) {
-        Atividades.idAtual = idAtual;
+    public void setHoraInicio(int horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public int getMinuInicio() {
+        return minuInicio;
+    }
+
+    public void setMinuInicio(int minuInicio) {
+        this.minuInicio = minuInicio;
+    }
+
+    public int getSeguInicio() {
+        return seguInicio;
+    }
+
+    public void setSeguInicio(int seguInicio) {
+        this.seguInicio = seguInicio;
+    }
+
+    public int getHoraTermino() {
+        return horaTermino;
+    }
+
+    public void setHoraTermino(int horaTermino) {
+        this.horaTermino = horaTermino;
+    }
+
+    public int getMinuTermino() {
+        return minuTermino;
+    }
+
+    public void setMinuTermino(int minuTermino) {
+        this.minuTermino = minuTermino;
+    }
+
+    public int getSeguTermino() {
+        return seguTermino;
+    }
+
+    public void setSeguTermino(int seguTermino) {
+        this.seguTermino = seguTermino;
     }
 
     public abstract void atualizaHistorico();

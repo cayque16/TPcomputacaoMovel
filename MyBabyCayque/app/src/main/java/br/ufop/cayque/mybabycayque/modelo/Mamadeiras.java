@@ -11,8 +11,8 @@ public class Mamadeiras extends Atividades {
     private float quantidade; //em ml
     private int tomouTudo; //1 se sim e 0 se nao
 
-    public Mamadeiras(int id, TiposAtivi tipo, int diaInicio, int mesInico, int anoInicio, int diaTermino, int mesTermino, int anoTermino, float quantidade, int tomouTudo) {
-        super(id, tipo, diaInicio, mesInico, anoInicio, diaTermino, mesTermino, anoTermino);
+    public Mamadeiras(TiposAtivi tipo, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, float quantidade, int tomouTudo) {
+        super(tipo, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino);
         this.quantidade = quantidade;
         this.tomouTudo = tomouTudo;
     }

@@ -4,10 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.ufop.cayque.mybabycayque.AddMamadasActivity"
+    android:layout_margin="8dp"
     android:orientation="vertical"
-    android:layout_margin="8dp">
+    tools:context="br.ufop.cayque.mybabycayque.AddMamadasActivity">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/dataMamadaInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:hint="Data..." />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/horaMamadaInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:hint="Hora de ínicio..." />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/horaMamadaTermino"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:hint="Hora de término..." />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Peito: " />
+
+        <RadioGroup
+            android:id="@+id/radioGroupPeito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioButtonEsque"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Esquerdo" />
 
 
+            <RadioButton
+                android:id="@+id/radioButtonDirei"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Direito" />
+
+            <RadioButton
+                android:id="@+id/radioButtonAmbos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ambos" />
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnDadosMamadaSalvar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/botao_personalizado_salvar"
+            android:text="Salvar"
+            android:onClick="salvaMamada"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnDadosMamadaCancelar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/botao_personalizado_cancelar"
+            android:text="Cancelar"
+            android:onClick="cancelaMamada"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
 
 </LinearLayout>

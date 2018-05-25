@@ -11,8 +11,8 @@ public class Medicamentos extends Atividades {
     private String unidadeMedi;
     private String dose;
 
-    public Medicamentos(int id, TiposAtivi tipo, int diaInicio, int mesInico, int anoInicio, int diaTermino, int mesTermino, int anoTermino, String nome, String unidadeMedi, String dose) {
-        super(id, tipo, diaInicio, mesInico, anoInicio, diaTermino, mesTermino, anoTermino);
+    public Medicamentos(TiposAtivi tipo, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String nome, String unidadeMedi, String dose) {
+        super(tipo, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino);
         this.nome = nome;
         this.unidadeMedi = unidadeMedi;
         this.dose = dose;
