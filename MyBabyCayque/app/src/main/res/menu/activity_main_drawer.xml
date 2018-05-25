@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_dadosBebe"
+            android:icon="@drawable/ic_menu_child"
+            android:title="Dados do bebê" />
+
+
+        <item android:title="Atividades">
+
+            <item
+                android:id="@+id/nav_mamadas"
+                android:icon="@drawable/ic_menu_album"
+                android:title="Mamadas" />
+            <item
+                android:id="@+id/nav_mamadeiras"
+                android:icon="@drawable/ic_menu_battery"
+                android:title="Mamadeiras" />
+            <item
+                android:id="@+id/nav_fralda"
+                android:icon="@drawable/ic_menu_sentiment"
+                android:title="Fralda suja" />
+            <item
+                android:id="@+id/nav_tempoDormindo"
+                android:icon="@drawable/ic_menu_clock"
+                android:title="Tempo dormindo" />
+            <item
+                android:id="@+id/nav_medicamentos"
+                android:icon="@drawable/ic_menu_hospital"
+                android:title="Medicamentos" />
+            <item
+                android:id="@+id/nav_outros"
+                android:icon="@drawable/ic_menu_create"
+                android:title="Outros" />
+
+        </item>
+    </group>
+</menu>
