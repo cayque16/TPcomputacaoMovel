@@ -1,9 +1,8 @@
-package br.ufop.cayque.mybabycayque.modelo;
+package br.ufop.cayque.mybabycayque.models;
 
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,10 +11,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-
-import br.ufop.cayque.mybabycayque.MainActivity;
 
 /**
  * Created by cayqu on 16/05/2018.

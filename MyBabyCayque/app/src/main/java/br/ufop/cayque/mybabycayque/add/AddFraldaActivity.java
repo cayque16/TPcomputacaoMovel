@@ -1,16 +1,18 @@
-package br.ufop.cayque.mybabycayque;
+package br.ufop.cayque.mybabycayque.add;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class AddMedicamentosActivity extends AppCompatActivity {
+import br.ufop.cayque.mybabycayque.R;
+
+public class AddFraldaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_medicamentos);
+        setContentView(R.layout.activity_add_fralda);
 
-        this.setTitle("Novo medicamento");
+        this.setTitle("Nova fralda");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

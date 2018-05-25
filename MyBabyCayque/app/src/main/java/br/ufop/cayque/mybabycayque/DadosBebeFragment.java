@@ -14,12 +14,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
-import br.ufop.cayque.mybabycayque.modelo.DadosBebe;
+import br.ufop.cayque.mybabycayque.R;
+import br.ufop.cayque.mybabycayque.models.DadosBebe;
 
 
 /**

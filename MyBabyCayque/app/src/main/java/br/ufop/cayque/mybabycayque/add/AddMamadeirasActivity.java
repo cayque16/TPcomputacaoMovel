@@ -1,16 +1,18 @@
-package br.ufop.cayque.mybabycayque;
+package br.ufop.cayque.mybabycayque.add;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class AddOutrosActivity extends AppCompatActivity {
+import br.ufop.cayque.mybabycayque.R;
+
+public class AddMamadeirasActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_outros);
+        setContentView(R.layout.activity_add_mamadeiras);
 
-        this.setTitle("Nova nota");
+        this.setTitle("Nova mamadeira");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

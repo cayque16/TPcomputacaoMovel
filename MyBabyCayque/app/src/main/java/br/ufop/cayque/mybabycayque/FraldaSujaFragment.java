@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import br.ufop.cayque.mybabycayque.add.AddFraldaActivity;
+import br.ufop.cayque.mybabycayque.R;
+
 
 /**
  * A simple {@link Fragment} subclass.

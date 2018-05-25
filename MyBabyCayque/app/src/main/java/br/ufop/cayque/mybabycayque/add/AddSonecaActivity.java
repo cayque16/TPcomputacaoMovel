@@ -1,7 +1,9 @@
-package br.ufop.cayque.mybabycayque;
+package br.ufop.cayque.mybabycayque.add;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import br.ufop.cayque.mybabycayque.R;
 
 public class AddSonecaActivity extends AppCompatActivity {
 

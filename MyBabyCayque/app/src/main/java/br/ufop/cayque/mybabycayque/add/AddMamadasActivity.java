@@ -1,4 +1,4 @@
-package br.ufop.cayque.mybabycayque;
+package br.ufop.cayque.mybabycayque.add;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -13,6 +13,8 @@ import android.widget.RadioGroup;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
+
+import br.ufop.cayque.mybabycayque.R;
 
 public class AddMamadasActivity extends AppCompatActivity {
 

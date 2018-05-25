@@ -7,6 +7,12 @@
     android:layout_margin="8dp">
 
     <!-- TODO: Update blank fragment layout -->
+    <ListView
+        android:id="@+id/listaMamadas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabMamadas"
@@ -15,9 +21,5 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_dialog_add" />
-
-
-
-
 
 </FrameLayout>

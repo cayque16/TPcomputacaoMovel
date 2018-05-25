@@ -19,12 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddMamadasActivity" />
-        <activity android:name=".AddMamadeirasActivity" />
-        <activity android:name=".AddFraldaActivity" />
-        <activity android:name=".AddSonecaActivity" />
-        <activity android:name=".AddMedicamentosActivity" />
-        <activity android:name=".AddOutrosActivity"></activity>
+        <activity android:name=".add.AddMamadasActivity" />
+        <activity android:name=".add.AddMamadeirasActivity" />
+        <activity android:name=".add.AddFraldaActivity" />
+        <activity android:name=".add.AddSonecaActivity" />
+        <activity android:name=".add.AddMedicamentosActivity" />
+        <activity android:name=".add.AddOutrosActivity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package br.ufop.cayque.mybabycayque.controle;
+package br.ufop.cayque.mybabycayque.controllers;
 
 import android.content.Context;
 
@@ -10,14 +10,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import br.ufop.cayque.mybabycayque.modelo.Atividades;
-import br.ufop.cayque.mybabycayque.modelo.DadosBebe;
-import br.ufop.cayque.mybabycayque.modelo.Fraldas;
-import br.ufop.cayque.mybabycayque.modelo.Mamadas;
-import br.ufop.cayque.mybabycayque.modelo.Mamadeiras;
-import br.ufop.cayque.mybabycayque.modelo.Medicamentos;
-import br.ufop.cayque.mybabycayque.modelo.Outros;
-import br.ufop.cayque.mybabycayque.modelo.Soneca;
+import br.ufop.cayque.mybabycayque.models.Atividades;
+import br.ufop.cayque.mybabycayque.models.Fraldas;
+import br.ufop.cayque.mybabycayque.models.Mamadas;
+import br.ufop.cayque.mybabycayque.models.Mamadeiras;
+import br.ufop.cayque.mybabycayque.models.Medicamentos;
+import br.ufop.cayque.mybabycayque.models.Outros;
+import br.ufop.cayque.mybabycayque.models.Soneca;
 
 /**
  * Created by cayqu on 16/05/2018.

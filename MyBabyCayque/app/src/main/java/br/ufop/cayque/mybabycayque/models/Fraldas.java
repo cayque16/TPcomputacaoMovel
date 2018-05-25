@@ -1,6 +1,4 @@
-package br.ufop.cayque.mybabycayque.modelo;
-
-import java.util.Date;
+package br.ufop.cayque.mybabycayque.models;
 
 /**
  * Created by cayqu on 16/05/2018.
