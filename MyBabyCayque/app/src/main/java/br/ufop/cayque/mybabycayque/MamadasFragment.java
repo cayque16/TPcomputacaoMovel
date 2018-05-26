@@ -42,7 +42,7 @@ public class MamadasFragment extends Fragment {
         Mamadas m1 = new Mamadas(TiposAtivi.Mamadas,1,1,1,1,1,
         1,1,1,1,1,1,1,"Direito");
         Mamadas m2 = new Mamadas(TiposAtivi.Mamadas,1,1,1,1,1,
-                1,1,1,1,1,1,1,"Esquerda");
+                1,1,1,1,1,1,1,"Esquerdo");
         Mamadas m3 = new Mamadas(TiposAtivi.Mamadas,1,1,1,1,1,
                 1,1,1,1,1,1,1,"Ambos");
 

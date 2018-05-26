@@ -98,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/botao_personalizado_salvar"
+            android:background="@drawable/botao_salvar"
             android:text="Salvar"
             android:onClick="salvaMamada"
             android:textColor="#FFFFFF" />
@@ -108,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/botao_personalizado_cancelar"
+            android:background="@drawable/botao_cancelar"
             android:text="Cancelar"
             android:onClick="cancelaMamada"
             android:textColor="#FFFFFF" />
