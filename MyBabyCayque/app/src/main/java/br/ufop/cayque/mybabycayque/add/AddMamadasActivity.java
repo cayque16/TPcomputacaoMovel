@@ -42,10 +42,10 @@ public class AddMamadasActivity extends AppCompatActivity {
         mes = cal.get(Calendar.MONTH) + 1;
         ano = cal.get(Calendar.YEAR);
 
-        data = findViewById(R.id.dataMamadaInicio);
-        horaInicio = findViewById(R.id.horaMamadaInicio);
-        horaTermino = findViewById(R.id.horaMamadaTermino);
-        radioGroupPeito = findViewById(R.id.radioGroupPeito);
+        data = findViewById(R.id.dataAddMamadaInicio);
+        horaInicio = findViewById(R.id.horaAddMamadaInicio);
+        horaTermino = findViewById(R.id.horaAddMamadaTermino);
+        radioGroupPeito = findViewById(R.id.radioAddGroupPeito);
 
         data.setText(dia + "/" + mes + "/" + ano);
 
@@ -171,9 +171,9 @@ public class AddMamadasActivity extends AppCompatActivity {
 
     public void salvaMamada(View view) {
         String peito;
-        if(radioGroupPeito.getCheckedRadioButtonId() == R.id.radioButtonDirei){
+        if(radioGroupPeito.getCheckedRadioButtonId() == R.id.radioAddButtonDirei){
             peito = "Direito";
-        } else if (radioGroupPeito.getCheckedRadioButtonId() == R.id.radioButtonEsque){
+        } else if (radioGroupPeito.getCheckedRadioButtonId() == R.id.radioAddButtonEsque){
             peito = "Esquerdo";
         } else{
             peito = "Ambos";

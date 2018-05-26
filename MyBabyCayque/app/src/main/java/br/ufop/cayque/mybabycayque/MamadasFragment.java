@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import br.ufop.cayque.mybabycayque.adapters.MamadasAdapter;
 import br.ufop.cayque.mybabycayque.add.AddMamadasActivity;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
+import br.ufop.cayque.mybabycayque.edit.EditMamadasActivity;
 import br.ufop.cayque.mybabycayque.models.Mamadas;
 
 
@@ -42,6 +44,14 @@ public class MamadasFragment extends Fragment {
         fab = view.findViewById(R.id.fabMamadas);
         listView = view.findViewById(R.id.listaMamadas);
         listView.setAdapter(new MamadasAdapter(HistoricoSingleton.getInstance().getMamadas(), getContext()));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent it = new Intent(getContext(), EditMamadasActivity.class);
+                it.putExtra("position",i);
+                startActivity(it);
+            }
+        });
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

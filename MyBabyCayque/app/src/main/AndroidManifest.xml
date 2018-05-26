@@ -24,7 +24,8 @@
         <activity android:name=".add.AddFraldaActivity" />
         <activity android:name=".add.AddSonecaActivity" />
         <activity android:name=".add.AddMedicamentosActivity" />
-        <activity android:name=".add.AddOutrosActivity"></activity>
+        <activity android:name=".add.AddOutrosActivity" />
+        <activity android:name=".edit.EditMamadasActivity"></activity>
     </application>
 
 </manifest>

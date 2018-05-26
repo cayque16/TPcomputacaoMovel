@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/dataAddMamadaInicio"
+            android:id="@+id/dataEditMamadaInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/horaAddMamadaInicio"
+            android:id="@+id/horaEditaMamadaInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/horaAddMamadaTermino"
+            android:id="@+id/horaEditMamadaTermino"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
@@ -59,26 +59,26 @@
             android:text="Peito: " />
 
         <RadioGroup
-            android:id="@+id/radioAddGroupPeito"
+            android:id="@+id/radioEditGroupPeito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radioAddButtonEsque"
+                android:id="@+id/radioEditButtonEsque"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Esquerdo" />
 
 
             <RadioButton
-                android:id="@+id/radioAddButtonDirei"
+                android:id="@+id/radioEditButtonDirei"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Direito" />
 
             <RadioButton
-                android:id="@+id/radioAddButtonAmbos"
+                android:id="@+id/radioEditButtonAmbos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ambos" />
@@ -94,23 +94,23 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnDadosAddMamadaSalvar"
+            android:id="@+id/btnDadosEditMamadaSalvar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/botao_salvar"
-            android:text="Salvar"
             android:onClick="salvaMamada"
+            android:text="Salvar"
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/btnDadosAddMamadaCancelar"
+            android:id="@+id/btnDadosEditMamadaCancelar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/botao_cancelar"
-            android:text="Cancelar"
             android:onClick="cancelaMamada"
+            android:text="Cancelar"
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
