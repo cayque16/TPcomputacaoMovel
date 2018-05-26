@@ -53,6 +53,7 @@ public class MamadasAdapter extends BaseAdapter {
 
         TextView tv1 = v.findViewById(R.id.adapMamadaData);
         tv1.setText("Data: " + conversor(mamadas.getDiaInicio()) + "/" + conversor(mamadas.getMesInico()) + "/" + conversor(mamadas.getAnoInicio()));
+//        tv1.setText("Data: " + mamadas.getDiaInicio() + "/" + mamadas.getMesInico() + "/" + mamadas.getAnoInicio());
 
         TextView tv2 = v.findViewById(R.id.adapMamadaHinicio);
         tv2.setText("De: " + conversor(mamadas.getHoraInicio()) + ":" + conversor(mamadas.getMinuInicio()) + ":" + conversor(mamadas.getSeguInicio()));
@@ -71,7 +72,6 @@ public class MamadasAdapter extends BaseAdapter {
         if (valor < 10) {
             return temp + valor;
         }
-        temp = "";
-        return temp;
+        return Integer.toString(valor);
     }
 }

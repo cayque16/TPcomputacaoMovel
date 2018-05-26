@@ -33,39 +33,79 @@ public class HistoricoSingleton {
     private static ArrayList<Outros> outros;
     private static ArrayList<Soneca> sonecas;
 
-    private HistoricoSingleton(){
+    private HistoricoSingleton() {
         atividades = new ArrayList<Atividades>();
+        fraldas = new ArrayList<Fraldas>();
+        mamadas = new ArrayList<Mamadas>();
+        mamadeiras = new ArrayList<Mamadeiras>();
+        medicamentos = new ArrayList<Medicamentos>();
+        outros = new ArrayList<Outros>();
+        sonecas = new ArrayList<Soneca>();
     }
 
-    public static HistoricoSingleton getInstance(){
-        if(historico == null){
+    public static HistoricoSingleton getInstance() {
+        if (historico == null) {
             historico = new HistoricoSingleton();
         }
         return historico;
     }
 
-    public ArrayList<Atividades> getAtividades(){
+    public ArrayList<Atividades> getAtividades() {
         return atividades;
     }
-    public ArrayList<Fraldas> getFraldas() {return fraldas;}
-    public ArrayList<Mamadas> getMamadas() {return mamadas;}
-    public ArrayList<Mamadeiras> getMamadeiras() {return mamadeiras;}
-    public ArrayList<Medicamentos> getMedicamentos() {return medicamentos;}
-    public ArrayList<Outros> getOutros() {return outros;}
-    public ArrayList<Soneca> getSonecas() {return sonecas;}
+
+    public ArrayList<Fraldas> getFraldas() {
+        return fraldas;
+    }
+
+    public ArrayList<Mamadas> getMamadas() {
+        return mamadas;
+    }
+
+    public ArrayList<Mamadeiras> getMamadeiras() {
+        return mamadeiras;
+    }
+
+    public ArrayList<Medicamentos> getMedicamentos() {
+        return medicamentos;
+    }
+
+    public ArrayList<Outros> getOutros() {
+        return outros;
+    }
+
+    public ArrayList<Soneca> getSonecas() {
+        return sonecas;
+    }
 
 
-    public void save(Context context,String atividade){
+    public void saveMamadas(Context context) {
         FileOutputStream fos;
-        try{
-            fos = context.openFileOutput(atividade+".tmp",
+        try {
+            fos = context.openFileOutput("mamadas.tmp",
                     Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(atividade);
+            oos.writeObject(mamadas);
             oos.close();
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadMamadas(Context context) {
+        FileInputStream fis;
+        try {
+            fis = context.openFileInput("mamadas.tmp");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            mamadas = (ArrayList<Mamadas>) ois.readObject();
+            ois.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -86,98 +126,83 @@ public class HistoricoSingleton {
         }
     }
 
-    public void loadFraldas(Context context){
+    public void loadFraldas(Context context) {
         FileInputStream fis;
-        try{
+        try {
             fis = context.openFileInput("fraldas.tmp");
             ObjectInputStream ois = new ObjectInputStream(fis);
             fraldas = (ArrayList<Fraldas>) ois.readObject();
             ois.close();
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void loadMamadas(Context context){
-        FileInputStream fis;
-        try{
-            fis = context.openFileInput("mamadas.tmp");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            mamadas = (ArrayList<Mamadas>) ois.readObject();
-            ois.close();
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public void loadMamadeiras(Context context){
+
+    public void loadMamadeiras(Context context) {
         FileInputStream fis;
-        try{
+        try {
             fis = context.openFileInput("mamadeiras.tmp");
             ObjectInputStream ois = new ObjectInputStream(fis);
             mamadeiras = (ArrayList<Mamadeiras>) ois.readObject();
             ois.close();
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public void loadMedicamentos(Context context){
+    public void loadMedicamentos(Context context) {
         FileInputStream fis;
-        try{
+        try {
             fis = context.openFileInput("medicamentos.tmp");
             ObjectInputStream ois = new ObjectInputStream(fis);
             medicamentos = (ArrayList<Medicamentos>) ois.readObject();
             ois.close();
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public void loadOutros(Context context){
+    public void loadOutros(Context context) {
         FileInputStream fis;
-        try{
+        try {
             fis = context.openFileInput("outros.tmp");
             ObjectInputStream ois = new ObjectInputStream(fis);
             outros = (ArrayList<Outros>) ois.readObject();
             ois.close();
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public void loadSoneca(Context context){
+    public void loadSoneca(Context context) {
         FileInputStream fis;
-        try{
+        try {
             fis = context.openFileInput("sonecas.tmp");
             ObjectInputStream ois = new ObjectInputStream(fis);
             sonecas = (ArrayList<Soneca>) ois.readObject();
             ois.close();
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

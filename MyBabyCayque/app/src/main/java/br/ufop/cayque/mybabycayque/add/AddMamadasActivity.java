@@ -11,10 +11,13 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
 import br.ufop.cayque.mybabycayque.R;
+import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
+import br.ufop.cayque.mybabycayque.models.Mamadas;
 
 public class AddMamadasActivity extends AppCompatActivity {
 
@@ -167,5 +170,20 @@ public class AddMamadasActivity extends AppCompatActivity {
     }
 
     public void salvaMamada(View view) {
+        String peito;
+        if(radioGroupPeito.getCheckedRadioButtonId() == R.id.radioButtonDirei){
+            peito = "Direito";
+        } else if (radioGroupPeito.getCheckedRadioButtonId() == R.id.radioButtonEsque){
+            peito = "Esquerdo";
+        } else{
+            peito = "Ambos";
+        }
+        Mamadas mamadas = new Mamadas("Mamada",dia,mes,ano,hInicio,mInicio,0,
+                dia,mes,ano,hTermino,mTermino,0,peito);
+
+        HistoricoSingleton.getInstance().getMamadas().add(mamadas);
+        HistoricoSingleton.getInstance().saveMamadas(this);
+        Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

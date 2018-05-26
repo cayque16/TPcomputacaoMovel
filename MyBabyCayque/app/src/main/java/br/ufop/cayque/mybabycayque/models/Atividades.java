@@ -1,17 +1,21 @@
 package br.ufop.cayque.mybabycayque.models;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by cayqu on 16/05/2018.
  */
 
-public abstract class Atividades {
-    private TiposAtivi tipo;
+public abstract class Atividades implements Parcelable, Serializable{
+    private String tipo;
     private int diaInicio,mesInico,anoInicio;
     private int horaInicio,minuInicio,seguInicio;
     private int diaTermino,mesTermino,anoTermino;
     private int horaTermino,minuTermino,seguTermino;
 
-    public Atividades(TiposAtivi tipo, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino) {
+    public Atividades(String tipo, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino) {
         this.tipo = tipo;
         this.diaInicio = diaInicio;
         this.mesInico = mesInico;
@@ -27,11 +31,11 @@ public abstract class Atividades {
         this.seguTermino = seguTermino;
     }
 
-    public TiposAtivi getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(TiposAtivi tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
