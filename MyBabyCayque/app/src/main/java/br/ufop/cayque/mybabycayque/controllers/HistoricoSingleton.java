@@ -94,6 +94,21 @@ public class HistoricoSingleton {
         }
     }
 
+    public void saveMamadeiras(Context context) {
+        FileOutputStream fos;
+        try {
+            fos = context.openFileOutput("mamadeiras1.tmp",
+                    Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(mamadeiras);
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void loadMamadas(Context context) {
         FileInputStream fis;
         try {
@@ -146,7 +161,7 @@ public class HistoricoSingleton {
     public void loadMamadeiras(Context context) {
         FileInputStream fis;
         try {
-            fis = context.openFileInput("mamadeiras.tmp");
+            fis = context.openFileInput("mamadeiras1.tmp");
             ObjectInputStream ois = new ObjectInputStream(fis);
             mamadeiras = (ArrayList<Mamadeiras>) ois.readObject();
             ois.close();

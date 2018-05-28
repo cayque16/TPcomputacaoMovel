@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:layout_margin="8dp"
     android:orientation="vertical"
-    tools:context="br.ufop.cayque.mybabycayque.edit.EditMamadasActivity">
+    tools:context="br.ufop.cayque.mybabycayque.edit.EditMamadeirasActivity">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/dataEditMamadaInicio"
+            android:id="@+id/dataEditMamadeiraInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/horaEditaMamadaInicio"
+            android:id="@+id/horaEditMamadeiraInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
@@ -39,11 +39,24 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/horaEditMamadaTermino"
+            android:id="@+id/horaEditMamadeiraTermino"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
             android:hint="Hora de término..." />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/quantidadeEditMamadeira"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Quantidade (ml)..."
+            android:inputType="number" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -56,32 +69,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Peito: " />
+            android:text="Tomou tudo: " />
 
         <RadioGroup
-            android:id="@+id/radioEditGroupPeito"
+            android:id="@+id/radioEditGroupTomou"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radioEditButtonEsque"
+                android:id="@+id/radioEditButtonSim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Esquerdo" />
+                android:text="Sim" />
 
 
             <RadioButton
-                android:id="@+id/radioEditButtonDirei"
+                android:id="@+id/radioEditButtonNao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Direito" />
-
-            <RadioButton
-                android:id="@+id/radioEditButtonAmbos"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ambos" />
+                android:text="Não" />
 
         </RadioGroup>
 
@@ -100,7 +107,7 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@drawable/botao_salvar"
-            android:onClick="salvaMamada"
+            android:onClick="salvaMamadeira"
             android:text="Salvar"
             android:textColor="#FFFFFF" />
 
@@ -111,7 +118,7 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@drawable/botao_cancelar"
-            android:onClick="excluiMamada"
+            android:onClick="excluiMamadeira"
             android:text="Excluir"
             android:textColor="#FFFFFF" />
 

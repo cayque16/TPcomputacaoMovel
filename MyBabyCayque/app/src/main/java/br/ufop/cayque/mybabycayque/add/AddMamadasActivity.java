@@ -2,8 +2,10 @@ package br.ufop.cayque.mybabycayque.add;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +19,7 @@ import java.util.Calendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
+import br.ufop.cayque.mybabycayque.edit.EditMamadasActivity;
 import br.ufop.cayque.mybabycayque.models.Mamadas;
 
 public class AddMamadasActivity extends AppCompatActivity {
@@ -166,8 +169,6 @@ public class AddMamadasActivity extends AppCompatActivity {
         return true;
     }
 
-    public void cancelaMamada(View view) {
-    }
 
     public void salvaMamada(View view) {
         String peito;

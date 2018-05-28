@@ -43,6 +43,7 @@ public class MamadasFragment extends Fragment {
 
         fab = view.findViewById(R.id.fabMamadas);
         listView = view.findViewById(R.id.listaMamadas);
+
         listView.setAdapter(new MamadasAdapter(HistoricoSingleton.getInstance().getMamadas(), getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

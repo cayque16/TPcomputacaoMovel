@@ -13,26 +13,25 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import br.ufop.cayque.mybabycayque.R;
-import br.ufop.cayque.mybabycayque.add.AddMamadasActivity;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.Mamadas;
+import br.ufop.cayque.mybabycayque.models.Mamadeiras;
 
-public class EditMamadasActivity extends AppCompatActivity {
+public class EditMamadeirasActivity extends AppCompatActivity {
 
-    private EditText data, horaI, horaT;
+    private EditText data, horaI, horaT, quantidade;
     private int dia, mes, ano;
     private int hInicio, mInicio;
     private int hTermino, mTermino;
-    private RadioButton dir, esq, amb;
+    private RadioButton sim, nao;
     int position;
-    private ArrayList<Mamadas> mamadas = HistoricoSingleton.getInstance().getMamadas();
+    private ArrayList<Mamadeiras> mamadeiras = HistoricoSingleton.getInstance().getMamadeiras();
     private AlertDialog alerta;
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
@@ -41,9 +40,9 @@ public class EditMamadasActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_mamadas);
+        setContentView(R.layout.activity_edit_mamadeiras);
 
-        this.setTitle("Editar mamada");
+        setTitle("Editar mamadeira");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -51,26 +50,26 @@ public class EditMamadasActivity extends AppCompatActivity {
         Intent it = getIntent();
         position = it.getIntExtra("position", 0);
 
-        data = findViewById(R.id.dataEditMamadaInicio);
-        horaI = findViewById(R.id.horaEditaMamadaInicio);
-        horaT = findViewById(R.id.horaEditMamadaTermino);
-        dir = findViewById(R.id.radioEditButtonDirei);
-        esq = findViewById(R.id.radioEditButtonEsque);
-        amb = findViewById(R.id.radioEditButtonAmbos);
+        data = findViewById(R.id.dataEditMamadeiraInicio);
+        horaI = findViewById(R.id.horaEditMamadeiraInicio);
+        horaT = findViewById(R.id.horaEditMamadeiraTermino);
+        sim = findViewById(R.id.radioEditButtonSim);
+        nao = findViewById(R.id.radioEditButtonNao);
+        quantidade = findViewById(R.id.quantidadeEditMamadeira);
 
-        dia = mamadas.get(position).getDiaInicio();
-        mes = mamadas.get(position).getMesInico();
-        ano = mamadas.get(position).getAnoInicio();
+        dia = mamadeiras.get(position).getDiaInicio();
+        mes = mamadeiras.get(position).getMesInico();
+        ano = mamadeiras.get(position).getAnoInicio();
 
-        data.setText(String.format("%02d", mamadas.get(position).getDiaInicio()) + "/" +
-                String.format("%02d", mamadas.get(position).getMesInico()) + "/" +
-                String.format("%02d", mamadas.get(position).getAnoInicio()));
+        data.setText(String.format("%02d", mamadeiras.get(position).getDiaInicio()) + "/" +
+                String.format("%02d", mamadeiras.get(position).getMesInico()) + "/" +
+                String.format("%02d", mamadeiras.get(position).getAnoInicio()));
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog dialog = new DatePickerDialog(
-                        EditMamadasActivity.this,
+                        EditMamadeirasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateDialog,
                         ano, mes, dia);
@@ -94,15 +93,15 @@ public class EditMamadasActivity extends AppCompatActivity {
         };
 
 
-        horaI.setText(String.format("%02d", mamadas.get(position).getHoraInicio()) + ":" +
-                String.format("%02d", mamadas.get(position).getMinuInicio()) + ":" +
-                String.format("%02d", mamadas.get(position).getSeguInicio()));
+        horaI.setText(String.format("%02d", mamadeiras.get(position).getHoraInicio()) + ":" +
+                String.format("%02d", mamadeiras.get(position).getMinuInicio()) + ":" +
+                String.format("%02d", mamadeiras.get(position).getSeguInicio()));
 
         horaI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TimePickerDialog dialog = new TimePickerDialog(
-                        EditMamadasActivity.this,
+                        EditMamadeirasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
                         0, 0, true);
@@ -142,7 +141,7 @@ public class EditMamadasActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TimePickerDialog dialog = new TimePickerDialog(
-                        EditMamadasActivity.this,
+                        EditMamadeirasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogTermino,
                         0, 0, true);
@@ -179,20 +178,19 @@ public class EditMamadasActivity extends AppCompatActivity {
         };
 
 
-        horaT.setText(String.format("%02d", mamadas.get(position).getHoraTermino()) + ":" +
-                String.format("%02d", mamadas.get(position).getMinuTermino()) + ":" +
-                String.format("%02d", mamadas.get(position).getSeguTermino()));
+        horaT.setText(String.format("%02d", mamadeiras.get(position).getHoraTermino()) + ":" +
+                String.format("%02d", mamadeiras.get(position).getMinuTermino()) + ":" +
+                String.format("%02d", mamadeiras.get(position).getSeguTermino()));
 
-        if (mamadas.get(position).getPeito().equals("Direito")) {
-            dir.setChecked(true);
-        } else if (mamadas.get(position).getPeito().equals("Esquerdo")) {
-            esq.setChecked(true);
+        quantidade.setText(Float.toString(mamadeiras.get(position).getQuantidade()));
+
+        if (mamadeiras.get(position).getTomouTudo() == 1) {
+            sim.setChecked(true);
         } else {
-            amb.setChecked(true);
+            nao.setChecked(true);
         }
 
     }
-
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -200,25 +198,25 @@ public class EditMamadasActivity extends AppCompatActivity {
         return true;
     }
 
-    public void salvaMamada(View view) {
-        String peito;
-        if (dir.isChecked()) {
-            peito = "Direito";
-        } else if (esq.isChecked()) {
-            peito = "Esquerdo";
-        } else {
-            peito = "Ambos";
+    public void salvaMamadeira(View view) {
+        int tudo;
+        float quanti;
+        quanti = Float.valueOf(quantidade.getText().toString());
+        if(sim.isChecked()){
+            tudo = 1;
+        } else{
+            tudo = 0;
         }
-        Mamadas mamadas = new Mamadas("Mamada", dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hTermino, mTermino, 0, peito);
+        Mamadeiras mamadeiras = new Mamadeiras("Mamadeira",dia,mes,ano,hInicio,mInicio,0,
+                dia,mes,ano,hTermino,mTermino,0,quanti,tudo);
 
-        HistoricoSingleton.getInstance().getMamadas().set(position, mamadas);
-        HistoricoSingleton.getInstance().saveMamadas(this);
+        HistoricoSingleton.getInstance().getMamadeiras().set(position, mamadeiras);
+        HistoricoSingleton.getInstance().saveMamadeiras(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }
 
-    public void excluiMamada(View view) {
+    public void excluiMamadeira(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Atenção!!!");
         builder.setMessage("Tem certeza que deseja excluir?");
@@ -226,9 +224,9 @@ public class EditMamadasActivity extends AppCompatActivity {
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mamadas.remove(position);
-                HistoricoSingleton.getInstance().saveMamadas(EditMamadasActivity.this);
-                Toast.makeText(EditMamadasActivity.this, "Operação concluída!!!", Toast.LENGTH_SHORT).show();
+                mamadeiras.remove(position);
+                HistoricoSingleton.getInstance().saveMamadeiras(EditMamadeirasActivity.this);
+                Toast.makeText(EditMamadeirasActivity.this, "Operação concluída!!!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

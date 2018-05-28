@@ -97,21 +97,13 @@
             android:id="@+id/btnDadosAddMamadaSalvar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@drawable/botao_salvar"
-            android:text="Salvar"
             android:onClick="salvaMamada"
+            android:text="Salvar"
             android:textColor="#FFFFFF" />
 
-        <Button
-            android:id="@+id/btnDadosAddMamadaCancelar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/botao_cancelar"
-            android:text="Cancelar"
-            android:onClick="cancelaMamada"
-            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

@@ -9,9 +9,9 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center"
-        android:src="@drawable/img_mamadas"
-        android:background="@drawable/img_background_mamada"
-        android:tint="#FFFFFF"/>
+        android:background="@drawable/img_background_mamadeira"
+        android:src="@drawable/img_mamadeira"
+        android:tint="#FFFFFF" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/adapMamadaData"
+                android:id="@+id/adapMamadeiraData"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -34,12 +34,12 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/adapMamadaPeito"
+                android:id="@+id/adapMamadeiraTomou"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="Peito: Direito"
+                android:text="Tomou tudo: sim"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -47,12 +47,12 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/adapMamadaHinicio"
+                android:id="@+id/adapMamadeiraHinicio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -61,11 +61,20 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/adapMamadaHtermino"
+                android:id="@+id/adapMamadeiraHtermino"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" até: 20:00:00"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/adapMamadeiraQuanti"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=" até: 20:00:00"
+                android:gravity="right"
+                android:text="Quantidade: 150ml"
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>

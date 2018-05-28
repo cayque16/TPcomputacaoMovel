@@ -4,8 +4,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="8dp"
     android:orientation="vertical"
     tools:context="br.ufop.cayque.mybabycayque.add.AddMamadeirasActivity">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/dataAddMamadeiraInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:hint="Data..." />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/horaAddMamadeiraInicio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:hint="Hora de ínicio..." />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/horaAddMamadeiraTermino"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:hint="Hora de término..." />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/quantidadeAddMamadeira"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Quantidade (ml)..."
+            android:inputType="number"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tomou tudo: " />
+
+        <RadioGroup
+            android:id="@+id/radioAddGroupTomou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioAddButtonSim"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sim" />
+
+
+            <RadioButton
+                android:id="@+id/radioAddButtonNao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Não" />
+
+        </RadioGroup>
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,19 +105,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="8dp"
             android:background="@drawable/botao_salvar"
             android:text="Salvar"
-            android:onClick="salvaMamada"
-            android:textColor="#FFFFFF" />
-
-        <Button
-            android:id="@+id/btnDadosAddMamadaCancelar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/botao_cancelar"
-            android:text="Cancelar"
-            android:onClick="cancelaMamada"
+            android:onClick="salvaMamadeira"
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
