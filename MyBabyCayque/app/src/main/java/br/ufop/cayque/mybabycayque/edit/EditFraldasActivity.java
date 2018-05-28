@@ -1,32 +1,36 @@
-package br.ufop.cayque.mybabycayque.add;
+package br.ufop.cayque.mybabycayque.edit;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.Fraldas;
 
-public class AddFraldaActivity extends AppCompatActivity {
+public class EditFraldasActivity extends AppCompatActivity {
 
-    private EditText data, horaInicio;
-    private RadioButton xixi, coco, ambos;
+    private EditText data, horaI;
     private int dia, mes, ano;
     private int hInicio, mInicio;
-    private Calendar cal = Calendar.getInstance();
+    private RadioButton xixi, coco, amb;
+    int position;
+    private ArrayList<Fraldas> fraldas = HistoricoSingleton.getInstance().getFraldas();
+    private AlertDialog alerta;
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
     private TimePickerDialog.OnTimeSetListener timeDialogTermino;
@@ -34,30 +38,35 @@ public class AddFraldaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_fralda);
+        setContentView(R.layout.activity_edit_fraldas);
 
-        this.setTitle("Nova fralda");
+        this.setTitle("Editar fralda");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        data = findViewById(R.id.dataAddFraldaInicio);
-        horaInicio = findViewById(R.id.horaAddFraldaInicio);
-        xixi = findViewById(R.id.radioAddButtonFraldaXixi);
-        coco = findViewById(R.id.radioAddButtonFraldaCoco);
-        ambos = findViewById(R.id.radioAddButtonFraldaAmbos);
+        Intent it = getIntent();
+        position = it.getIntExtra("position", 0);
 
-        dia = cal.get(Calendar.DAY_OF_MONTH);
-        mes = cal.get(Calendar.MONTH) + 1;
-        ano = cal.get(Calendar.YEAR);
+        data = findViewById(R.id.dataEditFraldaInicio);
+        horaI = findViewById(R.id.horaEditFraldaInicio);
+        xixi = findViewById(R.id.radioEditButtonFraldaXixi);
+        coco = findViewById(R.id.radioEditButtonFraldaCoco);
+        amb = findViewById(R.id.radioEditButtonFraldaAmbos);
 
-        data.setText(dia + "/" + mes + "/" + ano);
+        dia = fraldas.get(position).getDiaInicio();
+        mes = fraldas.get(position).getMesInico();
+        ano = fraldas.get(position).getAnoInicio();
+
+        data.setText(String.format("%02d", fraldas.get(position).getDiaInicio()) + "/" +
+                String.format("%02d", fraldas.get(position).getMesInico()) + "/" +
+                String.format("%02d", fraldas.get(position).getAnoInicio()));
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog dialog = new DatePickerDialog(
-                        AddFraldaActivity.this,
+                        EditFraldasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateDialog,
                         ano, mes, dia);
@@ -80,11 +89,16 @@ public class AddFraldaActivity extends AppCompatActivity {
             }
         };
 
-        horaInicio.setOnClickListener(new View.OnClickListener() {
+
+        horaI.setText(String.format("%02d", fraldas.get(position).getHoraInicio()) + ":" +
+                String.format("%02d", fraldas.get(position).getMinuInicio()) + ":" +
+                String.format("%02d", fraldas.get(position).getSeguInicio()));
+
+        horaI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TimePickerDialog dialog = new TimePickerDialog(
-                        AddFraldaActivity.this,
+                        EditFraldasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
                         0, 0, true);
@@ -116,15 +130,17 @@ public class AddFraldaActivity extends AppCompatActivity {
                 mInicio = i1;
 
                 String juncao = horas + minutos;
-                horaInicio.setText(juncao);
+                horaI.setText(juncao);
             }
         };
-    }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
+        if (fraldas.get(position).getMotivo().equals("Xixi")) {
+            xixi.setChecked(true);
+        } else if (fraldas.get(position).getMotivo().equals("Cocô")) {
+            coco.setChecked(true);
+        } else {
+            amb.setChecked(true);
+        }
     }
 
     public void salvaFralda(View view) {
@@ -136,12 +152,38 @@ public class AddFraldaActivity extends AppCompatActivity {
         } else {
             motivo = "Ambos";
         }
-        Fraldas fraldas = new Fraldas("Mamada", dia, mes, ano, hInicio, mInicio, 0,
+        Fraldas fraldas = new Fraldas("Fralda", dia, mes, ano, hInicio, mInicio, 0,
                 dia, mes, ano, hInicio, mInicio, 0, motivo);
 
-        HistoricoSingleton.getInstance().getFraldas().add(fraldas);
+        HistoricoSingleton.getInstance().getFraldas().set(position, fraldas);
         HistoricoSingleton.getInstance().saveFraldas(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    public void excluiFralda(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Atenção!!!");
+        builder.setMessage("Tem certeza que deseja excluir?");
+
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                fraldas.remove(position);
+                HistoricoSingleton.getInstance().saveFraldas(EditFraldasActivity.this);
+                Toast.makeText(EditFraldasActivity.this, "Operação concluída!!!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alerta = builder.create();
+        alerta.show();
     }
 }

@@ -109,6 +109,21 @@ public class HistoricoSingleton {
         }
     }
 
+    public void saveFraldas(Context context) {
+        FileOutputStream fos;
+        try {
+            fos = context.openFileOutput("fraldas.tmp",
+                    Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(fraldas);
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void loadMamadas(Context context) {
         FileInputStream fis;
         try {
