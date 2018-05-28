@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="8dp"
     android:orientation="vertical"
-    tools:context="br.ufop.cayque.mybabycayque.add.AddMamadasActivity">
+    tools:context="br.ufop.cayque.mybabycayque.edit.EditMamadasActivity">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -109,8 +109,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/botao_cancelar"
-            android:onClick="cancelaMamada"
-            android:text="Cancelar"
+            android:onClick="excluiMamada"
+            android:text="Excluir"
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
