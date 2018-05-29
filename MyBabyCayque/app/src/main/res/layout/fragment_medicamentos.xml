@@ -8,6 +8,13 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <ListView
+        android:id="@+id/listaMedicamentos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ListView>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabMedicamentos"
         android:layout_width="wrap_content"

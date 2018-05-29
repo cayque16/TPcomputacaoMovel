@@ -28,7 +28,8 @@
         <activity android:name=".edit.EditMamadasActivity" />
         <activity android:name=".edit.EditMamadeirasActivity" />
         <activity android:name=".edit.EditFraldasActivity" />
-        <activity android:name=".edit.EditSonecasActivity"></activity>
+        <activity android:name=".edit.EditSonecasActivity" />
+        <activity android:name=".edit.EditMedicamentosActivity"></activity>
     </application>
 
 </manifest>

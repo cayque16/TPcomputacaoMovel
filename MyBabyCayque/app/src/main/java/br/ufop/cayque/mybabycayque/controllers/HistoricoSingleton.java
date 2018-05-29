@@ -139,6 +139,21 @@ public class HistoricoSingleton {
         }
     }
 
+    public void saveMedicamentos(Context context) {
+        FileOutputStream fos;
+        try {
+            fos = context.openFileOutput("medicamentos.tmp",
+                    Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(medicamentos);
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void loadMamadas(Context context) {
         FileInputStream fis;
         try {

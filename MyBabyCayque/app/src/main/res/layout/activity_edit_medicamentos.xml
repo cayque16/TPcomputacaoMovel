@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:layout_margin="8dp"
     android:orientation="vertical"
-    tools:context="br.ufop.cayque.mybabycayque.add.AddMedicamentosActivity">
+    tools:context="br.ufop.cayque.mybabycayque.edit.EditMedicamentosActivity">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/dataAddMedicamentoInicio"
+            android:id="@+id/dataEditMedicamentoInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/horaAddMedicamentoInicio"
+            android:id="@+id/horaEditMedicamentoInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/nomeAddMedicamento"
+            android:id="@+id/nomeEditMedicamento"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nome do remédio..." />
@@ -57,7 +57,7 @@
             android:layout_weight="1">
 
             <EditText
-                android:id="@+id/quantidadeAddMedicamento"
+                android:id="@+id/quantidadeEditMedicamento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -74,7 +74,7 @@
             android:layout_weight="1">
 
             <Spinner
-                android:id="@+id/spinnerAddMedicamentoMedidada"
+                android:id="@+id/spinnerEditMedicamentoMedidada"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0">
@@ -93,7 +93,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnDadosAddMedicamentoSalvar"
+            android:id="@+id/btnDadosEditMedicamentoSalvar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -103,6 +103,16 @@
             android:text="Salvar"
             android:textColor="#FFFFFF" />
 
+        <Button
+            android:id="@+id/btnDadosEditMamadaCancelar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/botao_cancelar"
+            android:onClick="excluiMedicamento"
+            android:text="Excluir"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

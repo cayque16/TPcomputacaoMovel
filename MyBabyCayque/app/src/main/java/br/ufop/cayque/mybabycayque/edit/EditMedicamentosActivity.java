@@ -1,9 +1,12 @@
-package br.ufop.cayque.mybabycayque.add;
+package br.ufop.cayque.mybabycayque.edit;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,53 +18,59 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.util.Calendar;
+import java.util.ArrayList;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.Medicamentos;
 
-public class AddMedicamentosActivity extends AppCompatActivity {
+public class EditMedicamentosActivity extends AppCompatActivity {
 
-    private EditText data,hora,nome,quanti;
+    private EditText data, hora, nome, quanti;
     private Spinner medida;
     private String unidadeSele;
-    private static final String[] UNIDADES = {"ml","g","colher","dose","comprimido","unidade","gota"};
+    private static final String[] UNIDADES = {"ml", "g", "colher", "dose", "comprimido", "unidade", "gota"};
     private int dia, mes, ano;
-    private int hInicio,mInicio;
-    private Calendar cal = Calendar.getInstance();
+    private int hInicio, mInicio;
+    int position;
+    private ArrayList<Medicamentos> medicamentos = HistoricoSingleton.getInstance().getMedicamentos();
+    private AlertDialog alerta;
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
+    private TimePickerDialog.OnTimeSetListener timeDialogTermino;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_medicamentos);
+        setContentView(R.layout.activity_edit_medicamentos);
 
-        this.setTitle("Novo medicamento");
+        this.setTitle("Editar medicamento");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        dia = cal.get(Calendar.DAY_OF_MONTH);
-        mes = cal.get(Calendar.MONTH) + 1;
-        ano = cal.get(Calendar.YEAR);
+        Intent it = getIntent();
+        position = it.getIntExtra("position", 0);
 
-        data = findViewById(R.id.dataAddMedicamentoInicio);
-        hora = findViewById(R.id.horaAddMedicamentoInicio);
-        nome = findViewById(R.id.nomeAddMedicamento);
-        quanti = findViewById(R.id.quantidadeAddMedicamento);
-        medida = findViewById(R.id.spinnerAddMedicamentoMedidada);
+        data = findViewById(R.id.dataEditMedicamentoInicio);
+        hora = findViewById(R.id.horaEditMedicamentoInicio);
+        nome = findViewById(R.id.nomeEditMedicamento);
+        quanti = findViewById(R.id.quantidadeEditMedicamento);
+        medida = findViewById(R.id.spinnerEditMedicamentoMedidada);
 
-        inicializaSpinner();
+        dia = medicamentos.get(position).getDiaInicio();
+        mes = medicamentos.get(position).getMesInico();
+        ano = medicamentos.get(position).getAnoInicio();
 
-        data.setText(dia + "/" + mes + "/" + ano);
+        data.setText(String.format("%02d", medicamentos.get(position).getDiaInicio()) + "/" +
+                String.format("%02d", medicamentos.get(position).getMesInico()) + "/" +
+                String.format("%02d", medicamentos.get(position).getAnoInicio()));
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog dialog = new DatePickerDialog(
-                        AddMedicamentosActivity.this,
+                        EditMedicamentosActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateDialog,
                         ano, mes, dia);
@@ -84,11 +93,16 @@ public class AddMedicamentosActivity extends AppCompatActivity {
             }
         };
 
+
+        hora.setText(String.format("%02d", medicamentos.get(position).getHoraInicio()) + ":" +
+                String.format("%02d", medicamentos.get(position).getMinuInicio()) + ":" +
+                String.format("%02d", medicamentos.get(position).getSeguInicio()));
+
         hora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TimePickerDialog dialog = new TimePickerDialog(
-                        AddMedicamentosActivity.this,
+                        EditMedicamentosActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
                         0, 0, true);
@@ -123,10 +137,15 @@ public class AddMedicamentosActivity extends AppCompatActivity {
                 hora.setText(juncao);
             }
         };
+
+        nome.setText(medicamentos.get(position).getNome());
+        quanti.setText(medicamentos.get(position).getDose());
+        inicializaSpinner();
+
     }
 
     private void inicializaSpinner() {
-        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,UNIDADES);
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, UNIDADES);
         medida.setAdapter(adapterSpinner);
         medida.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -141,20 +160,46 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
+    public void excluiMedicamento(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Atenção!!!");
+        builder.setMessage("Tem certeza que deseja excluir?");
+
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                medicamentos.remove(position);
+                HistoricoSingleton.getInstance().saveMedicamentos(EditMedicamentosActivity.this);
+                Toast.makeText(EditMedicamentosActivity.this, "Operação concluída!!!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alerta = builder.create();
+        alerta.show();
     }
 
     public void salvaMedicamento(View view) {
 
-        Medicamentos medicamentos = new Medicamentos("Medicamento",dia,mes,ano,hInicio,mInicio,0,
-                dia,mes,ano,hInicio,mInicio,0,nome.getText().toString(),unidadeSele,quanti.getText().toString());
+        Medicamentos medicamentos = new Medicamentos("Medicamento", dia, mes, ano, hInicio, mInicio, 0,
+                dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString());
 
-        HistoricoSingleton.getInstance().getMedicamentos().add(medicamentos);
+        HistoricoSingleton.getInstance().getMedicamentos().set(position, medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
