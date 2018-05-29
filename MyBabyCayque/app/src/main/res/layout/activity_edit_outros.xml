@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
     android:orientation="vertical"
-    tools:context="br.ufop.cayque.mybabycayque.add.AddOutrosActivity">
+    android:layout_margin="8dp"
+    tools:context="br.ufop.cayque.mybabycayque.edit.EditOutrosActivity">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/dataAddOutroInicio"
+            android:id="@+id/dataEditOutroInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/horaAddOutroInicio"
+            android:id="@+id/horaEditOutroInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/notaAddOutro"
+            android:id="@+id/notaEditOutro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Anotação..." />
@@ -52,7 +52,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnDadosAddOutroSalvar"
+            android:id="@+id/btnDadosEditOutroSalvar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -60,6 +60,17 @@
             android:background="@drawable/botao_salvar"
             android:onClick="salvaOutro"
             android:text="Salvar"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnDadosEditOutroCancelar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/botao_cancelar"
+            android:onClick="excluiOutro"
+            android:text="Excluir"
             android:textColor="#FFFFFF" />
 
 

@@ -8,9 +8,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
+import br.ufop.cayque.mybabycayque.adapters.OutrosAdapter;
 import br.ufop.cayque.mybabycayque.add.AddOutrosActivity;
 import br.ufop.cayque.mybabycayque.R;
+import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
+import br.ufop.cayque.mybabycayque.edit.EditOutrosActivity;
 
 
 /**
@@ -19,6 +24,7 @@ import br.ufop.cayque.mybabycayque.R;
 public class OutrosFragment extends Fragment {
 
     private FloatingActionButton fab;
+    private ListView listView;
 
     public OutrosFragment() {
         // Required empty public constructor
@@ -31,7 +37,20 @@ public class OutrosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_outros, container, false);
 
+        HistoricoSingleton.getInstance().loadOutros(getContext());
+
         fab = view.findViewById(R.id.fabOutros);
+        listView = view.findViewById(R.id.listaOutros);
+
+        listView.setAdapter(new OutrosAdapter(HistoricoSingleton.getInstance().getOutros(), getContext()));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent it = new Intent(getContext(), EditOutrosActivity.class);
+                it.putExtra("position",i);
+                startActivity(it);
+            }
+        });
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,6 +10,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import br.ufop.cayque.mybabycayque.add.AddOutrosActivity;
 import br.ufop.cayque.mybabycayque.models.Atividades;
 import br.ufop.cayque.mybabycayque.models.Fraldas;
 import br.ufop.cayque.mybabycayque.models.Mamadas;
@@ -154,6 +155,21 @@ public class HistoricoSingleton {
         }
     }
 
+    public void saveOutros(Context context) {
+        FileOutputStream fos;
+        try {
+            fos = context.openFileOutput("outros.tmp",
+                    Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(outros);
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void loadMamadas(Context context) {
         FileInputStream fis;
         try {
@@ -266,5 +282,4 @@ public class HistoricoSingleton {
             e.printStackTrace();
         }
     }
-
 }
