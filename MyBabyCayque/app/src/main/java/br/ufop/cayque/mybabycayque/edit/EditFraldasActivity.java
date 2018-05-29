@@ -186,4 +186,10 @@ public class EditFraldasActivity extends AppCompatActivity {
         alerta = builder.create();
         alerta.show();
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.frame_container, new FraldaSujaFragment())
                     .commit();
         } else if (id == R.id.nav_tempoDormindo) {
-            this.setTitle("Soneca");
+            this.setTitle("Sonecas");
             getSupportFragmentManager()
                     .beginTransaction()
                     .replace(R.id.frame_container, new SonecaFragment())

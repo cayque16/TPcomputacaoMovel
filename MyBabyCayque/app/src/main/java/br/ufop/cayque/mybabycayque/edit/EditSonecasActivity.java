@@ -1,31 +1,39 @@
-package br.ufop.cayque.mybabycayque.add;
+package br.ufop.cayque.mybabycayque.edit;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import br.ufop.cayque.mybabycayque.R;
+import br.ufop.cayque.mybabycayque.add.AddSonecaActivity;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.Sonecas;
 
-public class AddSonecaActivity extends AppCompatActivity {
+public class EditSonecasActivity extends AppCompatActivity {
 
     private EditText dataI, dataT, horaInicio, horaTermino;
     private int diaI, mesI, anoI;
     private int diaT, mesT, anoT;
-    private int hInicio,mInicio;
-    private int hTermino,mTermino;
-    private Calendar cal = Calendar.getInstance();
+    private int hInicio, mInicio;
+    private int hTermino, mTermino;
+    int position;
+    private ArrayList<Sonecas> sonecas = HistoricoSingleton.getInstance().getSonecas();
+    private AlertDialog alerta;
     private DatePickerDialog.OnDateSetListener dateDialogI;
     private DatePickerDialog.OnDateSetListener dateDialogT;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
@@ -34,30 +42,38 @@ public class AddSonecaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_soneca);
+        setContentView(R.layout.activity_edit_sonecas);
 
-        this.setTitle("Nova soneca");
+        this.setTitle("Editar soneca");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        diaI = diaT = cal.get(Calendar.DAY_OF_MONTH);
-        mesI = mesT = cal.get(Calendar.MONTH) + 1;
-        anoI = anoT = cal.get(Calendar.YEAR);
+        Intent it = getIntent();
+        position = it.getIntExtra("position", 0);
 
-        dataI = findViewById(R.id.dataAddSonecaInicio);
-        dataT = findViewById(R.id.dataAddSonecaTermino);
-        horaInicio = findViewById(R.id.horaAddSonecaInicio);
-        horaTermino = findViewById(R.id.horaAddSonecaTermino);
+        dataI = findViewById(R.id.dataEditSonecaInicio);
+        dataT = findViewById(R.id.dataEditSonecaTermino);
+        horaInicio = findViewById(R.id.horaEditSonecaInicio);
+        horaTermino = findViewById(R.id.horaEditSonecaTermino);
 
-        dataI.setText(diaI + "/" + mesI + "/" + anoI);
-        dataT.setText(diaT + "/" + mesT + "/" + anoT);
+        diaI = diaT = sonecas.get(position).getDiaInicio();
+        mesI = mesT = sonecas.get(position).getMesInico();
+        anoI = anoT = sonecas.get(position).getAnoInicio();
+
+        dataI.setText(String.format("%02d", sonecas.get(position).getDiaInicio()) + "/" +
+                String.format("%02d", sonecas.get(position).getMesInico()) + "/" +
+                String.format("%02d", sonecas.get(position).getAnoInicio()));
+
+        dataT.setText(String.format("%02d", sonecas.get(position).getDiaTermino()) + "/" +
+                String.format("%02d", sonecas.get(position).getMesTermino()) + "/" +
+                String.format("%02d", sonecas.get(position).getAnoTermino()));
 
         dataI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog dialog = new DatePickerDialog(
-                        AddSonecaActivity.this,
+                        EditSonecasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateDialogI,
                         anoI, mesI, diaI);
@@ -84,7 +100,7 @@ public class AddSonecaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DatePickerDialog dialog = new DatePickerDialog(
-                        AddSonecaActivity.this,
+                        EditSonecasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateDialogT,
                         anoT, mesT, diaT);
@@ -106,12 +122,16 @@ public class AddSonecaActivity extends AppCompatActivity {
                 dataT.setText(date);
             }
         };
+        Log.v("Erro Aqui","3");
+        horaInicio.setText(String.format("%02d", sonecas.get(position).getHoraInicio()) + ":" +
+                String.format("%02d", sonecas.get(position).getMinuInicio()) + ":" +
+                String.format("%02d", sonecas.get(position).getSeguInicio()));
 
         horaInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TimePickerDialog dialog = new TimePickerDialog(
-                        AddSonecaActivity.this,
+                        EditSonecasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
                         0, 0, true);
@@ -151,7 +171,7 @@ public class AddSonecaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TimePickerDialog dialog = new TimePickerDialog(
-                        AddSonecaActivity.this,
+                        EditSonecasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogTermino,
                         0, 0, true);
@@ -186,6 +206,10 @@ public class AddSonecaActivity extends AppCompatActivity {
                 horaTermino.setText(juncao);
             }
         };
+        Log.v("Erro Aqui","4");
+        horaTermino.setText(String.format("%02d", sonecas.get(position).getHoraTermino()) + ":" +
+                String.format("%02d", sonecas.get(position).getMinuTermino()) + ":" +
+                String.format("%02d", sonecas.get(position).getSeguTermino()));
     }
 
     @Override
@@ -195,12 +219,42 @@ public class AddSonecaActivity extends AppCompatActivity {
     }
 
     public void salvaSoneca(View view) {
-        Sonecas sonecas = new Sonecas("Sonecas",diaI,mesI,anoI,hInicio,mInicio,0,
-                diaT,mesT,anoT,hTermino,mTermino,0,0);
 
-        HistoricoSingleton.getInstance().getSonecas().add(sonecas);
+        Sonecas sonecas = new Sonecas("Soneca", diaI, mesI, anoI, hInicio, mInicio, 0,
+                diaI, mesI, anoI, hTermino, mTermino, 0, 0);
+
+        HistoricoSingleton.getInstance().getSonecas().set(position, sonecas);
         HistoricoSingleton.getInstance().saveSonecas(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
+
     }
+
+    public void excluiSoneca(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Atenção!!!");
+        builder.setMessage("Tem certeza que deseja excluir?");
+
+        builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                sonecas.remove(position);
+                HistoricoSingleton.getInstance().saveSonecas(EditSonecasActivity.this);
+                Toast.makeText(EditSonecasActivity.this, "Operação concluída!!!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        alerta = builder.create();
+        alerta.show();
+    }
+
+
 }

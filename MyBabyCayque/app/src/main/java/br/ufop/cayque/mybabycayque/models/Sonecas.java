@@ -6,28 +6,28 @@ import android.os.Parcel;
  * Created by cayqu on 16/05/2018.
  */
 
-public class Soneca extends Atividades {
+public class Sonecas extends Atividades {
     private float horasDormidas;
 
-    public Soneca(String tipo, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, float horasDormidas) {
+    public Sonecas(String tipo, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, float horasDormidas) {
         super(tipo, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino);
         this.horasDormidas = horasDormidas;
     }
 
-    protected Soneca(Parcel in) {
+    protected Sonecas(Parcel in) {
         super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
         this.horasDormidas = in.readFloat();
     }
 
-    public static final Creator<Soneca> CREATOR = new Creator<Soneca>() {
+    public static final Creator<Sonecas> CREATOR = new Creator<Sonecas>() {
         @Override
-        public Soneca createFromParcel(Parcel parcel) {
-            return new Soneca(parcel);
+        public Sonecas createFromParcel(Parcel parcel) {
+            return new Sonecas(parcel);
         }
 
         @Override
-        public Soneca[] newArray(int i) {
-            return new Soneca[i];
+        public Sonecas[] newArray(int i) {
+            return new Sonecas[i];
         }
     };
 

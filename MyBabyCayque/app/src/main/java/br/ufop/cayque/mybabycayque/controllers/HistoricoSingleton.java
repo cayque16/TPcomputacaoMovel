@@ -16,7 +16,7 @@ import br.ufop.cayque.mybabycayque.models.Mamadas;
 import br.ufop.cayque.mybabycayque.models.Mamadeiras;
 import br.ufop.cayque.mybabycayque.models.Medicamentos;
 import br.ufop.cayque.mybabycayque.models.Outros;
-import br.ufop.cayque.mybabycayque.models.Soneca;
+import br.ufop.cayque.mybabycayque.models.Sonecas;
 
 /**
  * Created by cayqu on 16/05/2018.
@@ -31,7 +31,7 @@ public class HistoricoSingleton {
     private static ArrayList<Mamadeiras> mamadeiras;
     private static ArrayList<Medicamentos> medicamentos;
     private static ArrayList<Outros> outros;
-    private static ArrayList<Soneca> sonecas;
+    private static ArrayList<Sonecas> sonecas;
 
     private HistoricoSingleton() {
         atividades = new ArrayList<Atividades>();
@@ -40,7 +40,7 @@ public class HistoricoSingleton {
         mamadeiras = new ArrayList<Mamadeiras>();
         medicamentos = new ArrayList<Medicamentos>();
         outros = new ArrayList<Outros>();
-        sonecas = new ArrayList<Soneca>();
+        sonecas = new ArrayList<Sonecas>();
     }
 
     public static HistoricoSingleton getInstance() {
@@ -74,7 +74,7 @@ public class HistoricoSingleton {
         return outros;
     }
 
-    public ArrayList<Soneca> getSonecas() {
+    public ArrayList<Sonecas> getSonecas() {
         return sonecas;
     }
 
@@ -116,6 +116,21 @@ public class HistoricoSingleton {
                     Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(fraldas);
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveSonecas(Context context) {
+        FileOutputStream fos;
+        try {
+            fos = context.openFileOutput("sonecas.tmp",
+                    Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(sonecas);
             oos.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -226,7 +241,7 @@ public class HistoricoSingleton {
         try {
             fis = context.openFileInput("sonecas.tmp");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            sonecas = (ArrayList<Soneca>) ois.readObject();
+            sonecas = (ArrayList<Sonecas>) ois.readObject();
             ois.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
