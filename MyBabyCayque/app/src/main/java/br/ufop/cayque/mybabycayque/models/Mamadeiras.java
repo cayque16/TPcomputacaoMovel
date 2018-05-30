@@ -14,14 +14,14 @@ public class Mamadeiras extends Atividades {
     private float quantidade; //em ml
     private int tomouTudo; //1 se sim e 0 se nao
 
-    public Mamadeiras(String tipo, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, float quantidade, int tomouTudo) {
-        super(tipo, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino);
+    public Mamadeiras(String tipo, int id,int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, float quantidade, int tomouTudo) {
+        super(tipo, id,diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino);
         this.quantidade = quantidade;
         this.tomouTudo = tomouTudo;
     }
 
     protected Mamadeiras(Parcel in) {
-        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
+        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
         this.quantidade = in.readFloat();
         this.tomouTudo = in.readInt();
     }
@@ -55,9 +55,33 @@ public class Mamadeiras extends Atividades {
     }
 
     @Override
-    public void atualizaHistorico(Context context) {
+    public void addHistorico(Context context) {
         HistoricoSingleton.getInstance().getAtividades().add(this);
         HistoricoSingleton.getInstance().saveAtividades(context);
+    }
+
+    @Override
+    public void editHistorico(Context context) {
+        int sizeArray = HistoricoSingleton.getInstance().getAtividades().size();
+        for (int i = 0; i < sizeArray; i++) {
+            if (HistoricoSingleton.getInstance().getAtividades().get(i).getId() == this.getId()){
+                HistoricoSingleton.getInstance().getAtividades().set(i,this);
+                HistoricoSingleton.getInstance().saveAtividades(context);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void removeHistorico(Context context) {
+        int sizeArray = HistoricoSingleton.getInstance().getAtividades().size();
+        for (int i = 0; i < sizeArray; i++) {
+            if (HistoricoSingleton.getInstance().getAtividades().get(i).getId() == this.getId()){
+                HistoricoSingleton.getInstance().getAtividades().remove(i);
+                HistoricoSingleton.getInstance().saveAtividades(context);
+                break;
+            }
+        }
     }
 
     @Override
@@ -68,6 +92,7 @@ public class Mamadeiras extends Atividades {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(getTipo());
+        parcel.writeInt(getId());
         parcel.writeInt(getDiaInicio());
         parcel.writeInt(getMesInico());
         parcel.writeInt(getAnoInicio());

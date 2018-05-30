@@ -2,10 +2,8 @@ package br.ufop.cayque.mybabycayque.add;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +17,7 @@ import java.util.Calendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
-import br.ufop.cayque.mybabycayque.edit.EditMamadasActivity;
+import br.ufop.cayque.mybabycayque.models.GeraIdSingleton;
 import br.ufop.cayque.mybabycayque.models.Mamadas;
 
 public class AddMamadasActivity extends AppCompatActivity {
@@ -179,12 +177,13 @@ public class AddMamadasActivity extends AppCompatActivity {
         } else{
             peito = "Ambos";
         }
-        Mamadas mamadas = new Mamadas("Mamada",dia,mes,ano,hInicio,mInicio,0,
+        int id = GeraIdSingleton.getInstance().geraId(this);
+        Mamadas mamadas = new Mamadas("Mamada",id,dia,mes,ano,hInicio,mInicio,0,
                 dia,mes,ano,hTermino,mTermino,0,peito);
 
         HistoricoSingleton.getInstance().getMamadas().add(mamadas);
         HistoricoSingleton.getInstance().saveMamadas(this);
-        mamadas.atualizaHistorico(this);
+        mamadas.addHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

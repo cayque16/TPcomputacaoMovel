@@ -209,11 +209,14 @@ public class EditMamadasActivity extends AppCompatActivity {
         } else {
             peito = "Ambos";
         }
-        Mamadas mamadas = new Mamadas("Mamada", dia, mes, ano, hInicio, mInicio, 0,
+        int id = mamadas.get(position).getId();
+        Mamadas mamadas = new Mamadas("Mamada", id, dia, mes, ano, hInicio, mInicio, 0,
                 dia, mes, ano, hTermino, mTermino, 0, peito);
 
         HistoricoSingleton.getInstance().getMamadas().set(position, mamadas);
+        mamadas.editHistorico(this);
         HistoricoSingleton.getInstance().saveMamadas(this);
+
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }
@@ -226,8 +229,11 @@ public class EditMamadasActivity extends AppCompatActivity {
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                mamadas.get(position).removeHistorico(EditMamadasActivity.this);
                 mamadas.remove(position);
+
                 HistoricoSingleton.getInstance().saveMamadas(EditMamadasActivity.this);
+
                 Toast.makeText(EditMamadasActivity.this, "Operação concluída!!!", Toast.LENGTH_SHORT).show();
                 finish();
             }

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -17,6 +16,7 @@ import java.util.Calendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
+import br.ufop.cayque.mybabycayque.models.GeraIdSingleton;
 import br.ufop.cayque.mybabycayque.models.Outros;
 
 public class AddOutrosActivity extends AppCompatActivity {
@@ -123,13 +123,13 @@ public class AddOutrosActivity extends AppCompatActivity {
     }
 
     public void salvaOutro(View view) {
-
-        Outros outros = new Outros("Outro",dia,mes,ano,hInicio,mInicio,0,
+        int id = GeraIdSingleton.getInstance().geraId(this);
+        Outros outros = new Outros("Outro",id,dia,mes,ano,hInicio,mInicio,0,
                 dia,mes,ano,hInicio,mInicio,0,nota.getText().toString());
 
         HistoricoSingleton.getInstance().getOutros().add(outros);
         HistoricoSingleton.getInstance().saveOutros(this);
-        outros.atualizaHistorico(this);
+        outros.addHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

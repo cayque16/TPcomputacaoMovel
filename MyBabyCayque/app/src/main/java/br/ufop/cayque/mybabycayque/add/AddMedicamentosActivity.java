@@ -19,6 +19,7 @@ import java.util.Calendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
+import br.ufop.cayque.mybabycayque.models.GeraIdSingleton;
 import br.ufop.cayque.mybabycayque.models.Medicamentos;
 
 public class AddMedicamentosActivity extends AppCompatActivity {
@@ -148,13 +149,13 @@ public class AddMedicamentosActivity extends AppCompatActivity {
     }
 
     public void salvaMedicamento(View view) {
-
-        Medicamentos medicamentos = new Medicamentos("Medicamento",dia,mes,ano,hInicio,mInicio,0,
+        int id = GeraIdSingleton.getInstance().geraId(this);
+        Medicamentos medicamentos = new Medicamentos("Medicamento",id,dia,mes,ano,hInicio,mInicio,0,
                 dia,mes,ano,hInicio,mInicio,0,nome.getText().toString(),unidadeSele,quanti.getText().toString());
 
         HistoricoSingleton.getInstance().getMedicamentos().add(medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);
-        medicamentos.atualizaHistorico(this);
+        medicamentos.addHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

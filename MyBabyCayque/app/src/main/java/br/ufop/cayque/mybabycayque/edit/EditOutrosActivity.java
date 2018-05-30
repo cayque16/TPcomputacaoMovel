@@ -142,7 +142,9 @@ public class EditOutrosActivity extends AppCompatActivity {
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                outros.get(position).removeHistorico(EditOutrosActivity.this);
                 outros.remove(position);
+
                 HistoricoSingleton.getInstance().saveOutros(EditOutrosActivity.this);
                 Toast.makeText(EditOutrosActivity.this, "Operação concluída!!!", Toast.LENGTH_SHORT).show();
                 finish();
@@ -161,12 +163,13 @@ public class EditOutrosActivity extends AppCompatActivity {
     }
 
     public void salvaOutro(View view) {
-
-        Outros outros = new Outros("Outro", dia, mes, ano, hInicio, mInicio, 0,
+        int id = outros.get(position).getId();
+        Outros outros = new Outros("Outro", id, dia, mes, ano, hInicio, mInicio, 0,
                 dia, mes, ano, hInicio, mInicio, 0, nota.getText().toString());
 
         HistoricoSingleton.getInstance().getOutros().set(position, outros);
         HistoricoSingleton.getInstance().saveOutros(this);
+        outros.editHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

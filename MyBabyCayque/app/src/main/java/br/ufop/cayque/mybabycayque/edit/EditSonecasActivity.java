@@ -219,12 +219,13 @@ public class EditSonecasActivity extends AppCompatActivity {
     }
 
     public void salvaSoneca(View view) {
-
-        Sonecas sonecas = new Sonecas("Soneca", diaI, mesI, anoI, hInicio, mInicio, 0,
+        int id = sonecas.get(position).getId();
+        Sonecas sonecas = new Sonecas("Soneca", id,diaI, mesI, anoI, hInicio, mInicio, 0,
                 diaI, mesI, anoI, hTermino, mTermino, 0, 0);
 
         HistoricoSingleton.getInstance().getSonecas().set(position, sonecas);
         HistoricoSingleton.getInstance().saveSonecas(this);
+        sonecas.editHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
 
@@ -238,7 +239,9 @@ public class EditSonecasActivity extends AppCompatActivity {
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                sonecas.get(position).removeHistorico(EditSonecasActivity.this);
                 sonecas.remove(position);
+
                 HistoricoSingleton.getInstance().saveSonecas(EditSonecasActivity.this);
                 Toast.makeText(EditSonecasActivity.this, "Operação concluída!!!", Toast.LENGTH_SHORT).show();
                 finish();

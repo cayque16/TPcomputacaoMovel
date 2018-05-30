@@ -16,6 +16,7 @@ import java.util.Calendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
+import br.ufop.cayque.mybabycayque.models.GeraIdSingleton;
 import br.ufop.cayque.mybabycayque.models.Sonecas;
 
 public class AddSonecaActivity extends AppCompatActivity {
@@ -195,12 +196,13 @@ public class AddSonecaActivity extends AppCompatActivity {
     }
 
     public void salvaSoneca(View view) {
-        Sonecas sonecas = new Sonecas("Soneca",diaI,mesI,anoI,hInicio,mInicio,0,
+        int id = GeraIdSingleton.getInstance().geraId(this);
+        Sonecas sonecas = new Sonecas("Soneca",id,diaI,mesI,anoI,hInicio,mInicio,0,
                 diaT,mesT,anoT,hTermino,mTermino,0,0);
 
         HistoricoSingleton.getInstance().getSonecas().add(sonecas);
         HistoricoSingleton.getInstance().saveSonecas(this);
-        sonecas.atualizaHistorico(this);
+        sonecas.addHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

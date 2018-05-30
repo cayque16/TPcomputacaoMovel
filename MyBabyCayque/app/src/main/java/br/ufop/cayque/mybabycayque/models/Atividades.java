@@ -9,14 +9,16 @@ import java.io.Serializable;
  * Created by cayqu on 16/05/2018.
  */
 
-public abstract class Atividades implements Parcelable, Serializable{
+public abstract class Atividades implements Parcelable, Serializable {
     private String tipo;
-    private int diaInicio,mesInico,anoInicio;
-    private int horaInicio,minuInicio,seguInicio;
-    private int diaTermino,mesTermino,anoTermino;
-    private int horaTermino,minuTermino,seguTermino;
+    private int id;
+    private int diaInicio, mesInico, anoInicio;
+    private int horaInicio, minuInicio, seguInicio;
+    private int diaTermino, mesTermino, anoTermino;
+    private int horaTermino, minuTermino, seguTermino;
 
-    public Atividades(String tipo, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino) {
+    public Atividades(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino) {
+        this.id = id;
         this.tipo = tipo;
         this.diaInicio = diaInicio;
         this.mesInico = mesInico;
@@ -30,6 +32,10 @@ public abstract class Atividades implements Parcelable, Serializable{
         this.horaTermino = horaTermino;
         this.minuTermino = minuTermino;
         this.seguTermino = seguTermino;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTipo() {
@@ -136,5 +142,10 @@ public abstract class Atividades implements Parcelable, Serializable{
         this.seguTermino = seguTermino;
     }
 
-    public abstract void atualizaHistorico(Context context);
+    public abstract void addHistorico(Context context);
+
+    public abstract void editHistorico(Context context);
+
+    public abstract void removeHistorico(Context context);
+
 }

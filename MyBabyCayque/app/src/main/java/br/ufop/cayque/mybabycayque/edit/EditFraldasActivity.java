@@ -152,11 +152,13 @@ public class EditFraldasActivity extends AppCompatActivity {
         } else {
             motivo = "Ambos";
         }
-        Fraldas fraldas = new Fraldas("Fralda", dia, mes, ano, hInicio, mInicio, 0,
+        int id = fraldas.get(position).getId();
+        Fraldas fraldas = new Fraldas("Fralda", id, dia, mes, ano, hInicio, mInicio, 0,
                 dia, mes, ano, hInicio, mInicio, 0, motivo);
 
         HistoricoSingleton.getInstance().getFraldas().set(position, fraldas);
         HistoricoSingleton.getInstance().saveFraldas(this);
+        fraldas.editHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }
@@ -169,8 +171,11 @@ public class EditFraldasActivity extends AppCompatActivity {
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                fraldas.get(position).removeHistorico(EditFraldasActivity.this);
                 fraldas.remove(position);
+
                 HistoricoSingleton.getInstance().saveFraldas(EditFraldasActivity.this);
+
                 Toast.makeText(EditFraldasActivity.this, "Operação concluída!!!", Toast.LENGTH_SHORT).show();
                 finish();
             }

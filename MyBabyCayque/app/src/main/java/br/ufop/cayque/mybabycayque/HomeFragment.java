@@ -1,6 +1,7 @@
 package br.ufop.cayque.mybabycayque;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,10 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import br.ufop.cayque.mybabycayque.adapters.AtividadesAdapter;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
-import br.ufop.cayque.mybabycayque.models.Mamadas;
+import br.ufop.cayque.mybabycayque.models.GeraIdSingleton;
 
 
 /**
@@ -21,6 +23,7 @@ import br.ufop.cayque.mybabycayque.models.Mamadas;
 public class HomeFragment extends Fragment {
 
     private ListView listView;
+    private Dialog dialog;
 
 
     public HomeFragment() {
@@ -34,7 +37,16 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        GeraIdSingleton.loadGeraId(getContext());
+
+//        HistoricoSingleton.getInstance().getAtividades().remove(0);
+//        HistoricoSingleton.getInstance().getAtividades().remove(1);
+//        HistoricoSingleton.getInstance().getAtividades().remove(2);
+//        HistoricoSingleton.getInstance().getAtividades().remove(3);
+
+
         HistoricoSingleton.getInstance().loadAtividades(getContext());
+        dialog = new Dialog(getContext());
 
         listView = view.findViewById(R.id.listaAtividades);
 
@@ -42,12 +54,21 @@ public class HomeFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+//                if(dialog != null){
+//                    dialog.setContentView(R.layout.dialog);
+//                    dialog.show();
+//                }
 
             }
         });
 
         return view;
+    }
+
+    public void dialogOk(View view) {
+        if (dialog != null) {
+            dialog.dismiss();
+        }
     }
 
     @Override

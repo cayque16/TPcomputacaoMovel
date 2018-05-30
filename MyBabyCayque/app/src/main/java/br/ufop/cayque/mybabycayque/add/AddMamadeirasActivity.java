@@ -17,7 +17,7 @@ import java.util.Calendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
-import br.ufop.cayque.mybabycayque.models.Mamadas;
+import br.ufop.cayque.mybabycayque.models.GeraIdSingleton;
 import br.ufop.cayque.mybabycayque.models.Mamadeiras;
 
 public class AddMamadeirasActivity extends AppCompatActivity {
@@ -179,12 +179,13 @@ public class AddMamadeirasActivity extends AppCompatActivity {
         } else{
             tudo = 0;
         }
-        Mamadeiras mamadeiras = new Mamadeiras("Mamadeira",dia,mes,ano,hInicio,mInicio,0,
+        int id = GeraIdSingleton.getInstance().geraId(this);
+        Mamadeiras mamadeiras = new Mamadeiras("Mamadeira",id,dia,mes,ano,hInicio,mInicio,0,
                 dia,mes,ano,hTermino,mTermino,0,quantidade,tudo);
 
         HistoricoSingleton.getInstance().getMamadeiras().add(mamadeiras);
         HistoricoSingleton.getInstance().saveMamadeiras(this);
-        mamadeiras.atualizaHistorico(this);
+        mamadeiras.addHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

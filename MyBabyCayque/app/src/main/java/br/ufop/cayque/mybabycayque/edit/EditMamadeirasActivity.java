@@ -202,16 +202,18 @@ public class EditMamadeirasActivity extends AppCompatActivity {
         int tudo;
         float quanti;
         quanti = Float.valueOf(quantidade.getText().toString());
-        if(sim.isChecked()){
+        if (sim.isChecked()) {
             tudo = 1;
-        } else{
+        } else {
             tudo = 0;
         }
-        Mamadeiras mamadeiras = new Mamadeiras("Mamadeira",dia,mes,ano,hInicio,mInicio,0,
-                dia,mes,ano,hTermino,mTermino,0,quanti,tudo);
+        int id = mamadeiras.get(position).getId();
+        Mamadeiras mamadeiras = new Mamadeiras("Mamadeira", id, dia, mes, ano, hInicio, mInicio, 0,
+                dia, mes, ano, hTermino, mTermino, 0, quanti, tudo);
 
         HistoricoSingleton.getInstance().getMamadeiras().set(position, mamadeiras);
         HistoricoSingleton.getInstance().saveMamadeiras(this);
+        mamadeiras.editHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }
@@ -224,8 +226,11 @@ public class EditMamadeirasActivity extends AppCompatActivity {
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                mamadeiras.get(position).removeHistorico(EditMamadeirasActivity.this);
                 mamadeiras.remove(position);
+
                 HistoricoSingleton.getInstance().saveMamadeiras(EditMamadeirasActivity.this);
+
                 Toast.makeText(EditMamadeirasActivity.this, "Operação concluída!!!", Toast.LENGTH_SHORT).show();
                 finish();
             }

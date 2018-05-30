@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -19,6 +18,7 @@ import java.util.Calendar;
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.Fraldas;
+import br.ufop.cayque.mybabycayque.models.GeraIdSingleton;
 
 public class AddFraldaActivity extends AppCompatActivity {
 
@@ -136,12 +136,13 @@ public class AddFraldaActivity extends AppCompatActivity {
         } else {
             motivo = "Ambos";
         }
-        Fraldas fraldas = new Fraldas("Fralda", dia, mes, ano, hInicio, mInicio, 0,
+        int id = GeraIdSingleton.getInstance().geraId(this);
+        Fraldas fraldas = new Fraldas("Fralda", id,dia, mes, ano, hInicio, mInicio, 0,
                 dia, mes, ano, hInicio, mInicio, 0, motivo);
 
         HistoricoSingleton.getInstance().getFraldas().add(fraldas);
         HistoricoSingleton.getInstance().saveFraldas(this);
-        fraldas.atualizaHistorico(this);
+        fraldas.addHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

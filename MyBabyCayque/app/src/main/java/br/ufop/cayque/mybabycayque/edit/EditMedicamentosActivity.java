@@ -168,8 +168,11 @@ public class EditMedicamentosActivity extends AppCompatActivity {
         builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                medicamentos.get(position).removeHistorico(EditMedicamentosActivity.this);
                 medicamentos.remove(position);
+
                 HistoricoSingleton.getInstance().saveMedicamentos(EditMedicamentosActivity.this);
+
                 Toast.makeText(EditMedicamentosActivity.this, "Operação concluída!!!", Toast.LENGTH_SHORT).show();
                 finish();
             }
@@ -187,12 +190,13 @@ public class EditMedicamentosActivity extends AppCompatActivity {
     }
 
     public void salvaMedicamento(View view) {
-
-        Medicamentos medicamentos = new Medicamentos("Medicamento", dia, mes, ano, hInicio, mInicio, 0,
+        int id = medicamentos.get(position).getId();
+        Medicamentos medicamentos = new Medicamentos("Medicamento", id, dia, mes, ano, hInicio, mInicio, 0,
                 dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString());
 
         HistoricoSingleton.getInstance().getMedicamentos().set(position, medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);
+        medicamentos.editHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

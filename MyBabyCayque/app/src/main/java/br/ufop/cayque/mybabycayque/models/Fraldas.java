@@ -3,6 +3,8 @@ package br.ufop.cayque.mybabycayque.models;
 import android.content.Context;
 import android.os.Parcel;
 
+import java.util.Iterator;
+
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 
 /**
@@ -12,13 +14,13 @@ import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 public class Fraldas extends Atividades {
     private String motivo; //xixi ou coco
 
-    public Fraldas(String tipo, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String motivo) {
-        super(tipo, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino);
+    public Fraldas(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String motivo) {
+        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino);
         this.motivo = motivo;
     }
 
     protected Fraldas(Parcel in) {
-        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
+        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
         this.motivo = in.readString();
     }
 
@@ -43,9 +45,33 @@ public class Fraldas extends Atividades {
     }
 
     @Override
-    public void atualizaHistorico(Context context) {
+    public void addHistorico(Context context) {
         HistoricoSingleton.getInstance().getAtividades().add(this);
         HistoricoSingleton.getInstance().saveAtividades(context);
+    }
+
+    @Override
+    public void editHistorico(Context context) {
+        int sizeArray = HistoricoSingleton.getInstance().getAtividades().size();
+        for (int i = 0; i < sizeArray; i++) {
+            if (HistoricoSingleton.getInstance().getAtividades().get(i).getId() == this.getId()){
+                HistoricoSingleton.getInstance().getAtividades().set(i,this);
+                HistoricoSingleton.getInstance().saveAtividades(context);
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void removeHistorico(Context context) {
+        int sizeArray = HistoricoSingleton.getInstance().getAtividades().size();
+        for (int i = 0; i < sizeArray; i++) {
+            if (HistoricoSingleton.getInstance().getAtividades().get(i).getId() == this.getId()){
+                HistoricoSingleton.getInstance().getAtividades().remove(i);
+                HistoricoSingleton.getInstance().saveAtividades(context);
+                break;
+            }
+        }
     }
 
     @Override
@@ -56,6 +82,7 @@ public class Fraldas extends Atividades {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(getTipo());
+        parcel.writeInt(getId());
         parcel.writeInt(getDiaInicio());
         parcel.writeInt(getMesInico());
         parcel.writeInt(getAnoInicio());
