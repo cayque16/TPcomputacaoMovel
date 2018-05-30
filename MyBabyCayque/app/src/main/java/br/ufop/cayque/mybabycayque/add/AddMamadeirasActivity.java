@@ -184,6 +184,7 @@ public class AddMamadeirasActivity extends AppCompatActivity {
 
         HistoricoSingleton.getInstance().getMamadeiras().add(mamadeiras);
         HistoricoSingleton.getInstance().saveMamadeiras(this);
+        mamadeiras.atualizaHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

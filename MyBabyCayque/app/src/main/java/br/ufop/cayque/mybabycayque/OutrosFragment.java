@@ -63,4 +63,10 @@ public class OutrosFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        //para atualizar o ListView quando voltar da tela de Add
+        listView.setAdapter(new OutrosAdapter(HistoricoSingleton.getInstance().getOutros(), getContext()));
+    }
 }

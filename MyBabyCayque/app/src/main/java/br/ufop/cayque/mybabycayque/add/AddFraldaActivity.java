@@ -136,11 +136,12 @@ public class AddFraldaActivity extends AppCompatActivity {
         } else {
             motivo = "Ambos";
         }
-        Fraldas fraldas = new Fraldas("Mamada", dia, mes, ano, hInicio, mInicio, 0,
+        Fraldas fraldas = new Fraldas("Fralda", dia, mes, ano, hInicio, mInicio, 0,
                 dia, mes, ano, hInicio, mInicio, 0, motivo);
 
         HistoricoSingleton.getInstance().getFraldas().add(fraldas);
         HistoricoSingleton.getInstance().saveFraldas(this);
+        fraldas.atualizaHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

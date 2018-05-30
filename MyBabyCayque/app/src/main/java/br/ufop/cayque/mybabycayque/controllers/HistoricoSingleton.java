@@ -79,6 +79,20 @@ public class HistoricoSingleton {
         return sonecas;
     }
 
+    public void saveAtividades(Context context) {
+        FileOutputStream fos;
+        try {
+            fos = context.openFileOutput("atividades.tmp",
+                    Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(atividades);
+            oos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void saveMamadas(Context context) {
         FileOutputStream fos;

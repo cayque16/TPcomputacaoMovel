@@ -154,6 +154,7 @@ public class AddMedicamentosActivity extends AppCompatActivity {
 
         HistoricoSingleton.getInstance().getMedicamentos().add(medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);
+        medicamentos.atualizaHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

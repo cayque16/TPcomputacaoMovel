@@ -184,6 +184,7 @@ public class AddMamadasActivity extends AppCompatActivity {
 
         HistoricoSingleton.getInstance().getMamadas().add(mamadas);
         HistoricoSingleton.getInstance().saveMamadas(this);
+        mamadas.atualizaHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

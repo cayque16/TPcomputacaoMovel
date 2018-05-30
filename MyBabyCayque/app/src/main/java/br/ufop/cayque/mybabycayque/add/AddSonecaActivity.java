@@ -195,11 +195,12 @@ public class AddSonecaActivity extends AppCompatActivity {
     }
 
     public void salvaSoneca(View view) {
-        Sonecas sonecas = new Sonecas("Sonecas",diaI,mesI,anoI,hInicio,mInicio,0,
+        Sonecas sonecas = new Sonecas("Soneca",diaI,mesI,anoI,hInicio,mInicio,0,
                 diaT,mesT,anoT,hTermino,mTermino,0,0);
 
         HistoricoSingleton.getInstance().getSonecas().add(sonecas);
         HistoricoSingleton.getInstance().saveSonecas(this);
+        sonecas.atualizaHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

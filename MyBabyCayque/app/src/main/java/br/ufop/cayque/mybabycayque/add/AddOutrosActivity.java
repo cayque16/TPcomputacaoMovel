@@ -129,6 +129,7 @@ public class AddOutrosActivity extends AppCompatActivity {
 
         HistoricoSingleton.getInstance().getOutros().add(outros);
         HistoricoSingleton.getInstance().saveOutros(this);
+        outros.atualizaHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }

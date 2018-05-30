@@ -1,9 +1,12 @@
 package br.ufop.cayque.mybabycayque.models;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+
+import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 
 /**
  * Created by cayqu on 16/05/2018.
@@ -44,8 +47,9 @@ public class Mamadas extends Atividades{
     }
 
     @Override
-    public void atualizaHistorico() {
-
+    public void atualizaHistorico(Context context) {
+        HistoricoSingleton.getInstance().getAtividades().add(this);
+        HistoricoSingleton.getInstance().saveAtividades(context);
     }
 
     @Override

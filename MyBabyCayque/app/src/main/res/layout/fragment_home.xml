@@ -1,11 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="br.ufop.cayque.mybabycayque.HomeFragment"
     android:layout_margin="8dp">
 
     <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clique em um item para obter detalhes..."/>
+    <ListView
+        android:id="@+id/listaAtividades"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+    </ListView>
 
-</FrameLayout>
+</LinearLayout>

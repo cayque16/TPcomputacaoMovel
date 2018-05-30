@@ -1,5 +1,6 @@
 package br.ufop.cayque.mybabycayque.models;
 
+import android.content.Context;
 import android.os.Parcelable;
 
 import java.io.Serializable;
@@ -135,5 +136,5 @@ public abstract class Atividades implements Parcelable, Serializable{
         this.seguTermino = seguTermino;
     }
 
-    public abstract void atualizaHistorico();
+    public abstract void atualizaHistorico(Context context);
 }
