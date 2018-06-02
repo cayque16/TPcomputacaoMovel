@@ -69,6 +69,9 @@ public class MamadeirasAdapter extends BaseAdapter {
         TextView tv5 = v.findViewById(R.id.adapMamadeiraQuanti);
         tv5.setText("Quantidade: " + mamadeiras.getQuantidade() + "ml");
 
+        TextView tv6 = v.findViewById(R.id.adapMamadeiraNota);
+        tv6.setText("Nota: " + mamadeiras.getAnotacao());
+
         return v;
     }
 

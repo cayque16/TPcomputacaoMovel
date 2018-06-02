@@ -87,6 +87,18 @@
 
     </LinearLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/anotaEditMedicamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Anotação..." />
+
+    </android.support.design.widget.TextInputLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

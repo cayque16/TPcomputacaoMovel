@@ -10,16 +10,13 @@ import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
  */
 
 public class Outros extends Atividades {
-    private String nota;
 
-    public Outros(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String nota) {
-        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino);
-        this.nota = nota;
+    public Outros(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String anotacao) {
+        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino,anotacao);
     }
 
     protected Outros(Parcel in) {
-        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
-        this.nota = in.readString();
+        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(),in.readString());
     }
 
     public static final Creator<Outros> CREATOR = new Creator<Outros>() {
@@ -34,13 +31,6 @@ public class Outros extends Atividades {
         }
     };
 
-    public String getNota() {
-        return nota;
-    }
-
-    public void setNota(String nota) {
-        this.nota = nota;
-    }
 
     @Override
     public void addHistorico(Context context) {
@@ -93,6 +83,6 @@ public class Outros extends Atividades {
         parcel.writeInt(getHoraTermino());
         parcel.writeInt(getMinuTermino());
         parcel.writeInt(getSeguTermino());
-        parcel.writeString(nota);
+        parcel.writeString(getAnotacao());
     }
 }

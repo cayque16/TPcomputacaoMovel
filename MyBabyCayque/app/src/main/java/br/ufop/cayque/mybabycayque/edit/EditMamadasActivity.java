@@ -26,7 +26,7 @@ import br.ufop.cayque.mybabycayque.models.Mamadas;
 
 public class EditMamadasActivity extends AppCompatActivity {
 
-    private EditText data, horaI, horaT;
+    private EditText data, horaI, horaT,anotacao;
     private int dia, mes, ano;
     private int hInicio, mInicio;
     private int hTermino, mTermino;
@@ -57,6 +57,7 @@ public class EditMamadasActivity extends AppCompatActivity {
         dir = findViewById(R.id.radioEditButtonDirei);
         esq = findViewById(R.id.radioEditButtonEsque);
         amb = findViewById(R.id.radioEditButtonAmbos);
+        anotacao = findViewById(R.id.anotaEditMamada);
 
         dia = mamadas.get(position).getDiaInicio();
         mes = mamadas.get(position).getMesInico();
@@ -191,6 +192,7 @@ public class EditMamadasActivity extends AppCompatActivity {
             amb.setChecked(true);
         }
 
+        anotacao.setText(mamadas.get(position).getAnotacao());
     }
 
 
@@ -211,7 +213,7 @@ public class EditMamadasActivity extends AppCompatActivity {
         }
         int id = mamadas.get(position).getId();
         Mamadas mamadas = new Mamadas("Mamada", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hTermino, mTermino, 0, peito);
+                dia, mes, ano, hTermino, mTermino, 0, peito,anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMamadas().set(position, mamadas);
         mamadas.editHistorico(this);

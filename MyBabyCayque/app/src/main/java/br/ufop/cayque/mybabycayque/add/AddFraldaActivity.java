@@ -22,7 +22,7 @@ import br.ufop.cayque.mybabycayque.models.GeraIdSingleton;
 
 public class AddFraldaActivity extends AppCompatActivity {
 
-    private EditText data, horaInicio;
+    private EditText data, horaInicio,anotacao;
     private RadioButton xixi, coco, ambos;
     private int dia, mes, ano;
     private int hInicio, mInicio;
@@ -46,6 +46,7 @@ public class AddFraldaActivity extends AppCompatActivity {
         xixi = findViewById(R.id.radioAddButtonFraldaXixi);
         coco = findViewById(R.id.radioAddButtonFraldaCoco);
         ambos = findViewById(R.id.radioAddButtonFraldaAmbos);
+        anotacao = findViewById(R.id.anotaAddFralda);
 
         dia = cal.get(Calendar.DAY_OF_MONTH);
         mes = cal.get(Calendar.MONTH) + 1;
@@ -138,7 +139,7 @@ public class AddFraldaActivity extends AppCompatActivity {
         }
         int id = GeraIdSingleton.getInstance().geraId(this);
         Fraldas fraldas = new Fraldas("Fralda", id,dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, motivo);
+                dia, mes, ano, hInicio, mInicio, 0, motivo,anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getFraldas().add(fraldas);
         HistoricoSingleton.getInstance().saveFraldas(this);

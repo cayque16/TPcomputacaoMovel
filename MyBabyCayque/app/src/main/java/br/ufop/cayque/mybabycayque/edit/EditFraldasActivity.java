@@ -24,7 +24,7 @@ import br.ufop.cayque.mybabycayque.models.Fraldas;
 
 public class EditFraldasActivity extends AppCompatActivity {
 
-    private EditText data, horaI;
+    private EditText data, horaI,anotacao;
     private int dia, mes, ano;
     private int hInicio, mInicio;
     private RadioButton xixi, coco, amb;
@@ -53,6 +53,7 @@ public class EditFraldasActivity extends AppCompatActivity {
         xixi = findViewById(R.id.radioEditButtonFraldaXixi);
         coco = findViewById(R.id.radioEditButtonFraldaCoco);
         amb = findViewById(R.id.radioEditButtonFraldaAmbos);
+        anotacao = findViewById(R.id.anotaEditFralda);
 
         dia = fraldas.get(position).getDiaInicio();
         mes = fraldas.get(position).getMesInico();
@@ -141,6 +142,8 @@ public class EditFraldasActivity extends AppCompatActivity {
         } else {
             amb.setChecked(true);
         }
+
+        anotacao.setText(fraldas.get(position).getAnotacao());
     }
 
     public void salvaFralda(View view) {
@@ -154,7 +157,7 @@ public class EditFraldasActivity extends AppCompatActivity {
         }
         int id = fraldas.get(position).getId();
         Fraldas fraldas = new Fraldas("Fralda", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, motivo);
+                dia, mes, ano, hInicio, mInicio, 0, motivo,anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getFraldas().set(position, fraldas);
         HistoricoSingleton.getInstance().saveFraldas(this);

@@ -49,7 +49,7 @@ public class EditOutrosActivity extends AppCompatActivity {
 
         data = findViewById(R.id.dataEditOutroInicio);
         horaInicio = findViewById(R.id.horaEditOutroInicio);
-        nota = findViewById(R.id.notaEditOutro);
+        nota = findViewById(R.id.anotaEditOutro);
 
         dia = outros.get(position).getDiaInicio();
         mes = outros.get(position).getMesInico();
@@ -131,7 +131,7 @@ public class EditOutrosActivity extends AppCompatActivity {
             }
         };
 
-        nota.setText(outros.get(position).getNota());
+        nota.setText(outros.get(position).getAnotacao());
     }
 
     public void excluiOutro(View view) {

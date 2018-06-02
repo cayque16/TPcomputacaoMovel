@@ -14,15 +14,15 @@ public class Medicamentos extends Atividades {
     private String unidadeMedi;
     private String dose;
 
-    public Medicamentos(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String nome, String unidadeMedi, String dose) {
-        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino);
+    public Medicamentos(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String nome, String unidadeMedi, String dose,String anotacao) {
+        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino,anotacao);
         this.nome = nome;
         this.unidadeMedi = unidadeMedi;
         this.dose = dose;
     }
 
     protected Medicamentos(Parcel in) {
-        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
+        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(),in.readString());
         this.nome = in.readString();
         this.unidadeMedi = in.readString();
         this.dose = in.readString();
@@ -115,6 +115,7 @@ public class Medicamentos extends Atividades {
         parcel.writeInt(getHoraTermino());
         parcel.writeInt(getMinuTermino());
         parcel.writeInt(getSeguTermino());
+        parcel.writeString(getAnotacao());
         parcel.writeString(nome);
         parcel.writeString(unidadeMedi);
         parcel.writeString(dose);

@@ -14,14 +14,14 @@ public class Mamadeiras extends Atividades {
     private float quantidade; //em ml
     private int tomouTudo; //1 se sim e 0 se nao
 
-    public Mamadeiras(String tipo, int id,int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, float quantidade, int tomouTudo) {
-        super(tipo, id,diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino);
+    public Mamadeiras(String tipo, int id,int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, float quantidade, int tomouTudo,String anotacao) {
+        super(tipo, id,diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino,anotacao);
         this.quantidade = quantidade;
         this.tomouTudo = tomouTudo;
     }
 
     protected Mamadeiras(Parcel in) {
-        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
+        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(),in.readString());
         this.quantidade = in.readFloat();
         this.tomouTudo = in.readInt();
     }
@@ -105,6 +105,7 @@ public class Mamadeiras extends Atividades {
         parcel.writeInt(getHoraTermino());
         parcel.writeInt(getMinuTermino());
         parcel.writeInt(getSeguTermino());
+        parcel.writeString(getAnotacao());
         parcel.writeFloat(quantidade);
         parcel.writeInt(tomouTudo);
     }

@@ -26,7 +26,7 @@ import br.ufop.cayque.mybabycayque.models.Medicamentos;
 
 public class EditMedicamentosActivity extends AppCompatActivity {
 
-    private EditText data, hora, nome, quanti;
+    private EditText data, hora, nome, quanti,anotacao;
     private Spinner medida;
     private String unidadeSele;
     private static final String[] UNIDADES = {"ml", "g", "colher", "dose", "comprimido", "unidade", "gota"};
@@ -57,6 +57,7 @@ public class EditMedicamentosActivity extends AppCompatActivity {
         nome = findViewById(R.id.nomeEditMedicamento);
         quanti = findViewById(R.id.quantidadeEditMedicamento);
         medida = findViewById(R.id.spinnerEditMedicamentoMedidada);
+        anotacao = findViewById(R.id.anotaEditMedicamento);
 
         dia = medicamentos.get(position).getDiaInicio();
         mes = medicamentos.get(position).getMesInico();
@@ -140,6 +141,7 @@ public class EditMedicamentosActivity extends AppCompatActivity {
 
         nome.setText(medicamentos.get(position).getNome());
         quanti.setText(medicamentos.get(position).getDose());
+        anotacao.setText(medicamentos.get(position).getAnotacao());
         inicializaSpinner();
 
     }
@@ -192,7 +194,7 @@ public class EditMedicamentosActivity extends AppCompatActivity {
     public void salvaMedicamento(View view) {
         int id = medicamentos.get(position).getId();
         Medicamentos medicamentos = new Medicamentos("Medicamento", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString());
+                dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString(),anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMedicamentos().set(position, medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);

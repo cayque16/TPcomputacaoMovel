@@ -21,7 +21,7 @@ import br.ufop.cayque.mybabycayque.models.Sonecas;
 
 public class AddSonecaActivity extends AppCompatActivity {
 
-    private EditText dataI, dataT, horaInicio, horaTermino;
+    private EditText dataI, dataT, horaInicio, horaTermino,anotacao;
     private int diaI, mesI, anoI;
     private int diaT, mesT, anoT;
     private int hInicio,mInicio;
@@ -50,6 +50,7 @@ public class AddSonecaActivity extends AppCompatActivity {
         dataT = findViewById(R.id.dataAddSonecaTermino);
         horaInicio = findViewById(R.id.horaAddSonecaInicio);
         horaTermino = findViewById(R.id.horaAddSonecaTermino);
+        anotacao = findViewById(R.id.anotaAddSoneca);
 
         dataI.setText(diaI + "/" + mesI + "/" + anoI);
         dataT.setText(diaT + "/" + mesT + "/" + anoT);
@@ -198,7 +199,7 @@ public class AddSonecaActivity extends AppCompatActivity {
     public void salvaSoneca(View view) {
         int id = GeraIdSingleton.getInstance().geraId(this);
         Sonecas sonecas = new Sonecas("Soneca",id,diaI,mesI,anoI,hInicio,mInicio,0,
-                diaT,mesT,anoT,hTermino,mTermino,0,0);
+                diaT,mesT,anoT,hTermino,mTermino,0,0,anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getSonecas().add(sonecas);
         HistoricoSingleton.getInstance().saveSonecas(this);

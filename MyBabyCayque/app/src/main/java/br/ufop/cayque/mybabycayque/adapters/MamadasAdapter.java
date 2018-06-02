@@ -64,6 +64,9 @@ public class MamadasAdapter extends BaseAdapter {
         TextView tv4 = v.findViewById(R.id.adapMamadaPeito);
         tv4.setText("Peito: " + mamadas.getPeito());
 
+        TextView tv5 = v.findViewById(R.id.adapMamadaNota);
+        tv5.setText("Nota: " + mamadas.getAnotacao());
+
         return v;
     }
 

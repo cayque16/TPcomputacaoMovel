@@ -10,14 +10,16 @@ import java.io.Serializable;
  */
 
 public abstract class Atividades implements Parcelable, Serializable {
-    private String tipo;
+    private String tipo, anotacao;
     private int id;
     private int diaInicio, mesInico, anoInicio;
     private int horaInicio, minuInicio, seguInicio;
     private int diaTermino, mesTermino, anoTermino;
     private int horaTermino, minuTermino, seguTermino;
 
-    public Atividades(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino) {
+    public Atividades(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio,
+                      int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino,
+                      int horaTermino, int minuTermino, int seguTermino, String anotacao) {
         this.id = id;
         this.tipo = tipo;
         this.diaInicio = diaInicio;
@@ -32,6 +34,7 @@ public abstract class Atividades implements Parcelable, Serializable {
         this.horaTermino = horaTermino;
         this.minuTermino = minuTermino;
         this.seguTermino = seguTermino;
+        this.anotacao = anotacao;
     }
 
     public int getId() {
@@ -140,6 +143,14 @@ public abstract class Atividades implements Parcelable, Serializable {
 
     public void setSeguTermino(int seguTermino) {
         this.seguTermino = seguTermino;
+    }
+
+    public String getAnotacao() {
+        return anotacao;
+    }
+
+    public void setAnotacao(String anotacao) {
+        this.anotacao = anotacao;
     }
 
     public abstract void addHistorico(Context context);

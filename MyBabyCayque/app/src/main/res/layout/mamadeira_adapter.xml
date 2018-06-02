@@ -78,5 +78,14 @@
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/adapMamadeiraNota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Texto aqui"
+            android:textSize="15dp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

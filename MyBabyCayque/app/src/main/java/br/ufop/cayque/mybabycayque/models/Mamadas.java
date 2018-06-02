@@ -16,13 +16,13 @@ public class Mamadas extends Atividades{
 
     private String peito;
 
-    public Mamadas(String tipo, int id,int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String peito) {
-        super(tipo, id,diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino);
+    public Mamadas(String tipo, int id,int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String peito,String anotacao) {
+        super(tipo, id,diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino,anotacao);
         this.peito = peito;
     }
 
     protected Mamadas(Parcel in) {
-        super(in.readString(), in.readInt(), in.readInt(),in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
+        super(in.readString(), in.readInt(), in.readInt(),in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(),in.readString());
         this.peito = in.readString();
     }
 
@@ -97,6 +97,7 @@ public class Mamadas extends Atividades{
         parcel.writeInt(getHoraTermino());
         parcel.writeInt(getMinuTermino());
         parcel.writeInt(getSeguTermino());
+        parcel.writeString(getAnotacao());
         parcel.writeString(peito);
     }
 }

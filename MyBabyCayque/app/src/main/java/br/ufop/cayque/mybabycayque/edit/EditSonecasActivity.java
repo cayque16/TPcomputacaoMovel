@@ -26,7 +26,7 @@ import br.ufop.cayque.mybabycayque.models.Sonecas;
 
 public class EditSonecasActivity extends AppCompatActivity {
 
-    private EditText dataI, dataT, horaInicio, horaTermino;
+    private EditText dataI, dataT, horaInicio, horaTermino, anotacao;
     private int diaI, mesI, anoI;
     private int diaT, mesT, anoT;
     private int hInicio, mInicio;
@@ -56,6 +56,7 @@ public class EditSonecasActivity extends AppCompatActivity {
         dataT = findViewById(R.id.dataEditSonecaTermino);
         horaInicio = findViewById(R.id.horaEditSonecaInicio);
         horaTermino = findViewById(R.id.horaEditSonecaTermino);
+        anotacao = findViewById(R.id.anotaEditSoneca);
 
         diaI = diaT = sonecas.get(position).getDiaInicio();
         mesI = mesT = sonecas.get(position).getMesInico();
@@ -122,7 +123,7 @@ public class EditSonecasActivity extends AppCompatActivity {
                 dataT.setText(date);
             }
         };
-        Log.v("Erro Aqui","3");
+
         horaInicio.setText(String.format("%02d", sonecas.get(position).getHoraInicio()) + ":" +
                 String.format("%02d", sonecas.get(position).getMinuInicio()) + ":" +
                 String.format("%02d", sonecas.get(position).getSeguInicio()));
@@ -206,10 +207,12 @@ public class EditSonecasActivity extends AppCompatActivity {
                 horaTermino.setText(juncao);
             }
         };
-        Log.v("Erro Aqui","4");
+
         horaTermino.setText(String.format("%02d", sonecas.get(position).getHoraTermino()) + ":" +
                 String.format("%02d", sonecas.get(position).getMinuTermino()) + ":" +
                 String.format("%02d", sonecas.get(position).getSeguTermino()));
+
+        anotacao.setText(sonecas.get(position).getAnotacao());
     }
 
     @Override
@@ -220,8 +223,8 @@ public class EditSonecasActivity extends AppCompatActivity {
 
     public void salvaSoneca(View view) {
         int id = sonecas.get(position).getId();
-        Sonecas sonecas = new Sonecas("Soneca", id,diaI, mesI, anoI, hInicio, mInicio, 0,
-                diaI, mesI, anoI, hTermino, mTermino, 0, 0);
+        Sonecas sonecas = new Sonecas("Soneca", id, diaI, mesI, anoI, hInicio, mInicio, 0,
+                diaI, mesI, anoI, hTermino, mTermino, 0, 0, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getSonecas().set(position, sonecas);
         HistoricoSingleton.getInstance().saveSonecas(this);

@@ -22,7 +22,7 @@ import br.ufop.cayque.mybabycayque.models.Mamadas;
 
 public class AddMamadasActivity extends AppCompatActivity {
 
-    private EditText data, horaInicio, horaTermino;
+    private EditText data, horaInicio, horaTermino,anotacao;
     private RadioGroup radioGroupPeito;
     private int dia, mes, ano;
     private int hInicio,mInicio;
@@ -47,6 +47,7 @@ public class AddMamadasActivity extends AppCompatActivity {
         horaInicio = findViewById(R.id.horaAddMamadaInicio);
         horaTermino = findViewById(R.id.horaAddMamadaTermino);
         radioGroupPeito = findViewById(R.id.radioAddGroupPeito);
+        anotacao = findViewById(R.id.anotaAddMamada);
 
         data.setText(dia + "/" + mes + "/" + ano);
 
@@ -179,7 +180,7 @@ public class AddMamadasActivity extends AppCompatActivity {
         }
         int id = GeraIdSingleton.getInstance().geraId(this);
         Mamadas mamadas = new Mamadas("Mamada",id,dia,mes,ano,hInicio,mInicio,0,
-                dia,mes,ano,hTermino,mTermino,0,peito);
+                dia,mes,ano,hTermino,mTermino,0,peito,anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMamadas().add(mamadas);
         HistoricoSingleton.getInstance().saveMamadas(this);

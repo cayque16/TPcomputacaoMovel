@@ -60,6 +60,9 @@ public class FraldasAdapter extends BaseAdapter{
         TextView tv3 = v.findViewById(R.id.adapFraldaMotivo);
         tv3.setText("Motivo: " + fraldas.getMotivo());
 
+        TextView tv4 = v.findViewById(R.id.adapFraldaNota);
+        tv4.setText("Nota: "+fraldas.getAnotacao());
+
         return v;
     }
 

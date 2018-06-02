@@ -64,6 +64,9 @@ public class MedicamentosAdapter extends BaseAdapter {
         TextView tv4 = v.findViewById(R.id.adapMedicamentoNome);
         tv4.setText(medicamentos.getNome());
 
+        TextView tv5 = v.findViewById(R.id.adapMedicamentoNota);
+        tv5.setText("Nota: " + medicamentos.getAnotacao());
+
         return v;
     }
 

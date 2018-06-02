@@ -37,7 +37,7 @@ public class AddOutrosActivity extends AppCompatActivity {
 
         data = findViewById(R.id.dataAddOutroInicio);
         horaInicio = findViewById(R.id.horaAddOutroInicio);
-        nota = findViewById(R.id.notaAddOutro);
+        nota = findViewById(R.id.anotaAddOutro);
 
         dia = cal.get(Calendar.DAY_OF_MONTH);
         mes = cal.get(Calendar.MONTH) + 1;

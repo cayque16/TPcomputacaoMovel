@@ -12,13 +12,13 @@ import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 public class Sonecas extends Atividades {
     private float horasDormidas;
 
-    public Sonecas(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, float horasDormidas) {
-        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino);
+    public Sonecas(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, float horasDormidas,String anotacao) {
+        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino,anotacao);
         this.horasDormidas = horasDormidas;
     }
 
     protected Sonecas(Parcel in) {
-        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt());
+        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(),in.readString());
         this.horasDormidas = in.readFloat();
     }
 
@@ -93,6 +93,7 @@ public class Sonecas extends Atividades {
         parcel.writeInt(getHoraTermino());
         parcel.writeInt(getMinuTermino());
         parcel.writeInt(getSeguTermino());
+        parcel.writeString(getAnotacao());
         parcel.writeFloat(horasDormidas);
     }
 }

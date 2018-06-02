@@ -16,7 +16,7 @@ import br.ufop.cayque.mybabycayque.models.Outros;
  * Created by cayqu on 29/05/2018.
  */
 
-public class OutrosAdapter extends BaseAdapter{
+public class OutrosAdapter extends BaseAdapter {
 
     private ArrayList<Outros> list;
     private Context context;
@@ -58,7 +58,7 @@ public class OutrosAdapter extends BaseAdapter{
         tv2.setText("Hora: " + conversor(outros.getHoraInicio()) + ":" + conversor(outros.getMinuInicio()) + ":" + conversor(outros.getSeguInicio()));
 
         TextView tv3 = v.findViewById(R.id.adapOutroNota);
-        tv3.setText(outros.getNota());
+        tv3.setText("Nota: " + outros.getAnotacao());
 
         return v;
     }

@@ -24,7 +24,7 @@ import br.ufop.cayque.mybabycayque.models.Medicamentos;
 
 public class AddMedicamentosActivity extends AppCompatActivity {
 
-    private EditText data,hora,nome,quanti;
+    private EditText data,hora,nome,quanti,anotacao;
     private Spinner medida;
     private String unidadeSele;
     private static final String[] UNIDADES = {"ml","g","colher","dose","comprimido","unidade","gota"};
@@ -53,6 +53,7 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         nome = findViewById(R.id.nomeAddMedicamento);
         quanti = findViewById(R.id.quantidadeAddMedicamento);
         medida = findViewById(R.id.spinnerAddMedicamentoMedidada);
+        anotacao = findViewById(R.id.anotaAddMedicamento);
 
         inicializaSpinner();
 
@@ -151,7 +152,7 @@ public class AddMedicamentosActivity extends AppCompatActivity {
     public void salvaMedicamento(View view) {
         int id = GeraIdSingleton.getInstance().geraId(this);
         Medicamentos medicamentos = new Medicamentos("Medicamento",id,dia,mes,ano,hInicio,mInicio,0,
-                dia,mes,ano,hInicio,mInicio,0,nome.getText().toString(),unidadeSele,quanti.getText().toString());
+                dia,mes,ano,hInicio,mInicio,0,nome.getText().toString(),unidadeSele,quanti.getText().toString(),anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMedicamentos().add(medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);

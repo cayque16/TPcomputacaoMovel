@@ -25,7 +25,7 @@ import br.ufop.cayque.mybabycayque.models.Mamadeiras;
 
 public class EditMamadeirasActivity extends AppCompatActivity {
 
-    private EditText data, horaI, horaT, quantidade;
+    private EditText data, horaI, horaT, quantidade,anotacao;
     private int dia, mes, ano;
     private int hInicio, mInicio;
     private int hTermino, mTermino;
@@ -56,6 +56,7 @@ public class EditMamadeirasActivity extends AppCompatActivity {
         sim = findViewById(R.id.radioEditButtonSim);
         nao = findViewById(R.id.radioEditButtonNao);
         quantidade = findViewById(R.id.quantidadeEditMamadeira);
+        anotacao = findViewById(R.id.anotaEditMamadeira);
 
         dia = mamadeiras.get(position).getDiaInicio();
         mes = mamadeiras.get(position).getMesInico();
@@ -190,6 +191,7 @@ public class EditMamadeirasActivity extends AppCompatActivity {
             nao.setChecked(true);
         }
 
+        anotacao.setText(mamadeiras.get(position).getAnotacao());
     }
 
     @Override
@@ -209,7 +211,7 @@ public class EditMamadeirasActivity extends AppCompatActivity {
         }
         int id = mamadeiras.get(position).getId();
         Mamadeiras mamadeiras = new Mamadeiras("Mamadeira", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hTermino, mTermino, 0, quanti, tudo);
+                dia, mes, ano, hTermino, mTermino, 0, quanti, tudo,anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMamadeiras().set(position, mamadeiras);
         HistoricoSingleton.getInstance().saveMamadeiras(this);
