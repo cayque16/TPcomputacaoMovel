@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import br.ufop.cayque.mybabycayque.adapters.MamadasAdapter;
 import br.ufop.cayque.mybabycayque.add.AddMamadasActivity;
@@ -44,6 +45,8 @@ public class MamadasFragment extends Fragment {
         fab = view.findViewById(R.id.fabMamadas);
         listView = view.findViewById(R.id.listaMamadas);
 
+        Collections.sort(HistoricoSingleton.getInstance().getMamadas());
+
         listView.setAdapter(new MamadasAdapter(HistoricoSingleton.getInstance().getMamadas(), getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -69,6 +72,7 @@ public class MamadasFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //para atualizar o ListView quando voltar da tela de Add
+        Collections.sort(HistoricoSingleton.getInstance().getMamadas());
         listView.setAdapter(new MamadasAdapter(HistoricoSingleton.getInstance().getMamadas(), getContext()));
     }
 

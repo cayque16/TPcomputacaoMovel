@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Collections;
 import java.util.Date;
 
 import br.ufop.cayque.mybabycayque.adapters.AtividadesAdapter;
@@ -42,13 +43,13 @@ public class HomeFragment extends Fragment {
 
         GeraIdSingleton.loadGeraId(getContext());
 
-        data1 = new Date(1994, 04, 15);
-        data2 = new Date(2018, 06, 02);
-
         HistoricoSingleton.getInstance().loadAtividades(getContext());
+
         dialog = new Dialog(getContext());
 
         listView = view.findViewById(R.id.listaAtividades);
+
+        Collections.sort(HistoricoSingleton.getInstance().getAtividades());
 
         listView.setAdapter(new AtividadesAdapter(HistoricoSingleton.getInstance().getAtividades(), getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,7 +59,7 @@ public class HomeFragment extends Fragment {
 //                    dialog.setContentView(R.layout.dialog);
 //                    dialog.show();
 //                }
-                    
+
             }
         });
 

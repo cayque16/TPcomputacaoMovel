@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 
+import java.util.Collections;
+
 import br.ufop.cayque.mybabycayque.adapters.MedicamentosAdapter;
 import br.ufop.cayque.mybabycayque.add.AddMedicamentosActivity;
 import br.ufop.cayque.mybabycayque.R;
@@ -43,6 +45,8 @@ public class MedicamentosFragment extends Fragment {
         fab = view.findViewById(R.id.fabMedicamentos);
         listView = view.findViewById(R.id.listaMedicamentos);
 
+        Collections.sort(HistoricoSingleton.getInstance().getMedicamentos());
+
         listView.setAdapter(new MedicamentosAdapter(HistoricoSingleton.getInstance().getMedicamentos(), getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,6 +71,7 @@ public class MedicamentosFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        HistoricoSingleton.getInstance().loadMedicamentos(getContext());
         listView.setAdapter(new MedicamentosAdapter(HistoricoSingleton.getInstance().getMedicamentos(), getContext()));
     }
 }

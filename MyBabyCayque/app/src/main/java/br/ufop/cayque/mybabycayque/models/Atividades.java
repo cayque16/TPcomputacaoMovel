@@ -2,6 +2,7 @@ package br.ufop.cayque.mybabycayque.models;
 
 import android.content.Context;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
@@ -9,7 +10,7 @@ import java.io.Serializable;
  * Created by cayqu on 16/05/2018.
  */
 
-public abstract class Atividades implements Parcelable, Serializable {
+public abstract class Atividades implements Parcelable, Serializable,Comparable<Atividades> {
     private String tipo, anotacao;
     private int id;
     private int diaInicio, mesInico, anoInicio;
@@ -159,4 +160,25 @@ public abstract class Atividades implements Parcelable, Serializable {
 
     public abstract void removeHistorico(Context context);
 
+    @Override
+    public int compareTo(@NonNull Atividades a) {
+        if (this.anoInicio < a.anoInicio) {
+            return 1;
+        } else if (this.anoInicio > a.anoInicio) {
+            return -1;
+        } else if (this.anoInicio == a.anoInicio) {
+            if (this.mesInico < a.mesInico) {
+                return 1;
+            } else if (this.mesInico > a.mesInico) {
+                return -1;
+            } else if (this.mesInico == a.mesInico) {
+                if (this.diaInicio < a.diaInicio) {
+                    return 1;
+                } else if (this.diaInicio > a.diaInicio) {
+                    return -1;
+                }
+            }
+        }
+        return 0;
+    }
 }

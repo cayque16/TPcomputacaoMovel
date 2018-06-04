@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.Collections;
+
 import br.ufop.cayque.mybabycayque.adapters.SonecasAdapter;
 import br.ufop.cayque.mybabycayque.add.AddSonecaActivity;
 import br.ufop.cayque.mybabycayque.R;
@@ -43,6 +45,8 @@ public class SonecaFragment extends Fragment {
         fab = view.findViewById(R.id.fabSoneca);
         listView = view.findViewById(R.id.listaSonecas);
 
+        Collections.sort(HistoricoSingleton.getInstance().getSonecas());
+
         listView.setAdapter(new SonecasAdapter(HistoricoSingleton.getInstance().getSonecas(), getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -69,6 +73,7 @@ public class SonecaFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        Collections.sort(HistoricoSingleton.getInstance().getSonecas());
         listView.setAdapter(new SonecasAdapter(HistoricoSingleton.getInstance().getSonecas(), getContext()));
     }
 }

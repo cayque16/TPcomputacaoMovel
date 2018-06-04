@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.Collections;
+
 import br.ufop.cayque.mybabycayque.adapters.MamadeirasAdapter;
 import br.ufop.cayque.mybabycayque.add.AddMamadeirasActivity;
 import br.ufop.cayque.mybabycayque.R;
@@ -43,6 +45,8 @@ public class MamadeirasFragment extends Fragment {
         fab = view.findViewById(R.id.fabMamadeiras);
         listView = view.findViewById(R.id.listaMamadeiras);
 
+        Collections.sort(HistoricoSingleton.getInstance().getMamadeiras());
+
         listView.setAdapter(new MamadeirasAdapter(HistoricoSingleton.getInstance().getMamadeiras(),getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,6 +71,7 @@ public class MamadeirasFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //para atualizar o ListView quando voltar da tela de Add
+        Collections.sort(HistoricoSingleton.getInstance().getMamadeiras());
         listView.setAdapter(new MamadeirasAdapter(HistoricoSingleton.getInstance().getMamadeiras(),getContext()));
     }
 }

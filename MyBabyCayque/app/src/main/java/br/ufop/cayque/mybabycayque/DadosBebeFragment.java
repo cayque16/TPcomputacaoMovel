@@ -18,13 +18,12 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.models.DadosBebe;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class DadosBebeFragment extends Fragment {
 
     private EditText nomeBebe;
@@ -36,7 +35,7 @@ public class DadosBebeFragment extends Fragment {
     private Context context;
     private DatePickerDialog.OnDateSetListener dateDialog;
     Calendar cal = Calendar.getInstance();
-    private int dia,mes,ano;
+    private int dia, mes, ano;
 
     public DadosBebeFragment() {
         // Required empty public constructor
@@ -79,15 +78,15 @@ public class DadosBebeFragment extends Fragment {
                         getContext(),
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         dateDialog,
-                        ano,mes,dia);
+                        ano, mes, dia);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
 
-        dateDialog = new DatePickerDialog.OnDateSetListener(){
+        dateDialog = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker datePicker,int year,int month,int day){
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
                 String date = day + "/" + month + "/" + year;
                 dia = day;
@@ -129,7 +128,7 @@ public class DadosBebeFragment extends Fragment {
         dia = DadosBebe.getInstance().getDiaNasc();
         mes = DadosBebe.getInstance().getMesNasc();
         ano = DadosBebe.getInstance().getAnoNasc();
-        dataNasci.setText(Integer.toString(dia)+"/"+Integer.toString(mes)+"/"+Integer.toString(ano));
+        dataNasci.setText(Integer.toString(dia) + "/" + Integer.toString(mes) + "/" + Integer.toString(ano));
 
         if (DadosBebe.getInstance().getSexo().equals("M")) {
             masc.setChecked(true);

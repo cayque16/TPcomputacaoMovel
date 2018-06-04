@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.Collections;
+
 import br.ufop.cayque.mybabycayque.adapters.FraldasAdapter;
 import br.ufop.cayque.mybabycayque.add.AddFraldaActivity;
 import br.ufop.cayque.mybabycayque.R;
@@ -42,6 +44,8 @@ public class FraldaSujaFragment extends Fragment {
         fab = view.findViewById(R.id.fabFralda);
         listView = view.findViewById(R.id.listaFraldas);
 
+        Collections.sort(HistoricoSingleton.getInstance().getFraldas());
+
         listView.setAdapter(new FraldasAdapter(HistoricoSingleton.getInstance().getFraldas(), getContext()));
        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,6 +72,7 @@ public class FraldaSujaFragment extends Fragment {
     public void onResume() {
         super.onResume();
         //para atualizar o ListView quando voltar da tela de Add
+        Collections.sort(HistoricoSingleton.getInstance().getFraldas());
         listView.setAdapter(new FraldasAdapter(HistoricoSingleton.getInstance().getFraldas(), getContext()));
     }
 }

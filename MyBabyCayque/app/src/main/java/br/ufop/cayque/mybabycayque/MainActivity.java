@@ -15,18 +15,24 @@ import android.widget.TextView;
 
 import br.ufop.cayque.mybabycayque.models.DadosBebe;
 
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private TextView nomeBebe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        nomeBebe = findViewById(R.id.textNavNomeBebe);
+
         setTitle("Home");
 
         DadosBebe.loadBebe(this);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
