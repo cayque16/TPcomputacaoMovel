@@ -179,6 +179,11 @@ public abstract class Atividades implements Parcelable, Serializable,Comparable<
                 }
             }
         }
+        if(this.id > a.id){
+            return -1;
+        } else if(this.id < a.id){
+            return 1;
+        }
         return 0;
     }
 }
