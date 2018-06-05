@@ -13,26 +13,44 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.DadosBebe;
-
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView nomeBebe;
+    private NavigationView navigationView;
+    private View headerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        nomeBebe = findViewById(R.id.textNavNomeBebe);
+        navigationView = findViewById(R.id.nav_view);
+        headerView = navigationView.getHeaderView(0);
+
+        nomeBebe = headerView.findViewById(R.id.textNavNomeBebe);
 
         setTitle("Home");
 
         DadosBebe.loadBebe(this);
 
+        if (DadosBebe.getInstance().getBebeNull() == 1) {
+
+        } else {
+            nomeBebe.setText(DadosBebe.getInstance().getNome());
+        }
+
+        HistoricoSingleton.getInstance().loadAtividades(this);
+        HistoricoSingleton.getInstance().loadOutros(this);
+        HistoricoSingleton.getInstance().loadMedicamentos(this);
+        HistoricoSingleton.getInstance().loadFraldas(this);
+        HistoricoSingleton.getInstance().loadMamadeiras(this);
+        HistoricoSingleton.getInstance().loadMamadas(this);
+        HistoricoSingleton.getInstance().loadSoneca(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

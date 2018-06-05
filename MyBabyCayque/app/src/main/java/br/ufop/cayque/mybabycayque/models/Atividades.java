@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Created by cayqu on 16/05/2018.
  */
 
-public abstract class Atividades implements Parcelable, Serializable,Comparable<Atividades> {
+public abstract class Atividades implements Parcelable, Serializable, Comparable<Atividades> {
     private String tipo, anotacao;
     private int id;
     private int diaInicio, mesInico, anoInicio;
@@ -179,11 +179,21 @@ public abstract class Atividades implements Parcelable, Serializable,Comparable<
                 }
             }
         }
-        if(this.id > a.id){
+        if (this.id > a.id) {
             return -1;
-        } else if(this.id < a.id){
+        } else if (this.id < a.id) {
             return 1;
         }
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Atividades a = (Atividades) obj;
+        return ((this.diaInicio == a.diaInicio) && (this.mesInico == a.mesInico) && (this.anoInicio == a.anoInicio));
+    }
+
+    public boolean comparaData(int d,int m,int a){
+        return ((this.diaInicio == d) && (this.mesInico == m) && (this.anoInicio == a));
     }
 }

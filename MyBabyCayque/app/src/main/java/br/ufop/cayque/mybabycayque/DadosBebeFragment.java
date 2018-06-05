@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -60,6 +62,7 @@ public class DadosBebeFragment extends Fragment {
         fem = view.findViewById(R.id.radioButtonFem);
         btnDadosBebeSalvar = view.findViewById(R.id.btnDadosBebeSalvar);
         btnDadosBebeCancelar = view.findViewById(R.id.btnDadosBebeCancelar);
+
 
         //seta os campos caso o bebe ja exista
         if (DadosBebe.getInstance().getBebeNull() == 1) {

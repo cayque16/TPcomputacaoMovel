@@ -71,7 +71,7 @@ public class MedicamentosFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        HistoricoSingleton.getInstance().loadMedicamentos(getContext());
+        Collections.sort(HistoricoSingleton.getInstance().getMedicamentos());
         listView.setAdapter(new MedicamentosAdapter(HistoricoSingleton.getInstance().getMedicamentos(), getContext()));
     }
 }

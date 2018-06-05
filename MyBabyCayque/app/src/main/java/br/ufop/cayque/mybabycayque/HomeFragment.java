@@ -1,25 +1,43 @@
 package br.ufop.cayque.mybabycayque;
 
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
 import br.ufop.cayque.mybabycayque.adapters.AtividadesAdapter;
+import br.ufop.cayque.mybabycayque.adapters.FraldasAdapter;
+import br.ufop.cayque.mybabycayque.adapters.MamadasAdapter;
+import br.ufop.cayque.mybabycayque.adapters.MamadeirasAdapter;
+import br.ufop.cayque.mybabycayque.adapters.MedicamentosAdapter;
+import br.ufop.cayque.mybabycayque.adapters.OutrosAdapter;
+import br.ufop.cayque.mybabycayque.adapters.SonecasAdapter;
+import br.ufop.cayque.mybabycayque.add.AddMedicamentosActivity;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
+import br.ufop.cayque.mybabycayque.models.Atividades;
 import br.ufop.cayque.mybabycayque.models.Fraldas;
 import br.ufop.cayque.mybabycayque.models.GeraIdSingleton;
 import br.ufop.cayque.mybabycayque.models.Mamadas;
@@ -36,8 +54,18 @@ public class HomeFragment extends Fragment {
 
     private ListView listView;
     private Dialog dialog;
-    private Date data1, data2;
-
+    private Button filtro, confirmar, limpar;
+    private static final String[] TIPOS = {"Todos", "Mamadas", "Mamadeiras", "Fraldas", "Sonecas", "Medicamentos", "Outros"};
+    private String tipoSele;
+    private Spinner tipos;
+    private int dia, mes, ano;
+    private Calendar cal = Calendar.getInstance();
+    private DatePickerDialog.OnDateSetListener dateDialog;
+    private EditText dataFiltro;
+    private CheckBox checkData, checkTipo;
+    private Boolean checkD = false;
+    private Boolean checkT = false;
+    private int spinnerIdx = 0;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -57,6 +85,11 @@ public class HomeFragment extends Fragment {
         dialog = new Dialog(getContext());
 
         listView = view.findViewById(R.id.listaAtividades);
+        filtro = view.findViewById(R.id.buttonFiltro);
+
+        dia = cal.get(Calendar.DAY_OF_MONTH);
+        mes = cal.get(Calendar.MONTH) + 1;
+        ano = cal.get(Calendar.YEAR);
 
         Collections.sort(HistoricoSingleton.getInstance().getAtividades());
 
@@ -147,7 +180,7 @@ public class HomeFragment extends Fragment {
                         nome = dialog.findViewById(R.id.dialogMedicamentoNome);
                         nome.setText(medicamento.getNome());
                         quanti = dialog.findViewById(R.id.dialogMedicamentoQuanti);
-                        quanti.setText(medicamento.getDose()+" "+medicamento.getUnidadeMedi()+"(s)");
+                        quanti.setText(medicamento.getDose() + " " + medicamento.getUnidadeMedi() + "(s)");
                         anotacao = dialog.findViewById(R.id.dialogMedicamentoAnotacao);
                         anotacao.setText(medicamento.getAnotacao());
                         dialog.show();
@@ -168,7 +201,208 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        filtro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dialog != null) {
+                    dialog.setContentView(R.layout.dialog_filtro);
+                    tipos = dialog.findViewById(R.id.spinnerTipos);
+                    dataFiltro = dialog.findViewById(R.id.filtroData);
+                    checkData = dialog.findViewById(R.id.checkData);
+                    checkTipo = dialog.findViewById(R.id.checkTipo);
+                    confirmar = dialog.findViewById(R.id.buttonConfirmarFiltro);
+                    limpar = dialog.findViewById(R.id.buttonLimparFiltro);
+
+                    checkTipo.setChecked(checkT);
+                    checkData.setChecked(checkD);
+
+                    capturaData();
+                    inicializaSpinner();
+                    testaConfirma();
+                    testaLimpa();
+                    dialog.show();
+                }
+            }
+        });
+
         return view;
+    }
+
+    private void testaLimpa() {
+        limpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkD = checkT = false;
+                spinnerIdx = 0;
+                dia = cal.get(Calendar.DAY_OF_MONTH);
+                mes = cal.get(Calendar.MONTH) + 1;
+                ano = cal.get(Calendar.YEAR);
+                listView.setAdapter(new AtividadesAdapter(HistoricoSingleton.getInstance().getAtividades(), getContext()));
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void testaConfirma() {
+        confirmar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkTipo.isChecked()) {
+                    checkT = true;
+                    if (tipoSele.equals(TIPOS[0])) {
+                        Collections.sort(HistoricoSingleton.getInstance().getAtividades());
+                        listView.setAdapter(new AtividadesAdapter(HistoricoSingleton.getInstance().getAtividades(), getContext()));
+                    } else if (tipoSele.equals(TIPOS[1])) {
+                        Collections.sort(HistoricoSingleton.getInstance().getMamadas());
+                        listView.setAdapter(new MamadasAdapter(HistoricoSingleton.getInstance().getMamadas(), getContext()));
+                    } else if (tipoSele.equals(TIPOS[2])) {
+                        Collections.sort(HistoricoSingleton.getInstance().getMamadeiras());
+                        listView.setAdapter(new MamadeirasAdapter(HistoricoSingleton.getInstance().getMamadeiras(), getContext()));
+                    } else if (tipoSele.equals(TIPOS[3])) {
+                        Collections.sort(HistoricoSingleton.getInstance().getFraldas());
+                        listView.setAdapter(new FraldasAdapter(HistoricoSingleton.getInstance().getFraldas(), getContext()));
+                    } else if (tipoSele.equals(TIPOS[4])) {
+                        Collections.sort(HistoricoSingleton.getInstance().getSonecas());
+                        listView.setAdapter(new SonecasAdapter(HistoricoSingleton.getInstance().getSonecas(), getContext()));
+                    } else if (tipoSele.equals(TIPOS[5])) {
+                        Collections.sort(HistoricoSingleton.getInstance().getMedicamentos());
+                        listView.setAdapter(new MedicamentosAdapter(HistoricoSingleton.getInstance().getMedicamentos(), getContext()));
+                    } else if (tipoSele.equals(TIPOS[6])) {
+                        Collections.sort(HistoricoSingleton.getInstance().getOutros());
+                        listView.setAdapter(new OutrosAdapter(HistoricoSingleton.getInstance().getOutros(), getContext()));
+                    }
+                    if (checkData.isChecked()) {
+                        buscaData(spinnerIdx);
+                    }
+                } else {
+                    checkT = false;
+                }
+
+                if ((checkData.isChecked()) && !(checkTipo.isChecked())) {
+                    checkD = true;
+                    buscaData();
+                } else {
+                    checkD = false;
+                }
+                dialog.dismiss();
+            }
+        });
+    }
+
+    private void buscaData() {
+        ArrayList<Atividades> listaAux0 = new ArrayList<>();
+        listaAux0.clear();
+        for (int i = 0; i < HistoricoSingleton.getInstance().getAtividades().size(); i++) {
+            if (HistoricoSingleton.getInstance().getAtividades().get(i).comparaData(dia, mes, ano)) {
+                listaAux0.add(HistoricoSingleton.getInstance().getAtividades().get(i));
+            }
+            listView.setAdapter(new AtividadesAdapter(listaAux0, getContext()));
+        }
+    }
+
+    private void buscaData(int spinnerIdx) {
+        ArrayList<Atividades> listaAux0 = new ArrayList<>();
+        ArrayList<Mamadas> listaAux1 = new ArrayList<>();
+        ArrayList<Mamadeiras> listaAux2 = new ArrayList<>();
+        ArrayList<Fraldas> listaAux3 = new ArrayList<>();
+        ArrayList<Sonecas> listaAux4 = new ArrayList<>();
+        ArrayList<Medicamentos> listaAux5 = new ArrayList<>();
+        ArrayList<Outros> listaAux6 = new ArrayList<>();
+
+        switch (spinnerIdx) {
+            case 0:
+                listaAux0.clear();
+                for (int i = 0; i < HistoricoSingleton.getInstance().getAtividades().size(); i++) {
+                    if (HistoricoSingleton.getInstance().getAtividades().get(i).comparaData(dia, mes, ano)) {
+                        listaAux0.add(HistoricoSingleton.getInstance().getAtividades().get(i));
+                    }
+                    listView.setAdapter(new AtividadesAdapter(listaAux0, getContext()));
+                }
+                break;
+            case 1:
+                listaAux1.clear();
+                for (int i = 0; i < HistoricoSingleton.getInstance().getMamadas().size(); i++) {
+                    if (HistoricoSingleton.getInstance().getMamadas().get(i).comparaData(dia, mes, ano)) {
+                        listaAux1.add(HistoricoSingleton.getInstance().getMamadas().get(i));
+                    }
+                    listView.setAdapter(new MamadasAdapter(listaAux1, getContext()));
+                }
+                break;
+            case 2:
+                listaAux2.clear();
+                for (int i = 0; i < HistoricoSingleton.getInstance().getMamadeiras().size(); i++) {
+                    if (HistoricoSingleton.getInstance().getMamadeiras().get(i).comparaData(dia, mes, ano)) {
+                        listaAux2.add(HistoricoSingleton.getInstance().getMamadeiras().get(i));
+                    }
+                    listView.setAdapter(new MamadeirasAdapter(listaAux2, getContext()));
+                }
+                break;
+            case 3:
+                listaAux3.clear();
+                for (int i = 0; i < HistoricoSingleton.getInstance().getFraldas().size(); i++) {
+                    if (HistoricoSingleton.getInstance().getFraldas().get(i).comparaData(dia, mes, ano)) {
+                        listaAux3.add(HistoricoSingleton.getInstance().getFraldas().get(i));
+                    }
+                    listView.setAdapter(new FraldasAdapter(listaAux3, getContext()));
+                }
+                break;
+            case 4:
+                listaAux4.clear();
+                for (int i = 0; i < HistoricoSingleton.getInstance().getSonecas().size(); i++) {
+                    if (HistoricoSingleton.getInstance().getSonecas().get(i).comparaData(dia, mes, ano)) {
+                        listaAux4.add(HistoricoSingleton.getInstance().getSonecas().get(i));
+                    }
+                    listView.setAdapter(new SonecasAdapter(listaAux4, getContext()));
+                }
+                break;
+            case 5:
+                listaAux5.clear();
+                for (int i = 0; i < HistoricoSingleton.getInstance().getMedicamentos().size(); i++) {
+                    if (HistoricoSingleton.getInstance().getMedicamentos().get(i).comparaData(dia, mes, ano)) {
+                        listaAux5.add(HistoricoSingleton.getInstance().getMedicamentos().get(i));
+                    }
+                    listView.setAdapter(new MedicamentosAdapter(listaAux5, getContext()));
+                }
+                break;
+            default:
+                listaAux6.clear();
+                for (int i = 0; i < HistoricoSingleton.getInstance().getOutros().size(); i++) {
+                    if (HistoricoSingleton.getInstance().getOutros().get(i).comparaData(dia, mes, ano)) {
+                        listaAux6.add(HistoricoSingleton.getInstance().getOutros().get(i));
+                    }
+                    listView.setAdapter(new OutrosAdapter(listaAux6, getContext()));
+                }
+                break;
+        }
+    }
+
+    private void capturaData() {
+        dataFiltro.setText(conversor(dia) + "/" + conversor(mes) + "/" + conversor(ano));
+        dataFiltro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog dialog = new DatePickerDialog(
+                        getContext(),
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        dateDialog,
+                        ano, mes, dia);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+        dateDialog = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                String date = conversor(day) + "/" + conversor(month) + "/" + conversor(month);
+
+                dia = day;
+                mes = month;
+                ano = year;
+
+                dataFiltro.setText(date);
+            }
+        };
     }
 
     @Override
@@ -184,5 +418,23 @@ public class HomeFragment extends Fragment {
             return temp + valor;
         }
         return Integer.toString(valor);
+    }
+
+    private void inicializaSpinner() {
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, TIPOS);
+        tipos.setAdapter(adapterSpinner);
+        tipos.setSelection(spinnerIdx);
+        tipos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                tipoSele = TIPOS[i];
+                spinnerIdx = i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 }
