@@ -272,6 +272,7 @@ public class HomeFragment extends Fragment {
                         listView.setAdapter(new OutrosAdapter(HistoricoSingleton.getInstance().getOutros(), getContext()));
                     }
                     if (checkData.isChecked()) {
+                        checkD = true;
                         buscaData(spinnerIdx);
                     }
                 } else {
@@ -281,7 +282,7 @@ public class HomeFragment extends Fragment {
                 if ((checkData.isChecked()) && !(checkTipo.isChecked())) {
                     checkD = true;
                     buscaData();
-                } else {
+                } else if (!checkTipo.isChecked()) {
                     checkD = false;
                 }
                 dialog.dismiss();
