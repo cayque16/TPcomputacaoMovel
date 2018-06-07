@@ -395,7 +395,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month = month + 1;
-                String date = conversor(day) + "/" + conversor(month) + "/" + conversor(month);
+                String date = conversor(day) + "/" + conversor(month) + "/" + conversor(year);
 
                 dia = day;
                 mes = month;
