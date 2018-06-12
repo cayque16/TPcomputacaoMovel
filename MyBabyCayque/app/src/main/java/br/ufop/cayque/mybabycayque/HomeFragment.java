@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -66,6 +67,7 @@ public class HomeFragment extends Fragment {
     private Boolean checkD = false;
     private Boolean checkT = false;
     private int spinnerIdx = 0;
+    private TextView textVazia;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -86,12 +88,19 @@ public class HomeFragment extends Fragment {
 
         listView = view.findViewById(R.id.listaAtividades);
         filtro = view.findViewById(R.id.buttonFiltro);
+        textVazia = view.findViewById(R.id.textVazia);
 
         dia = cal.get(Calendar.DAY_OF_MONTH);
         mes = cal.get(Calendar.MONTH) + 1;
         ano = cal.get(Calendar.YEAR);
 
         Collections.sort(HistoricoSingleton.getInstance().getAtividades());
+
+        if (HistoricoSingleton.getInstance().getAtividades().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
 
         listView.setAdapter(new AtividadesAdapter(HistoricoSingleton.getInstance().getAtividades(), getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
