@@ -8,3 +8,5 @@ As especificações completas do app podem ser visualizadas [aqui](https://drive
 Mas de maneira geral, ele permite gerenciar diversas atividades relacionadas aos cuidados de um bebê.
 
 ## Telas do App
+
+![Banana](https://image.ibb.co/bGqvCy/Screenshot_20180614_081304.jpg)
