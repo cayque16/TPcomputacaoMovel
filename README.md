@@ -9,4 +9,6 @@ Mas de maneira geral, ele permite gerenciar diversas atividades relacionadas aos
 
 ## Telas do App
 
-![Banana](https://image.ibb.co/bGqvCy/Screenshot_20180614_081304.jpg)
+![Menu lateral](/Screenshots/menu.jpg)
+![Lista](/Screenshots/list.jpg)
+![Adição](/Screenshots/add.jpg)
