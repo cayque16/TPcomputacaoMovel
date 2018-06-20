@@ -22,6 +22,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -36,7 +38,12 @@ import br.ufop.cayque.mybabycayque.adapters.MamadeirasAdapter;
 import br.ufop.cayque.mybabycayque.adapters.MedicamentosAdapter;
 import br.ufop.cayque.mybabycayque.adapters.OutrosAdapter;
 import br.ufop.cayque.mybabycayque.adapters.SonecasAdapter;
+import br.ufop.cayque.mybabycayque.add.AddFraldaActivity;
+import br.ufop.cayque.mybabycayque.add.AddMamadasActivity;
+import br.ufop.cayque.mybabycayque.add.AddMamadeirasActivity;
 import br.ufop.cayque.mybabycayque.add.AddMedicamentosActivity;
+import br.ufop.cayque.mybabycayque.add.AddOutrosActivity;
+import br.ufop.cayque.mybabycayque.add.AddSonecaActivity;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.Atividades;
 import br.ufop.cayque.mybabycayque.models.Fraldas;
@@ -68,6 +75,8 @@ public class HomeFragment extends Fragment {
     private Boolean checkT = false;
     private int spinnerIdx = 0;
     private TextView textVazia;
+    private FloatingActionButton fabMamada,fabMamadeira,fabFralda,fabSoneca;
+    private FloatingActionButton fabMedicamento,fabOutro;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -89,6 +98,12 @@ public class HomeFragment extends Fragment {
         listView = view.findViewById(R.id.listaAtividades);
         filtro = view.findViewById(R.id.buttonFiltro);
         textVazia = view.findViewById(R.id.textVazia);
+        fabMamada = view.findViewById(R.id.menu_item_mamada);
+        fabMamadeira = view.findViewById(R.id.menu_item_mamadeira);
+        fabFralda = view.findViewById(R.id.menu_item_fralda);
+        fabSoneca = view.findViewById(R.id.menu_item_soneca);
+        fabMedicamento = view.findViewById(R.id.menu_item_medicamento);
+        fabOutro = view.findViewById(R.id.menu_item_outro);
 
         dia = cal.get(Calendar.DAY_OF_MONTH);
         mes = cal.get(Calendar.MONTH) + 1;
@@ -231,6 +246,54 @@ public class HomeFragment extends Fragment {
                     testaLimpa();
                     dialog.show();
                 }
+            }
+        });
+
+        fabMamada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getContext(), AddMamadasActivity.class);
+                startActivity(it);
+            }
+        });
+
+        fabMamadeira.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getContext(), AddMamadeirasActivity.class);
+                startActivity(it);
+            }
+        });
+
+        fabFralda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getContext(), AddFraldaActivity.class);
+                startActivity(it);
+            }
+        });
+
+        fabSoneca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getContext(), AddSonecaActivity.class);
+                startActivity(it);
+            }
+        });
+
+        fabMedicamento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getContext(), AddMedicamentosActivity.class);
+                startActivity(it);
+            }
+        });
+
+        fabOutro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getContext(), AddOutrosActivity.class);
+                startActivity(it);
             }
         });
 
