@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -24,15 +26,19 @@ import br.ufop.cayque.mybabycayque.models.Medicamentos;
 
 public class AddMedicamentosActivity extends AppCompatActivity {
 
-    private EditText data,hora,nome,quanti,anotacao;
-    private Spinner medida;
+    private EditText data, hora, nome, quanti, anotacao;
+    private Spinner medida, frequencia;
     private String unidadeSele;
-    private static final String[] UNIDADES = {"ml","g","colher","dose","comprimido","unidade","gota"};
+    private static final String[] UNIDADES = {"ml", "g", "colher", "dose", "comprimido", "unidade", "gota"};
+    private static final String[] FREQUENCIAS = {"Todo dia", "De 12 em 12 horas", "De 8 em 8 horas", "De 6 em 6 horas", "De 4 em 4 horas"};
     private int dia, mes, ano;
-    private int hInicio,mInicio;
+    private int hInicio, mInicio;
     private Calendar cal = Calendar.getInstance();
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
+    private Switch notificar;
+    private int frequenciaNotifica;
+    private TextView textoNotifica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +60,12 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         quanti = findViewById(R.id.quantidadeAddMedicamento);
         medida = findViewById(R.id.spinnerAddMedicamentoMedidada);
         anotacao = findViewById(R.id.anotaAddMedicamento);
+        frequencia = findViewById(R.id.spinnerAddMedicamentoFrequencia);
+        notificar = findViewById(R.id.switchNotificacao);
+        textoNotifica = findViewById(R.id.textNotifica);
 
-        inicializaSpinner();
+        inicializaSpinnerUnidades();
+        inicializaSpinnerFrequencias();
 
         data.setText(dia + "/" + mes + "/" + ano);
 
@@ -127,13 +137,30 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         };
     }
 
-    private void inicializaSpinner() {
-        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,UNIDADES);
+    private void inicializaSpinnerUnidades() {
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, UNIDADES);
         medida.setAdapter(adapterSpinner);
         medida.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 unidadeSele = UNIDADES[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void inicializaSpinnerFrequencias() {
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, FREQUENCIAS);
+        frequencia.setAdapter(adapterSpinner);
+        frequencia.setEnabled(false); //começa com o spinner desabilitado
+        frequencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
             }
 
             @Override
@@ -151,13 +178,23 @@ public class AddMedicamentosActivity extends AppCompatActivity {
 
     public void salvaMedicamento(View view) {
         int id = GeraIdSingleton.getInstance().geraId(this);
-        Medicamentos medicamentos = new Medicamentos("Medicamento",id,dia,mes,ano,hInicio,mInicio,0,
-                dia,mes,ano,hInicio,mInicio,0,nome.getText().toString(),unidadeSele,quanti.getText().toString(),anotacao.getText().toString());
+        Medicamentos medicamentos = new Medicamentos("Medicamento", id, dia, mes, ano, hInicio, mInicio, 0,
+                dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMedicamentos().add(medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);
         medicamentos.addHistorico(this);
         Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    public void habilitaNotificacao(View view) {
+        if (notificar.isChecked()) {
+            textoNotifica.setEnabled(true);
+            frequencia.setEnabled(true);
+        } else {
+            textoNotifica.setEnabled(false);
+            frequencia.setEnabled(false);
+        }
     }
 }

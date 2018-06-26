@@ -1,0 +1,6 @@
+Botão add na tela home (lista de atividades)
+Mostrar texto de que a lista está vazia quando estiver
+Colocar onClick do item de atividade para abrir sua tela de edição
+Tirar texto ao lado do filtro (desenecessário)
+Tirar segundos do horário
+Carregar hora atual no TimePicker
