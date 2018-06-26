@@ -178,8 +178,13 @@ public class AddMedicamentosActivity extends AppCompatActivity {
 
     public void salvaMedicamento(View view) {
         int id = GeraIdSingleton.getInstance().geraId(this);
+        int notifica;
+        if (notificar.isChecked())
+            notifica = 1;
+        else
+            notifica = 0;
         Medicamentos medicamentos = new Medicamentos("Medicamento", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString());
+                dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(),notifica);
 
         HistoricoSingleton.getInstance().getMedicamentos().add(medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);

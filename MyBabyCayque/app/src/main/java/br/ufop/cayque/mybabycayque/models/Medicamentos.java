@@ -13,19 +13,22 @@ public class Medicamentos extends Atividades {
     private String nome;
     private String unidadeMedi;
     private String dose;
+    private int notificacao; //1 sim 0 nao
 
-    public Medicamentos(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String nome, String unidadeMedi, String dose,String anotacao) {
-        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino,anotacao);
+    public Medicamentos(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String nome, String unidadeMedi, String dose, String anotacao, int notificacao) {
+        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino, anotacao);
         this.nome = nome;
         this.unidadeMedi = unidadeMedi;
         this.dose = dose;
+        this.notificacao = notificacao;
     }
 
     protected Medicamentos(Parcel in) {
-        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(),in.readString());
+        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readString());
         this.nome = in.readString();
         this.unidadeMedi = in.readString();
         this.dose = in.readString();
+        this.notificacao = in.readInt();
     }
 
     public static final Creator<Mamadeiras> CREATOR = new Creator<Mamadeiras>() {
@@ -64,6 +67,14 @@ public class Medicamentos extends Atividades {
         this.dose = dose;
     }
 
+    public int getNotificacao() {
+        return notificacao;
+    }
+
+    public void setNotificacao(int notificacao) {
+        this.notificacao = notificacao;
+    }
+
     @Override
     public void addHistorico(Context context) {
         HistoricoSingleton.getInstance().getAtividades().add(this);
@@ -74,8 +85,8 @@ public class Medicamentos extends Atividades {
     public void editHistorico(Context context) {
         int sizeArray = HistoricoSingleton.getInstance().getAtividades().size();
         for (int i = 0; i < sizeArray; i++) {
-            if (HistoricoSingleton.getInstance().getAtividades().get(i).getId() == this.getId()){
-                HistoricoSingleton.getInstance().getAtividades().set(i,this);
+            if (HistoricoSingleton.getInstance().getAtividades().get(i).getId() == this.getId()) {
+                HistoricoSingleton.getInstance().getAtividades().set(i, this);
                 HistoricoSingleton.getInstance().saveAtividades(context);
                 break;
             }
@@ -86,7 +97,7 @@ public class Medicamentos extends Atividades {
     public void removeHistorico(Context context) {
         int sizeArray = HistoricoSingleton.getInstance().getAtividades().size();
         for (int i = 0; i < sizeArray; i++) {
-            if (HistoricoSingleton.getInstance().getAtividades().get(i).getId() == this.getId()){
+            if (HistoricoSingleton.getInstance().getAtividades().get(i).getId() == this.getId()) {
                 HistoricoSingleton.getInstance().getAtividades().remove(i);
                 HistoricoSingleton.getInstance().saveAtividades(context);
                 break;
@@ -119,5 +130,6 @@ public class Medicamentos extends Atividades {
         parcel.writeString(nome);
         parcel.writeString(unidadeMedi);
         parcel.writeString(dose);
+        parcel.writeInt(notificacao);
     }
 }
