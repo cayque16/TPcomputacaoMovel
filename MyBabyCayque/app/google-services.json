@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "621271221736",
+    "firebase_url": "https://mybabycayque.firebaseio.com",
+    "project_id": "mybabycayque",
+    "storage_bucket": "mybabycayque.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621271221736:android:73cea8f4c2181e4e",
+        "android_client_info": {
+          "package_name": "br.ufop.cayque.mybabycayque"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "621271221736-3gvgrtn7924pn8qg8gibuj19ikt20t0q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0cHQaXRXnlvyTe_zKinA2qN_G-LnQPvk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
