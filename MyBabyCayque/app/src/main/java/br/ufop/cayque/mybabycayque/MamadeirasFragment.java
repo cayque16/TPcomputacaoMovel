@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.Collections;
 
@@ -28,6 +29,7 @@ public class MamadeirasFragment extends Fragment {
 
     private FloatingActionButton fab;
     private ListView listView;
+    private TextView textVazia;
 
     public MamadeirasFragment() {
         // Required empty public constructor
@@ -44,22 +46,29 @@ public class MamadeirasFragment extends Fragment {
 
         fab = view.findViewById(R.id.fabMamadeiras);
         listView = view.findViewById(R.id.listaMamadeiras);
+        textVazia = view.findViewById(R.id.textMamadeirasVazia);
 
         Collections.sort(HistoricoSingleton.getInstance().getMamadeiras());
 
-        listView.setAdapter(new MamadeirasAdapter(HistoricoSingleton.getInstance().getMamadeiras(),getContext()));
+        if (HistoricoSingleton.getInstance().getMamadeiras().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
+
+        listView.setAdapter(new MamadeirasAdapter(HistoricoSingleton.getInstance().getMamadeiras(), getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent it = new Intent(getContext(), EditMamadeirasActivity.class);
-                it.putExtra("position",i);
+                it.putExtra("position", i);
                 startActivity(it);
             }
         });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getContext(),AddMamadeirasActivity.class);
+                Intent it = new Intent(getContext(), AddMamadeirasActivity.class);
                 startActivity(it);
             }
         });
@@ -72,6 +81,11 @@ public class MamadeirasFragment extends Fragment {
         super.onResume();
         //para atualizar o ListView quando voltar da tela de Add
         Collections.sort(HistoricoSingleton.getInstance().getMamadeiras());
-        listView.setAdapter(new MamadeirasAdapter(HistoricoSingleton.getInstance().getMamadeiras(),getContext()));
+        listView.setAdapter(new MamadeirasAdapter(HistoricoSingleton.getInstance().getMamadeiras(), getContext()));
+        if (HistoricoSingleton.getInstance().getMamadeiras().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
     }
 }

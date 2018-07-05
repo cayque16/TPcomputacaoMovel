@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,6 +29,7 @@ public class MamadasFragment extends Fragment {
 
     private FloatingActionButton fab;
     private ListView listView;
+    private TextView textVazia;
 
     public MamadasFragment() {
         // Required empty public constructor
@@ -44,8 +46,15 @@ public class MamadasFragment extends Fragment {
 
         fab = view.findViewById(R.id.fabMamadas);
         listView = view.findViewById(R.id.listaMamadas);
+        textVazia = view.findViewById(R.id.textMamadasVazia);
 
         Collections.sort(HistoricoSingleton.getInstance().getMamadas());
+
+        if (HistoricoSingleton.getInstance().getMamadas().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
 
         listView.setAdapter(new MamadasAdapter(HistoricoSingleton.getInstance().getMamadas(), getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -74,6 +83,11 @@ public class MamadasFragment extends Fragment {
         //para atualizar o ListView quando voltar da tela de Add
         Collections.sort(HistoricoSingleton.getInstance().getMamadas());
         listView.setAdapter(new MamadasAdapter(HistoricoSingleton.getInstance().getMamadas(), getContext()));
+        if (HistoricoSingleton.getInstance().getMamadas().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
     }
 
 }

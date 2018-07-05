@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.Collections;
 
@@ -27,6 +28,7 @@ public class SonecaFragment extends Fragment {
 
     private FloatingActionButton fab;
     private ListView listView;
+    private TextView textVazia;
 
     public SonecaFragment() {
         // Required empty public constructor
@@ -44,15 +46,22 @@ public class SonecaFragment extends Fragment {
 
         fab = view.findViewById(R.id.fabSoneca);
         listView = view.findViewById(R.id.listaSonecas);
+        textVazia = view.findViewById(R.id.textSonecasVazia);
 
         Collections.sort(HistoricoSingleton.getInstance().getSonecas());
+
+        if (HistoricoSingleton.getInstance().getSonecas().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
 
         listView.setAdapter(new SonecasAdapter(HistoricoSingleton.getInstance().getSonecas(), getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent it = new Intent(getContext(), EditSonecasActivity.class);
-                it.putExtra("position",i);
+                it.putExtra("position", i);
                 startActivity(it);
             }
         });
@@ -62,7 +71,7 @@ public class SonecaFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getContext(),AddSonecaActivity.class);
+                Intent it = new Intent(getContext(), AddSonecaActivity.class);
                 startActivity(it);
             }
         });
@@ -75,5 +84,10 @@ public class SonecaFragment extends Fragment {
         super.onResume();
         Collections.sort(HistoricoSingleton.getInstance().getSonecas());
         listView.setAdapter(new SonecasAdapter(HistoricoSingleton.getInstance().getSonecas(), getContext()));
+        if (HistoricoSingleton.getInstance().getOutros().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
     }
 }

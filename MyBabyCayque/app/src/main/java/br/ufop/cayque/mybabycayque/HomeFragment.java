@@ -20,16 +20,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 
 import br.ufop.cayque.mybabycayque.adapters.AtividadesAdapter;
 import br.ufop.cayque.mybabycayque.adapters.FraldasAdapter;
@@ -97,7 +93,7 @@ public class HomeFragment extends Fragment {
 
         listView = view.findViewById(R.id.listaAtividades);
         filtro = view.findViewById(R.id.buttonFiltro);
-        textVazia = view.findViewById(R.id.textVazia);
+        textVazia = view.findViewById(R.id.textHomeVazia);
         fabMamada = view.findViewById(R.id.menu_item_mamada);
         fabMamadeira = view.findViewById(R.id.menu_item_mamadeira);
         fabFralda = view.findViewById(R.id.menu_item_fralda);

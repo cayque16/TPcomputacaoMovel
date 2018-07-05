@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.Collections;
 
@@ -27,6 +28,7 @@ public class OutrosFragment extends Fragment {
 
     private FloatingActionButton fab;
     private ListView listView;
+    private TextView textVazia;
 
     public OutrosFragment() {
         // Required empty public constructor
@@ -43,15 +45,22 @@ public class OutrosFragment extends Fragment {
 
         fab = view.findViewById(R.id.fabOutros);
         listView = view.findViewById(R.id.listaOutros);
+        textVazia = view.findViewById(R.id.textOutrosVazia);
 
         Collections.sort(HistoricoSingleton.getInstance().getOutros());
+
+        if (HistoricoSingleton.getInstance().getOutros().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
 
         listView.setAdapter(new OutrosAdapter(HistoricoSingleton.getInstance().getOutros(), getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent it = new Intent(getContext(), EditOutrosActivity.class);
-                it.putExtra("position",i);
+                it.putExtra("position", i);
                 startActivity(it);
             }
         });
@@ -59,7 +68,7 @@ public class OutrosFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getContext(),AddOutrosActivity.class);
+                Intent it = new Intent(getContext(), AddOutrosActivity.class);
                 startActivity(it);
             }
         });
@@ -73,5 +82,10 @@ public class OutrosFragment extends Fragment {
         //para atualizar o ListView quando voltar da tela de Add
         Collections.sort(HistoricoSingleton.getInstance().getOutros());
         listView.setAdapter(new OutrosAdapter(HistoricoSingleton.getInstance().getOutros(), getContext()));
+        if (HistoricoSingleton.getInstance().getOutros().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
     }
 }

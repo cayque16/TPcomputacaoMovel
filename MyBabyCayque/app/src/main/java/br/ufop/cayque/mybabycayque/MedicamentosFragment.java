@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import java.util.Collections;
@@ -28,6 +29,7 @@ public class MedicamentosFragment extends Fragment {
 
     public FloatingActionButton fab;
     private ListView listView;
+    private TextView textVazia;
 
     public MedicamentosFragment() {
         // Required empty public constructor
@@ -44,15 +46,22 @@ public class MedicamentosFragment extends Fragment {
 
         fab = view.findViewById(R.id.fabMedicamentos);
         listView = view.findViewById(R.id.listaMedicamentos);
+        textVazia = view.findViewById(R.id.textMedicamentosVazia);
 
         Collections.sort(HistoricoSingleton.getInstance().getMedicamentos());
+
+        if (HistoricoSingleton.getInstance().getMedicamentos().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
 
         listView.setAdapter(new MedicamentosAdapter(HistoricoSingleton.getInstance().getMedicamentos(), getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent it = new Intent(getContext(), EditMedicamentosActivity.class);
-                it.putExtra("position",i);
+                it.putExtra("position", i);
                 startActivity(it);
             }
         });
@@ -73,5 +82,10 @@ public class MedicamentosFragment extends Fragment {
         super.onResume();
         Collections.sort(HistoricoSingleton.getInstance().getMedicamentos());
         listView.setAdapter(new MedicamentosAdapter(HistoricoSingleton.getInstance().getMedicamentos(), getContext()));
+        if (HistoricoSingleton.getInstance().getMedicamentos().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
     }
 }

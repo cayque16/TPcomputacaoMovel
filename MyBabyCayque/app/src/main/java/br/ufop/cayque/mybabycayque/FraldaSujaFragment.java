@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.Collections;
 
 import br.ufop.cayque.mybabycayque.adapters.FraldasAdapter;
 import br.ufop.cayque.mybabycayque.add.AddFraldaActivity;
-import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.edit.EditFraldasActivity;
 
@@ -27,6 +27,7 @@ public class FraldaSujaFragment extends Fragment {
 
     private FloatingActionButton fab;
     private ListView listView;
+    private TextView textVazia;
 
     public FraldaSujaFragment() {
         // Required empty public constructor
@@ -43,15 +44,22 @@ public class FraldaSujaFragment extends Fragment {
 
         fab = view.findViewById(R.id.fabFralda);
         listView = view.findViewById(R.id.listaFraldas);
+        textVazia = view.findViewById(R.id.textFraldasVazia);
 
         Collections.sort(HistoricoSingleton.getInstance().getFraldas());
 
+        if (HistoricoSingleton.getInstance().getFraldas().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
+
         listView.setAdapter(new FraldasAdapter(HistoricoSingleton.getInstance().getFraldas(), getContext()));
-       listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent it = new Intent(getContext(), EditFraldasActivity.class);
-                it.putExtra("position",i);
+                it.putExtra("position", i);
                 startActivity(it);
             }
         });
@@ -59,7 +67,7 @@ public class FraldaSujaFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(getContext(),AddFraldaActivity.class);
+                Intent it = new Intent(getContext(), AddFraldaActivity.class);
                 startActivity(it);
             }
         });
@@ -74,5 +82,10 @@ public class FraldaSujaFragment extends Fragment {
         //para atualizar o ListView quando voltar da tela de Add
         Collections.sort(HistoricoSingleton.getInstance().getFraldas());
         listView.setAdapter(new FraldasAdapter(HistoricoSingleton.getInstance().getFraldas(), getContext()));
+        if (HistoricoSingleton.getInstance().getFraldas().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
     }
 }

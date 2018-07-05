@@ -15,6 +15,15 @@
 
     </ListView>
 
+    <TextView
+        android:id="@+id/textMamadeirasVazia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Lista de mamadeiras vazia! Clique em +"
+        android:textSize="20dp"
+        android:visibility="invisible" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabMamadeiras"
         android:layout_width="wrap_content"
