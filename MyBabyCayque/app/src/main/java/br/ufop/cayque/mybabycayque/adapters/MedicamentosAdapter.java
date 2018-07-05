@@ -67,6 +67,29 @@ public class MedicamentosAdapter extends BaseAdapter {
         TextView tv5 = v.findViewById(R.id.adapMedicamentoNota);
         tv5.setText("Nota: " + medicamentos.getAnotacao());
 
+        TextView tv6 = v.findViewById(R.id.adapMedicamentoNotifica);
+        if(medicamentos.getNotificacao() == 0){
+            tv6.setText("Dose única");
+        } else {
+            switch (medicamentos.getFrequenciaNotifica()) {
+                case Medicamentos.TODO_DIA:
+                    tv6.setText("Todo dia");
+                    break;
+                case Medicamentos.DOZE_EM_DOZE:
+                    tv6.setText("De 12 em 12 horas");
+                    break;
+                case Medicamentos.OITO_EM_OITO:
+                    tv6.setText("De 8 em 8 horas");
+                    break;
+                case Medicamentos.SEIS_EM_SEIS:
+                    tv6.setText("De 6 em 6 horas");
+                    break;
+                case Medicamentos.QUATRO_EM_QUATRO:
+                    tv6.setText("De 4 em 4 horas");
+                    break;
+            }
+        }
+
         return v;
     }
 

@@ -10,11 +10,11 @@ import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
  */
 
 public class Medicamentos extends Atividades {
-    private static final int QUATRO_EM_QUATRO = 6;
-    private static final int SEIS_EM_SEIS = 4;
-    private static final int OITO_EM_OITO = 3;
-    private static final int DOZE_EM_DOZE = 2;
-    private static final int TODO_DIA = 1;
+    public static final int QUATRO_EM_QUATRO = 6;
+    public static final int SEIS_EM_SEIS = 4;
+    public static final int OITO_EM_OITO = 3;
+    public static final int DOZE_EM_DOZE = 2;
+    public static final int TODO_DIA = 1;
 
     private String nome;
     private String unidadeMedi;

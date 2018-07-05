@@ -172,6 +172,28 @@ public class EditMedicamentosActivity extends AppCompatActivity {
             frequencia.setEnabled(false);
         }
         inicializaSpinnerFrequencias();
+        frequenciaNotifica = medicamentos.get(position).getFrequenciaNotifica();
+        setaSpinnerFrequencias();
+    }
+
+    private void setaSpinnerFrequencias() {
+        switch (frequenciaNotifica) {
+            case Medicamentos.TODO_DIA:
+                frequencia.setSelection(0);
+                break;
+            case Medicamentos.DOZE_EM_DOZE:
+                frequencia.setSelection(1);
+                break;
+            case Medicamentos.OITO_EM_OITO:
+                frequencia.setSelection(2);
+                break;
+            case Medicamentos.SEIS_EM_SEIS:
+                frequencia.setSelection(3);
+                break;
+            case Medicamentos.QUATRO_EM_QUATRO:
+                frequencia.setSelection(4);
+                break;
+        }
     }
 
     private void inicializaSpinnerUnidades() {
@@ -249,20 +271,20 @@ public class EditMedicamentosActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 switch (i) {
+                    case 0:
+                        frequenciaNotifica = Medicamentos.TODO_DIA;
+                        break;
                     case 1:
-                        frequenciaNotifica = 1;
+                        frequenciaNotifica = Medicamentos.DOZE_EM_DOZE;
                         break;
                     case 2:
-                        frequenciaNotifica = 2;
+                        frequenciaNotifica = Medicamentos.OITO_EM_OITO;
                         break;
                     case 3:
-                        frequenciaNotifica = 3;
+                        frequenciaNotifica = Medicamentos.SEIS_EM_SEIS;
                         break;
                     case 4:
-                        frequenciaNotifica = 4;
-                        break;
-                    case 5:
-                        frequenciaNotifica = 6;
+                        frequenciaNotifica = Medicamentos.QUATRO_EM_QUATRO;
                         break;
                     default:
                         frequenciaNotifica = 0;
