@@ -37,7 +37,7 @@ public class AddMedicamentosActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
     private Switch notificar;
-    private int frequenciaNotifica;
+    private int frequenciaNotifica = 0;
     private TextView textoNotifica;
 
     @Override
@@ -61,8 +61,8 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         medida = findViewById(R.id.spinnerAddMedicamentoMedidada);
         anotacao = findViewById(R.id.anotaAddMedicamento);
         frequencia = findViewById(R.id.spinnerAddMedicamentoFrequencia);
-        notificar = findViewById(R.id.switchNotificacao);
-        textoNotifica = findViewById(R.id.textNotifica);
+        notificar = findViewById(R.id.switchAddNotificacao);
+        textoNotifica = findViewById(R.id.textAddNotifica);
 
         inicializaSpinnerUnidades();
         inicializaSpinnerFrequencias();
@@ -160,7 +160,25 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         frequencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                switch (i) {
+                    case 1:
+                        frequenciaNotifica = 1;
+                        break;
+                    case 2:
+                        frequenciaNotifica = 2;
+                        break;
+                    case 3:
+                        frequenciaNotifica = 3;
+                        break;
+                    case 4:
+                        frequenciaNotifica = 4;
+                        break;
+                    case 5:
+                        frequenciaNotifica = 6;
+                        break;
+                    default:
+                        frequenciaNotifica = 0;
+                }
             }
 
             @Override
@@ -179,12 +197,13 @@ public class AddMedicamentosActivity extends AppCompatActivity {
     public void salvaMedicamento(View view) {
         int id = GeraIdSingleton.getInstance().geraId(this);
         int notifica;
-        if (notificar.isChecked())
+        if (notificar.isChecked()) {
             notifica = 1;
-        else
+        } else {
             notifica = 0;
+        }
         Medicamentos medicamentos = new Medicamentos("Medicamento", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(),notifica);
+                dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(), notifica, frequenciaNotifica);
 
         HistoricoSingleton.getInstance().getMedicamentos().add(medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);
@@ -194,12 +213,7 @@ public class AddMedicamentosActivity extends AppCompatActivity {
     }
 
     public void habilitaNotificacao(View view) {
-        if (notificar.isChecked()) {
-            textoNotifica.setEnabled(true);
-            frequencia.setEnabled(true);
-        } else {
-            textoNotifica.setEnabled(false);
-            frequencia.setEnabled(false);
-        }
+        textoNotifica.setEnabled(notificar.isChecked());
+        frequencia.setEnabled(notificar.isChecked());
     }
 }

@@ -99,6 +99,37 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <Switch
+        android:id="@+id/switchEditNotificacao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="Agendar notificação"
+        android:onClick="habilitaNotificacao"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textEditNotifica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="Frquência da medicação:" />
+
+        <Spinner
+            android:id="@+id/spinnerEditMedicamentoFrequencia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+        </Spinner>
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

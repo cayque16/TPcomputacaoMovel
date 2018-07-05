@@ -15,6 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -27,9 +29,10 @@ import br.ufop.cayque.mybabycayque.models.Medicamentos;
 public class EditMedicamentosActivity extends AppCompatActivity {
 
     private EditText data, hora, nome, quanti, anotacao;
-    private Spinner medida;
+    private Spinner medida, frequencia;
     private String unidadeSele;
     private static final String[] UNIDADES = {"ml", "g", "colher", "dose", "comprimido", "unidade", "gota"};
+    private static final String[] FREQUENCIAS = {"Todo dia", "De 12 em 12 horas", "De 8 em 8 horas", "De 6 em 6 horas", "De 4 em 4 horas"};
     private int dia, mes, ano;
     private int hInicio, mInicio;
     int position;
@@ -38,6 +41,10 @@ public class EditMedicamentosActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
     private TimePickerDialog.OnTimeSetListener timeDialogTermino;
+    private TextView textoNotifica;
+    private Switch notificar;
+    private int frequenciaNotifica = 0;
+    private int notifica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,9 @@ public class EditMedicamentosActivity extends AppCompatActivity {
         quanti = findViewById(R.id.quantidadeEditMedicamento);
         medida = findViewById(R.id.spinnerEditMedicamentoMedidada);
         anotacao = findViewById(R.id.anotaEditMedicamento);
+        frequencia = findViewById(R.id.spinnerEditMedicamentoFrequencia);
+        notificar = findViewById(R.id.switchEditNotificacao);
+        textoNotifica = findViewById(R.id.textEditNotifica);
 
         dia = medicamentos.get(position).getDiaInicio();
         mes = medicamentos.get(position).getMesInico();
@@ -142,7 +152,7 @@ public class EditMedicamentosActivity extends AppCompatActivity {
         nome.setText(medicamentos.get(position).getNome());
         quanti.setText(medicamentos.get(position).getDose());
         anotacao.setText(medicamentos.get(position).getAnotacao());
-        inicializaSpinner();
+        inicializaSpinnerUnidades();
         String unidade = medicamentos.get(position).getUnidadeMedi();
         for (int i = 0; i < UNIDADES.length; i++) {
             if (unidade.equals(UNIDADES[i])) {
@@ -150,9 +160,21 @@ public class EditMedicamentosActivity extends AppCompatActivity {
                 break;
             }
         }
+
+        notifica = medicamentos.get(position).getNotificacao();
+        if (notifica == 1) {
+            notificar.setChecked(true);
+            textoNotifica.setEnabled(true);
+            frequencia.setEnabled(true);
+        } else {
+            notificar.setChecked(false);
+            textoNotifica.setEnabled(false);
+            frequencia.setEnabled(false);
+        }
+        inicializaSpinnerFrequencias();
     }
 
-    private void inicializaSpinner() {
+    private void inicializaSpinnerUnidades() {
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, UNIDADES);
         medida.setAdapter(adapterSpinner);
         medida.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -200,7 +222,7 @@ public class EditMedicamentosActivity extends AppCompatActivity {
     public void salvaMedicamento(View view) {
         int id = medicamentos.get(position).getId();
         Medicamentos medicamentos = new Medicamentos("Medicamento", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(),0);
+                dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(), notifica, frequenciaNotifica);
 
         HistoricoSingleton.getInstance().getMedicamentos().set(position, medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);
@@ -213,5 +235,44 @@ public class EditMedicamentosActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public void habilitaNotificacao(View view) {
+        textoNotifica.setEnabled(notificar.isChecked());
+        frequencia.setEnabled(notificar.isChecked());
+    }
+
+    private void inicializaSpinnerFrequencias() {
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, FREQUENCIAS);
+        frequencia.setAdapter(adapterSpinner);
+        frequencia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+                    case 1:
+                        frequenciaNotifica = 1;
+                        break;
+                    case 2:
+                        frequenciaNotifica = 2;
+                        break;
+                    case 3:
+                        frequenciaNotifica = 3;
+                        break;
+                    case 4:
+                        frequenciaNotifica = 4;
+                        break;
+                    case 5:
+                        frequenciaNotifica = 6;
+                        break;
+                    default:
+                        frequenciaNotifica = 0;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 }

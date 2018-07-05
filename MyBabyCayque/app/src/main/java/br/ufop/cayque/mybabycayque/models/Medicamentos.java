@@ -10,17 +10,25 @@ import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
  */
 
 public class Medicamentos extends Atividades {
+    private static final int QUATRO_EM_QUATRO = 6;
+    private static final int SEIS_EM_SEIS = 4;
+    private static final int OITO_EM_OITO = 3;
+    private static final int DOZE_EM_DOZE = 2;
+    private static final int TODO_DIA = 1;
+
     private String nome;
     private String unidadeMedi;
     private String dose;
     private int notificacao; //1 sim 0 nao
+    private int frequenciaNotifica;
 
-    public Medicamentos(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String nome, String unidadeMedi, String dose, String anotacao, int notificacao) {
+    public Medicamentos(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String nome, String unidadeMedi, String dose, String anotacao, int notificacao, int frequenciaNotifica) {
         super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino, anotacao);
         this.nome = nome;
         this.unidadeMedi = unidadeMedi;
         this.dose = dose;
         this.notificacao = notificacao;
+        this.frequenciaNotifica = frequenciaNotifica;
     }
 
     protected Medicamentos(Parcel in) {
@@ -29,6 +37,7 @@ public class Medicamentos extends Atividades {
         this.unidadeMedi = in.readString();
         this.dose = in.readString();
         this.notificacao = in.readInt();
+        this.frequenciaNotifica = in.readInt();
     }
 
     public static final Creator<Mamadeiras> CREATOR = new Creator<Mamadeiras>() {
@@ -73,6 +82,14 @@ public class Medicamentos extends Atividades {
 
     public void setNotificacao(int notificacao) {
         this.notificacao = notificacao;
+    }
+
+    public int getFrequenciaNotifica() {
+        return frequenciaNotifica;
+    }
+
+    public void setFrequenciaNotifica(int frequenciaNotifica) {
+        this.frequenciaNotifica = frequenciaNotifica;
     }
 
     @Override
@@ -131,5 +148,6 @@ public class Medicamentos extends Atividades {
         parcel.writeString(unidadeMedi);
         parcel.writeString(dose);
         parcel.writeInt(notificacao);
+        parcel.writeInt(frequenciaNotifica);
     }
 }
