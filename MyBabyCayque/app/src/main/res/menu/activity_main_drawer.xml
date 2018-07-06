@@ -41,7 +41,15 @@
                 android:id="@+id/nav_outros"
                 android:icon="@drawable/ic_menu_create"
                 android:title="Outros" />
+        </item>
 
+        <item android:title="Ferramentas">
+            <menu>
+                <item
+                    android:id="@+id/nav_somUtero"
+                    android:icon="@drawable/ic_menu_som"
+                    android:title="Som de útero" />
+            </menu>
         </item>
     </group>
 </menu>
