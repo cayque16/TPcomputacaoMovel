@@ -57,10 +57,10 @@ public class SonecasAdapter extends BaseAdapter {
         tv2.setText(" até " + conversor(sonecas.getDiaTermino()) + "/" + conversor(sonecas.getMesTermino()) + "/" + conversor(sonecas.getAnoTermino()));
 
         TextView tv3 = v.findViewById(R.id.adapSonecaHinicio);
-        tv3.setText("De: " + conversor(sonecas.getHoraInicio()) + ":" + conversor(sonecas.getMinuInicio()) + ":" + conversor(sonecas.getSeguInicio()));
+        tv3.setText("De: " + conversor(sonecas.getHoraInicio()) + ":" + conversor(sonecas.getMinuInicio()));
 
         TextView tv4 = v.findViewById(R.id.adapSonecaHtermino);
-        tv4.setText(" até " + conversor(sonecas.getHoraTermino()) + ":" + conversor(sonecas.getMinuTermino()) + ":" + conversor(sonecas.getSeguTermino()));
+        tv4.setText(" até " + conversor(sonecas.getHoraTermino()) + ":" + conversor(sonecas.getMinuTermino()));
 
         TextView tv5 = v.findViewById(R.id.adapSonecaNota);
         tv5.setText("Nota: " + sonecas.getAnotacao());

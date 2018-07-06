@@ -15,8 +15,10 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
@@ -27,7 +29,8 @@ public class EditOutrosActivity extends AppCompatActivity {
     private EditText data, horaInicio, nota;
     private int dia, mes, ano;
     private int hInicio, mInicio;
-    private Calendar cal = Calendar.getInstance();
+    private Calendar cal = new GregorianCalendar();
+    private DateFormat timeFormat;
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
     int position;
@@ -54,6 +57,11 @@ public class EditOutrosActivity extends AppCompatActivity {
         dia = outros.get(position).getDiaInicio();
         mes = outros.get(position).getMesInico();
         ano = outros.get(position).getAnoInicio();
+
+        cal.set(Calendar.HOUR_OF_DAY, outros.get(position).getHoraInicio());
+        cal.set(Calendar.MINUTE, outros.get(position).getMinuInicio());
+
+        timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         data.setText(String.format("%02d", outros.get(position).getDiaInicio()) + "/" +
                 String.format("%02d", outros.get(position).getMesInico()) + "/" +
@@ -88,8 +96,7 @@ public class EditOutrosActivity extends AppCompatActivity {
 
 
         horaInicio.setText(String.format("%02d", outros.get(position).getHoraInicio()) + ":" +
-                String.format("%02d", outros.get(position).getMinuInicio()) + ":" +
-                String.format("%02d", outros.get(position).getSeguInicio()));
+                String.format("%02d", outros.get(position).getMinuInicio()));
 
         horaInicio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +105,7 @@ public class EditOutrosActivity extends AppCompatActivity {
                         EditOutrosActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
-                        0, 0, true);
+                        cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -107,27 +114,13 @@ public class EditOutrosActivity extends AppCompatActivity {
         timeDialogInicio = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
                 hInicio = i;
                 mInicio = i1;
 
-                String juncao = horas + minutos;
-                horaInicio.setText(juncao);
+                cal.set(Calendar.HOUR_OF_DAY, i);
+                cal.set(Calendar.MINUTE, i1);
+
+                horaInicio.setText(timeFormat.format(cal.getTime()));
             }
         };
 

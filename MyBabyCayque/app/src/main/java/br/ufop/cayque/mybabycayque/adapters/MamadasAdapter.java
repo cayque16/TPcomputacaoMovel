@@ -56,10 +56,10 @@ public class MamadasAdapter extends BaseAdapter {
 //        tv1.setText("Data: " + mamadas.getDiaInicio() + "/" + mamadas.getMesInico() + "/" + mamadas.getAnoInicio());
 
         TextView tv2 = v.findViewById(R.id.adapMamadaHinicio);
-        tv2.setText("De " + conversor(mamadas.getHoraInicio()) + ":" + conversor(mamadas.getMinuInicio()) + ":" + conversor(mamadas.getSeguInicio()));
+        tv2.setText("De " + conversor(mamadas.getHoraInicio()) + ":" + conversor(mamadas.getMinuInicio()));
 
         TextView tv3 = v.findViewById(R.id.adapMamadaHtermino);
-        tv3.setText(" até " + conversor(mamadas.getHoraTermino()) + ":" + conversor(mamadas.getMinuTermino()) + ":" + conversor(mamadas.getSeguTermino()));
+        tv3.setText(" até " + conversor(mamadas.getHoraTermino()) + ":" + conversor(mamadas.getMinuTermino()));
 
         TextView tv4 = v.findViewById(R.id.adapMamadaPeito);
         tv4.setText("Peito: " + mamadas.getPeito());

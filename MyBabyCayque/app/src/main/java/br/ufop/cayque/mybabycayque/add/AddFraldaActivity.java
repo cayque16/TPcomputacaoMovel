@@ -52,11 +52,14 @@ public class AddFraldaActivity extends AppCompatActivity {
         anotacao = findViewById(R.id.anotaAddFralda);
 
         dateFormat = DateFormat.getDateInstance();
-        timeFormat = DateFormat.getTimeInstance();
+        timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         dia = cal.get(Calendar.DAY_OF_MONTH);
         mes = cal.get(Calendar.MONTH) + 1;
         ano = cal.get(Calendar.YEAR);
+
+        hInicio = cal.get(Calendar.HOUR_OF_DAY);
+        mInicio = cal.get(Calendar.MINUTE);
 
         data.setText(dateFormat.format(cal.getTime()));
         horaInicio.setText(timeFormat.format(cal.getTime()));
@@ -95,7 +98,7 @@ public class AddFraldaActivity extends AppCompatActivity {
                         AddFraldaActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
-                        0, 0, true);
+                        cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -104,27 +107,13 @@ public class AddFraldaActivity extends AppCompatActivity {
         timeDialogInicio = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
                 hInicio = i;
                 mInicio = i1;
 
-                String juncao = horas + minutos;
-                horaInicio.setText(juncao);
+                cal.set(Calendar.HOUR_OF_DAY, i);
+                cal.set(Calendar.MINUTE, i1);
+
+                horaInicio.setText(timeFormat.format(cal.getTime()));
             }
         };
     }

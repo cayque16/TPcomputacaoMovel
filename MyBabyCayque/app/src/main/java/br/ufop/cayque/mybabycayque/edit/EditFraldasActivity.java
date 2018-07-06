@@ -16,7 +16,10 @@ import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
@@ -24,16 +27,17 @@ import br.ufop.cayque.mybabycayque.models.Fraldas;
 
 public class EditFraldasActivity extends AppCompatActivity {
 
-    private EditText data, horaI,anotacao;
+    private EditText data, horaI, anotacao;
     private int dia, mes, ano;
     private int hInicio, mInicio;
     private RadioButton xixi, coco, amb;
     int position;
     private ArrayList<Fraldas> fraldas = HistoricoSingleton.getInstance().getFraldas();
     private AlertDialog alerta;
+    private Calendar cal = new GregorianCalendar();
+    private DateFormat timeFormat;
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
-    private TimePickerDialog.OnTimeSetListener timeDialogTermino;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,11 @@ public class EditFraldasActivity extends AppCompatActivity {
         dia = fraldas.get(position).getDiaInicio();
         mes = fraldas.get(position).getMesInico();
         ano = fraldas.get(position).getAnoInicio();
+
+        cal.set(Calendar.HOUR_OF_DAY, fraldas.get(position).getHoraInicio());
+        cal.set(Calendar.MINUTE, fraldas.get(position).getMinuInicio());
+
+        timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         data.setText(String.format("%02d", fraldas.get(position).getDiaInicio()) + "/" +
                 String.format("%02d", fraldas.get(position).getMesInico()) + "/" +
@@ -92,8 +101,8 @@ public class EditFraldasActivity extends AppCompatActivity {
 
 
         horaI.setText(String.format("%02d", fraldas.get(position).getHoraInicio()) + ":" +
-                String.format("%02d", fraldas.get(position).getMinuInicio()) + ":" +
-                String.format("%02d", fraldas.get(position).getSeguInicio()));
+                String.format("%02d", fraldas.get(position).getMinuInicio()));
+
 
         horaI.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +111,7 @@ public class EditFraldasActivity extends AppCompatActivity {
                         EditFraldasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
-                        0, 0, true);
+                        cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -111,27 +120,14 @@ public class EditFraldasActivity extends AppCompatActivity {
         timeDialogInicio = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
 
                 hInicio = i;
                 mInicio = i1;
 
-                String juncao = horas + minutos;
-                horaI.setText(juncao);
+                cal.set(Calendar.HOUR_OF_DAY, i);
+                cal.set(Calendar.MINUTE, i1);
+
+                horaI.setText(timeFormat.format(cal.getTime()));
             }
         };
 
@@ -157,7 +153,7 @@ public class EditFraldasActivity extends AppCompatActivity {
         }
         int id = fraldas.get(position).getId();
         Fraldas fraldas = new Fraldas("Fralda", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, motivo,anotacao.getText().toString());
+                dia, mes, ano, hInicio, mInicio, 0, motivo, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getFraldas().set(position, fraldas);
         HistoricoSingleton.getInstance().saveFraldas(this);

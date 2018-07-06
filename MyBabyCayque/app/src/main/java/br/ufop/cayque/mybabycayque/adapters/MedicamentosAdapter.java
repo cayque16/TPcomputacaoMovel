@@ -56,7 +56,7 @@ public class MedicamentosAdapter extends BaseAdapter {
         tv1.setText("Data: " + conversor(medicamentos.getDiaInicio()) + "/" + conversor(medicamentos.getMesInico()) + "/" + conversor(medicamentos.getAnoInicio()));
 
         TextView tv2 = v.findViewById(R.id.adapMedicamentoHinicio);
-        tv2.setText("De " + conversor(medicamentos.getHoraInicio()) + ":" + conversor(medicamentos.getMinuInicio()) + ":" + conversor(medicamentos.getSeguInicio()));
+        tv2.setText("De " + conversor(medicamentos.getHoraInicio()) + ":" + conversor(medicamentos.getMinuInicio()));
 
         TextView tv3 = v.findViewById(R.id.adapMedicamentoDose);
         tv3.setText(medicamentos.getDose() + " " + medicamentos.getUnidadeMedi() + " (s)");

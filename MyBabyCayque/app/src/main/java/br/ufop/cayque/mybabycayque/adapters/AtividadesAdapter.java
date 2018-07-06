@@ -81,7 +81,7 @@ public class AtividadesAdapter extends BaseAdapter {
         tv2.setText("Data: " + conversor(atividades.getDiaInicio()) + "/" + conversor(atividades.getMesInico()) + "/" + conversor(atividades.getAnoInicio()));
 
         TextView tv3 = v.findViewById(R.id.adapAtividadeHinicio);
-        tv3.setText("Hora: " + conversor(atividades.getHoraInicio()) + ":" + conversor(atividades.getMinuInicio()) + ":" + conversor(atividades.getSeguInicio()));
+        tv3.setText("Hora: " + conversor(atividades.getHoraInicio()) + ":" + conversor(atividades.getMinuInicio()));
 
         return v;
     }

@@ -55,7 +55,7 @@ public class FraldasAdapter extends BaseAdapter{
         tv1.setText("Data: " + conversor(fraldas.getDiaInicio()) + "/" + conversor(fraldas.getMesInico()) + "/" + conversor(fraldas.getAnoInicio()));
 
         TextView tv2 = v.findViewById(R.id.adapFraldaHinicio);
-        tv2.setText("Hora:" + conversor(fraldas.getHoraInicio()) + ":" + conversor(fraldas.getMinuInicio()) + ":" + conversor(fraldas.getSeguInicio()));
+        tv2.setText("Hora:" + conversor(fraldas.getHoraInicio()) + ":" + conversor(fraldas.getMinuInicio()));
 
         TextView tv3 = v.findViewById(R.id.adapFraldaMotivo);
         tv3.setText("Motivo: " + fraldas.getMotivo());

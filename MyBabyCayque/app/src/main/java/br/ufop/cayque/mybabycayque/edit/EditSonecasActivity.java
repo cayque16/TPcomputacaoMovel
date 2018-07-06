@@ -16,8 +16,10 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.add.AddSonecaActivity;
@@ -32,6 +34,8 @@ public class EditSonecasActivity extends AppCompatActivity {
     private int hInicio, mInicio;
     private int hTermino, mTermino;
     int position;
+    private Calendar cal = new GregorianCalendar();
+    private DateFormat timeFormat;
     private ArrayList<Sonecas> sonecas = HistoricoSingleton.getInstance().getSonecas();
     private AlertDialog alerta;
     private DatePickerDialog.OnDateSetListener dateDialogI;
@@ -61,6 +65,11 @@ public class EditSonecasActivity extends AppCompatActivity {
         diaI = diaT = sonecas.get(position).getDiaInicio();
         mesI = mesT = sonecas.get(position).getMesInico();
         anoI = anoT = sonecas.get(position).getAnoInicio();
+
+        cal.set(Calendar.HOUR_OF_DAY, sonecas.get(position).getHoraInicio());
+        cal.set(Calendar.MINUTE, sonecas.get(position).getMinuInicio());
+
+        timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         dataI.setText(String.format("%02d", sonecas.get(position).getDiaInicio()) + "/" +
                 String.format("%02d", sonecas.get(position).getMesInico()) + "/" +
@@ -125,8 +134,7 @@ public class EditSonecasActivity extends AppCompatActivity {
         };
 
         horaInicio.setText(String.format("%02d", sonecas.get(position).getHoraInicio()) + ":" +
-                String.format("%02d", sonecas.get(position).getMinuInicio()) + ":" +
-                String.format("%02d", sonecas.get(position).getSeguInicio()));
+                String.format("%02d", sonecas.get(position).getMinuInicio()));
 
         horaInicio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +143,7 @@ public class EditSonecasActivity extends AppCompatActivity {
                         EditSonecasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
-                        0, 0, true);
+                        cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -144,27 +152,13 @@ public class EditSonecasActivity extends AppCompatActivity {
         timeDialogInicio = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
                 hInicio = i;
                 mInicio = i1;
 
-                String juncao = horas + minutos;
-                horaInicio.setText(juncao);
+                cal.set(Calendar.HOUR_OF_DAY, i);
+                cal.set(Calendar.MINUTE, i1);
+
+                horaInicio.setText(timeFormat.format(cal.getTime()));
             }
         };
 
@@ -209,8 +203,7 @@ public class EditSonecasActivity extends AppCompatActivity {
         };
 
         horaTermino.setText(String.format("%02d", sonecas.get(position).getHoraTermino()) + ":" +
-                String.format("%02d", sonecas.get(position).getMinuTermino()) + ":" +
-                String.format("%02d", sonecas.get(position).getSeguTermino()));
+                String.format("%02d", sonecas.get(position).getMinuTermino()));
 
         anotacao.setText(sonecas.get(position).getAnotacao());
     }

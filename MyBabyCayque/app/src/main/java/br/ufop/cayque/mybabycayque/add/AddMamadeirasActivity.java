@@ -24,7 +24,7 @@ import br.ufop.cayque.mybabycayque.models.Mamadeiras;
 
 public class AddMamadeirasActivity extends AppCompatActivity {
 
-    private EditText data, horaI, horaT, quanti,anotacao;
+    private EditText data, horaI, horaT, quanti, anotacao;
     private RadioButton sim, nao;
     private int dia, mes, ano;
     private int hInicio, mInicio;
@@ -49,7 +49,7 @@ public class AddMamadeirasActivity extends AppCompatActivity {
         anotacao = findViewById(R.id.anotaAddMamadeira);
 
         dateFormat = DateFormat.getDateInstance();
-        timeFormat = DateFormat.getTimeInstance();
+        timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         this.setTitle("Nova mamadeira");
 
@@ -98,7 +98,7 @@ public class AddMamadeirasActivity extends AppCompatActivity {
                         AddMamadeirasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
-                        0, 0, true);
+                        cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -107,27 +107,14 @@ public class AddMamadeirasActivity extends AppCompatActivity {
         timeDialogInicio = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
 
                 hInicio = i;
                 mInicio = i1;
 
-                String juncao = horas + minutos;
-                horaI.setText(juncao);
+                cal.set(Calendar.HOUR_OF_DAY, i);
+                cal.set(Calendar.MINUTE, i1);
+
+                horaI.setText(timeFormat.format(cal.getTime()));
             }
         };
 
@@ -183,14 +170,14 @@ public class AddMamadeirasActivity extends AppCompatActivity {
         int tudo;
         float quantidade;
         quantidade = Float.valueOf(quanti.getText().toString());
-        if(sim.isChecked()){
+        if (sim.isChecked()) {
             tudo = 1;
-        } else{
+        } else {
             tudo = 0;
         }
         int id = GeraIdSingleton.getInstance().geraId(this);
-        Mamadeiras mamadeiras = new Mamadeiras("Mamadeira",id,dia,mes,ano,hInicio,mInicio,0,
-                dia,mes,ano,hTermino,mTermino,0,quantidade,tudo,anotacao.getText().toString());
+        Mamadeiras mamadeiras = new Mamadeiras("Mamadeira", id, dia, mes, ano, hInicio, mInicio, 0,
+                dia, mes, ano, hTermino, mTermino, 0, quantidade, tudo, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMamadeiras().add(mamadeiras);
         HistoricoSingleton.getInstance().saveMamadeiras(this);

@@ -55,7 +55,7 @@ public class OutrosAdapter extends BaseAdapter {
         tv1.setText("Data: " + conversor(outros.getDiaInicio()) + "/" + conversor(outros.getMesInico()) + "/" + conversor(outros.getAnoInicio()));
 
         TextView tv2 = v.findViewById(R.id.adapOutroHinicio);
-        tv2.setText("Hora: " + conversor(outros.getHoraInicio()) + ":" + conversor(outros.getMinuInicio()) + ":" + conversor(outros.getSeguInicio()));
+        tv2.setText("Hora: " + conversor(outros.getHoraInicio()) + ":" + conversor(outros.getMinuInicio()));
 
         TextView tv3 = v.findViewById(R.id.adapOutroNota);
         tv3.setText("Nota: " + outros.getAnotacao());

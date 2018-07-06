@@ -71,7 +71,7 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         inicializaSpinnerFrequencias();
 
         dateFormat = DateFormat.getDateInstance();
-        timeFormat = DateFormat.getTimeInstance();
+        timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         data.setText(dateFormat.format(cal.getTime()));
         hora.setText(timeFormat.format(cal.getTime()));
@@ -110,7 +110,7 @@ public class AddMedicamentosActivity extends AppCompatActivity {
                         AddMedicamentosActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
-                        0, 0, true);
+                        cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -119,27 +119,13 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         timeDialogInicio = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
                 hInicio = i;
                 mInicio = i1;
 
-                String juncao = horas + minutos;
-                hora.setText(juncao);
+                cal.set(Calendar.HOUR_OF_DAY, i);
+                cal.set(Calendar.MINUTE, i1);
+
+                hora.setText(timeFormat.format(cal.getTime()));
             }
         };
     }

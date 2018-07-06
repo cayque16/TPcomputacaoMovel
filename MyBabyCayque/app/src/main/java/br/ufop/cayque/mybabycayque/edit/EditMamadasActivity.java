@@ -17,7 +17,10 @@ import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.add.AddMamadasActivity;
@@ -26,12 +29,14 @@ import br.ufop.cayque.mybabycayque.models.Mamadas;
 
 public class EditMamadasActivity extends AppCompatActivity {
 
-    private EditText data, horaI, horaT,anotacao;
+    private EditText data, horaI, horaT, anotacao;
     private int dia, mes, ano;
     private int hInicio, mInicio;
     private int hTermino, mTermino;
     private RadioButton dir, esq, amb;
     int position;
+    private Calendar cal = new GregorianCalendar();
+    private DateFormat timeFormat;
     private ArrayList<Mamadas> mamadas = HistoricoSingleton.getInstance().getMamadas();
     private AlertDialog alerta;
     private DatePickerDialog.OnDateSetListener dateDialog;
@@ -62,6 +67,11 @@ public class EditMamadasActivity extends AppCompatActivity {
         dia = mamadas.get(position).getDiaInicio();
         mes = mamadas.get(position).getMesInico();
         ano = mamadas.get(position).getAnoInicio();
+
+        cal.set(Calendar.HOUR_OF_DAY, mamadas.get(position).getHoraInicio());
+        cal.set(Calendar.MINUTE, mamadas.get(position).getMinuInicio());
+
+        timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         data.setText(String.format("%02d", mamadas.get(position).getDiaInicio()) + "/" +
                 String.format("%02d", mamadas.get(position).getMesInico()) + "/" +
@@ -96,8 +106,7 @@ public class EditMamadasActivity extends AppCompatActivity {
 
 
         horaI.setText(String.format("%02d", mamadas.get(position).getHoraInicio()) + ":" +
-                String.format("%02d", mamadas.get(position).getMinuInicio()) + ":" +
-                String.format("%02d", mamadas.get(position).getSeguInicio()));
+                String.format("%02d", mamadas.get(position).getMinuInicio()));
 
         horaI.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +115,7 @@ public class EditMamadasActivity extends AppCompatActivity {
                         EditMamadasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
-                        0, 0, true);
+                        cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -115,27 +124,13 @@ public class EditMamadasActivity extends AppCompatActivity {
         timeDialogInicio = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
                 hInicio = i;
                 mInicio = i1;
 
-                String juncao = horas + minutos;
-                horaI.setText(juncao);
+                cal.set(Calendar.HOUR_OF_DAY, i);
+                cal.set(Calendar.MINUTE, i1);
+
+                horaI.setText(timeFormat.format(cal.getTime()));
             }
         };
 
@@ -213,7 +208,7 @@ public class EditMamadasActivity extends AppCompatActivity {
         }
         int id = mamadas.get(position).getId();
         Mamadas mamadas = new Mamadas("Mamada", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hTermino, mTermino, 0, peito,anotacao.getText().toString());
+                dia, mes, ano, hTermino, mTermino, 0, peito, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMamadas().set(position, mamadas);
         mamadas.editHistorico(this);

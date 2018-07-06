@@ -16,7 +16,10 @@ import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
@@ -25,12 +28,14 @@ import br.ufop.cayque.mybabycayque.models.Mamadeiras;
 
 public class EditMamadeirasActivity extends AppCompatActivity {
 
-    private EditText data, horaI, horaT, quantidade,anotacao;
+    private EditText data, horaI, horaT, quantidade, anotacao;
     private int dia, mes, ano;
     private int hInicio, mInicio;
     private int hTermino, mTermino;
     private RadioButton sim, nao;
     int position;
+    private Calendar cal = new GregorianCalendar();
+    private DateFormat timeFormat;
     private ArrayList<Mamadeiras> mamadeiras = HistoricoSingleton.getInstance().getMamadeiras();
     private AlertDialog alerta;
     private DatePickerDialog.OnDateSetListener dateDialog;
@@ -61,6 +66,11 @@ public class EditMamadeirasActivity extends AppCompatActivity {
         dia = mamadeiras.get(position).getDiaInicio();
         mes = mamadeiras.get(position).getMesInico();
         ano = mamadeiras.get(position).getAnoInicio();
+
+        cal.set(Calendar.HOUR_OF_DAY, mamadeiras.get(position).getHoraInicio());
+        cal.set(Calendar.MINUTE, mamadeiras.get(position).getMinuInicio());
+
+        timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         data.setText(String.format("%02d", mamadeiras.get(position).getDiaInicio()) + "/" +
                 String.format("%02d", mamadeiras.get(position).getMesInico()) + "/" +
@@ -95,8 +105,7 @@ public class EditMamadeirasActivity extends AppCompatActivity {
 
 
         horaI.setText(String.format("%02d", mamadeiras.get(position).getHoraInicio()) + ":" +
-                String.format("%02d", mamadeiras.get(position).getMinuInicio()) + ":" +
-                String.format("%02d", mamadeiras.get(position).getSeguInicio()));
+                String.format("%02d", mamadeiras.get(position).getMinuInicio()));
 
         horaI.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +114,7 @@ public class EditMamadeirasActivity extends AppCompatActivity {
                         EditMamadeirasActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
-                        0, 0, true);
+                        cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -114,27 +123,13 @@ public class EditMamadeirasActivity extends AppCompatActivity {
         timeDialogInicio = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
                 hInicio = i;
                 mInicio = i1;
 
-                String juncao = horas + minutos;
-                horaI.setText(juncao);
+                cal.set(Calendar.HOUR_OF_DAY, i);
+                cal.set(Calendar.MINUTE, i1);
+
+                horaI.setText(timeFormat.format(cal.getTime()));
             }
         };
 
@@ -211,7 +206,7 @@ public class EditMamadeirasActivity extends AppCompatActivity {
         }
         int id = mamadeiras.get(position).getId();
         Mamadeiras mamadeiras = new Mamadeiras("Mamadeira", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hTermino, mTermino, 0, quanti, tudo,anotacao.getText().toString());
+                dia, mes, ano, hTermino, mTermino, 0, quanti, tudo, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMamadeiras().set(position, mamadeiras);
         HistoricoSingleton.getInstance().saveMamadeiras(this);

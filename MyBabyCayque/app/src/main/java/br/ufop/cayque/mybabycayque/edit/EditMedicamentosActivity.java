@@ -20,7 +20,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
@@ -36,11 +39,12 @@ public class EditMedicamentosActivity extends AppCompatActivity {
     private int dia, mes, ano;
     private int hInicio, mInicio;
     int position;
+    private Calendar cal = new GregorianCalendar();
+    private DateFormat timeFormat;
     private ArrayList<Medicamentos> medicamentos = HistoricoSingleton.getInstance().getMedicamentos();
     private AlertDialog alerta;
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
-    private TimePickerDialog.OnTimeSetListener timeDialogTermino;
     private TextView textoNotifica;
     private Switch notificar;
     private int frequenciaNotifica = 0;
@@ -72,6 +76,11 @@ public class EditMedicamentosActivity extends AppCompatActivity {
         dia = medicamentos.get(position).getDiaInicio();
         mes = medicamentos.get(position).getMesInico();
         ano = medicamentos.get(position).getAnoInicio();
+
+        cal.set(Calendar.HOUR_OF_DAY, medicamentos.get(position).getHoraInicio());
+        cal.set(Calendar.MINUTE, medicamentos.get(position).getMinuInicio());
+
+        timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         data.setText(String.format("%02d", medicamentos.get(position).getDiaInicio()) + "/" +
                 String.format("%02d", medicamentos.get(position).getMesInico()) + "/" +
@@ -106,8 +115,7 @@ public class EditMedicamentosActivity extends AppCompatActivity {
 
 
         hora.setText(String.format("%02d", medicamentos.get(position).getHoraInicio()) + ":" +
-                String.format("%02d", medicamentos.get(position).getMinuInicio()) + ":" +
-                String.format("%02d", medicamentos.get(position).getSeguInicio()));
+                String.format("%02d", medicamentos.get(position).getMinuInicio()));
 
         hora.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +124,7 @@ public class EditMedicamentosActivity extends AppCompatActivity {
                         EditMedicamentosActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         timeDialogInicio,
-                        0, 0, true);
+                        cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
@@ -125,27 +133,13 @@ public class EditMedicamentosActivity extends AppCompatActivity {
         timeDialogInicio = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
                 hInicio = i;
                 mInicio = i1;
 
-                String juncao = horas + minutos;
-                hora.setText(juncao);
+                cal.set(Calendar.HOUR_OF_DAY, i);
+                cal.set(Calendar.MINUTE, i1);
+
+                hora.setText(timeFormat.format(cal.getTime()));
             }
         };
 
