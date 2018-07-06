@@ -13,7 +13,9 @@ import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
@@ -27,10 +29,11 @@ public class AddMamadeirasActivity extends AppCompatActivity {
     private int dia, mes, ano;
     private int hInicio, mInicio;
     private int hTermino, mTermino;
-    private Calendar cal = Calendar.getInstance();
+    private Calendar cal = new GregorianCalendar();
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
     private TimePickerDialog.OnTimeSetListener timeDialogTermino;
+    private DateFormat dateFormat, timeFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,9 @@ public class AddMamadeirasActivity extends AppCompatActivity {
         nao = findViewById(R.id.radioAddButtonNao);
         anotacao = findViewById(R.id.anotaAddMamadeira);
 
+        dateFormat = DateFormat.getDateInstance();
+        timeFormat = DateFormat.getTimeInstance();
+
         this.setTitle("Nova mamadeira");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,7 +60,9 @@ public class AddMamadeirasActivity extends AppCompatActivity {
         mes = cal.get(Calendar.MONTH) + 1;
         ano = cal.get(Calendar.YEAR);
 
-        data.setText(dia + "/" + mes + "/" + ano);
+        data.setText(dateFormat.format(cal.getTime()));
+        horaI.setText(timeFormat.format(cal.getTime()));
+        horaT.setText(timeFormat.format(cal.getTime()));
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override

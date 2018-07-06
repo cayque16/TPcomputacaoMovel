@@ -13,7 +13,10 @@ import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
@@ -22,14 +25,14 @@ import br.ufop.cayque.mybabycayque.models.GeraIdSingleton;
 
 public class AddFraldaActivity extends AppCompatActivity {
 
-    private EditText data, horaInicio,anotacao;
+    private EditText data, horaInicio, anotacao;
     private RadioButton xixi, coco, ambos;
     private int dia, mes, ano;
     private int hInicio, mInicio;
-    private Calendar cal = Calendar.getInstance();
+    private Calendar cal = new GregorianCalendar();
+    private DateFormat dateFormat, timeFormat;
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
-    private TimePickerDialog.OnTimeSetListener timeDialogTermino;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +51,15 @@ public class AddFraldaActivity extends AppCompatActivity {
         ambos = findViewById(R.id.radioAddButtonFraldaAmbos);
         anotacao = findViewById(R.id.anotaAddFralda);
 
+        dateFormat = DateFormat.getDateInstance();
+        timeFormat = DateFormat.getTimeInstance();
+
         dia = cal.get(Calendar.DAY_OF_MONTH);
         mes = cal.get(Calendar.MONTH) + 1;
         ano = cal.get(Calendar.YEAR);
 
-        data.setText(dia + "/" + mes + "/" + ano);
+        data.setText(dateFormat.format(cal.getTime()));
+        horaInicio.setText(timeFormat.format(cal.getTime()));
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,8 +145,8 @@ public class AddFraldaActivity extends AppCompatActivity {
             motivo = "Ambos";
         }
         int id = GeraIdSingleton.getInstance().geraId(this);
-        Fraldas fraldas = new Fraldas("Fralda", id,dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, motivo,anotacao.getText().toString());
+        Fraldas fraldas = new Fraldas("Fralda", id, dia, mes, ano, hInicio, mInicio, 0,
+                dia, mes, ano, hInicio, mInicio, 0, motivo, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getFraldas().add(fraldas);
         HistoricoSingleton.getInstance().saveFraldas(this);

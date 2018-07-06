@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
@@ -26,7 +28,8 @@ public class AddSonecaActivity extends AppCompatActivity {
     private int diaT, mesT, anoT;
     private int hInicio,mInicio;
     private int hTermino,mTermino;
-    private Calendar cal = Calendar.getInstance();
+    private Calendar cal = new GregorianCalendar();
+    private DateFormat dateFormat, timeFormat;
     private DatePickerDialog.OnDateSetListener dateDialogI;
     private DatePickerDialog.OnDateSetListener dateDialogT;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
@@ -52,8 +55,13 @@ public class AddSonecaActivity extends AppCompatActivity {
         horaTermino = findViewById(R.id.horaAddSonecaTermino);
         anotacao = findViewById(R.id.anotaAddSoneca);
 
-        dataI.setText(diaI + "/" + mesI + "/" + anoI);
-        dataT.setText(diaT + "/" + mesT + "/" + anoT);
+        dateFormat = DateFormat.getDateInstance();
+        timeFormat = DateFormat.getTimeInstance();
+
+        dataI.setText(dateFormat.format(cal.getTime()));
+        horaInicio.setText(timeFormat.format(cal.getTime()));
+        dataT.setText(dateFormat.format(cal.getTime()));
+        horaTermino.setText(timeFormat.format(cal.getTime()));
 
         dataI.setOnClickListener(new View.OnClickListener() {
             @Override

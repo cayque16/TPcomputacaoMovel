@@ -17,7 +17,9 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
@@ -33,7 +35,8 @@ public class AddMedicamentosActivity extends AppCompatActivity {
     private static final String[] FREQUENCIAS = {"Todo dia", "De 12 em 12 horas", "De 8 em 8 horas", "De 6 em 6 horas", "De 4 em 4 horas"};
     private int dia, mes, ano;
     private int hInicio, mInicio;
-    private Calendar cal = Calendar.getInstance();
+    private Calendar cal = new GregorianCalendar();
+    private DateFormat dateFormat, timeFormat;
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
     private Switch notificar;
@@ -67,7 +70,11 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         inicializaSpinnerUnidades();
         inicializaSpinnerFrequencias();
 
-        data.setText(dia + "/" + mes + "/" + ano);
+        dateFormat = DateFormat.getDateInstance();
+        timeFormat = DateFormat.getTimeInstance();
+
+        data.setText(dateFormat.format(cal.getTime()));
+        hora.setText(timeFormat.format(cal.getTime()));
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override

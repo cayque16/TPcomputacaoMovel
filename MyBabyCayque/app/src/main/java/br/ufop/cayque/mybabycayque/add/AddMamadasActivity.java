@@ -13,7 +13,9 @@ import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
@@ -27,10 +29,11 @@ public class AddMamadasActivity extends AppCompatActivity {
     private int dia, mes, ano;
     private int hInicio,mInicio;
     private int hTermino,mTermino;
-    private Calendar cal = Calendar.getInstance();
+    private Calendar cal = new GregorianCalendar();
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
     private TimePickerDialog.OnTimeSetListener timeDialogTermino;
+    private DateFormat dateFormat, timeFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +52,12 @@ public class AddMamadasActivity extends AppCompatActivity {
         radioGroupPeito = findViewById(R.id.radioAddGroupPeito);
         anotacao = findViewById(R.id.anotaAddMamada);
 
-        data.setText(dia + "/" + mes + "/" + ano);
+        dateFormat = DateFormat.getDateInstance();
+        timeFormat = DateFormat.getTimeInstance();
+
+        data.setText(dateFormat.format(cal.getTime()));
+        horaInicio.setText(timeFormat.format(cal.getTime()));
+        horaTermino.setText(timeFormat.format(cal.getTime()));
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override

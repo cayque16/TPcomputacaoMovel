@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
@@ -24,7 +26,8 @@ public class AddOutrosActivity extends AppCompatActivity {
     private EditText data, horaInicio, nota;
     private int dia, mes, ano;
     private int hInicio, mInicio;
-    private Calendar cal = Calendar.getInstance();
+    private Calendar cal = new GregorianCalendar();
+    private DateFormat dateFormat, timeFormat;
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
 
@@ -43,7 +46,11 @@ public class AddOutrosActivity extends AppCompatActivity {
         mes = cal.get(Calendar.MONTH) + 1;
         ano = cal.get(Calendar.YEAR);
 
-        data.setText(dia + "/" + mes + "/" + ano);
+        dateFormat = DateFormat.getDateInstance();
+        timeFormat = DateFormat.getTimeInstance();
+
+        data.setText(dateFormat.format(cal.getTime()));
+        horaInicio.setText(timeFormat.format(cal.getTime()));
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override

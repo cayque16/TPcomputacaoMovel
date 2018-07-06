@@ -84,7 +84,7 @@ public class SonecaFragment extends Fragment {
         super.onResume();
         Collections.sort(HistoricoSingleton.getInstance().getSonecas());
         listView.setAdapter(new SonecasAdapter(HistoricoSingleton.getInstance().getSonecas(), getContext()));
-        if (HistoricoSingleton.getInstance().getOutros().isEmpty()) {
+        if (HistoricoSingleton.getInstance().getSonecas().isEmpty()) {
             textVazia.setVisibility(View.VISIBLE);
         } else {
             textVazia.setVisibility(View.INVISIBLE);
