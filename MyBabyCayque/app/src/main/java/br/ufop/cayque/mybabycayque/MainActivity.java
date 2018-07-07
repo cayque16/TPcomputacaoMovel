@@ -17,6 +17,7 @@ import android.widget.TextView;
 import br.ufop.cayque.mybabycayque.add.AddMedicamentosActivity;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.DadosBebe;
+import br.ufop.cayque.mybabycayque.notificacao.TelaNotificacao;
 
 
 public class MainActivity extends AppCompatActivity
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity
                     .beginTransaction()
                     .replace(R.id.frame_container, new OutrosFragment())
                     .commit();
-        } else if (id == R.id.nav_somUtero){
+        } else if (id == R.id.nav_somUtero) {
             Intent it = new Intent(this, SomUteroActivity.class);
             startActivity(it);
         }
@@ -171,7 +172,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    public void salvaBebe(View view) {
-
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (TelaNotificacao.mNotificationManager != null) {
+            TelaNotificacao.mNotificationManager.cancel(0);
+        }
     }
 }

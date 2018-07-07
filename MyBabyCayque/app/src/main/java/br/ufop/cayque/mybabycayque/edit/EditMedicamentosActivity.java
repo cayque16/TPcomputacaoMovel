@@ -1,7 +1,10 @@
 package br.ufop.cayque.mybabycayque.edit;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,6 +31,7 @@ import java.util.GregorianCalendar;
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.Medicamentos;
+import br.ufop.cayque.mybabycayque.notificacao.TelaNotificacao;
 
 public class EditMedicamentosActivity extends AppCompatActivity {
 
@@ -47,8 +51,9 @@ public class EditMedicamentosActivity extends AppCompatActivity {
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
     private TextView textoNotifica;
     private Switch notificar;
-    private int frequenciaNotifica = 0;
+    private int frequenciaNotifica = Medicamentos.TODO_DIA;
     private int notifica;
+    private AlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -237,6 +242,18 @@ public class EditMedicamentosActivity extends AppCompatActivity {
 
     public void salvaMedicamento(View view) {
         int id = medicamentos.get(position).getId();
+        Intent it = new Intent(this, TelaNotificacao.class);
+        PendingIntent p = PendingIntent.getActivity(this, 0, it, 0);
+        int notifica;
+        long time = cal.getTimeInMillis();
+        if (notificar.isChecked()) {
+            notifica = 1;
+            alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 24 / frequenciaNotifica, p);
+        } else {
+            notifica = 0;
+            alarmManager.cancel(p);
+        }
         Medicamentos medicamentos = new Medicamentos("Medicamento", id, dia, mes, ano, hInicio, mInicio, 0,
                 0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(), notifica, frequenciaNotifica);
 

@@ -29,6 +29,7 @@ import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.GeraIdSingleton;
 import br.ufop.cayque.mybabycayque.models.Medicamentos;
+import br.ufop.cayque.mybabycayque.notificacao.TelaNotificacao;
 
 public class AddMedicamentosActivity extends AppCompatActivity {
 
@@ -44,7 +45,7 @@ public class AddMedicamentosActivity extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
     private Switch notificar;
-    private int frequenciaNotifica = 0;
+    private int frequenciaNotifica = Medicamentos.TODO_DIA;
     private TextView textoNotifica;
     private AlarmManager alarmManager;
 
@@ -194,14 +195,14 @@ public class AddMedicamentosActivity extends AppCompatActivity {
 
     public void salvaMedicamento(View view) {
         int id = GeraIdSingleton.getInstance().geraId(this);
-        Intent it = new Intent(this,TelaNotificacao.class);
-        PendingIntent p = PendingIntent.getActivity(this,0,it,0);
+        Intent it = new Intent(this, TelaNotificacao.class);
+        PendingIntent p = PendingIntent.getActivity(this, 0, it, 0);
         int notifica;
         long time = cal.getTimeInMillis();
         if (notificar.isChecked()) {
             notifica = 1;
             alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,1000*60*24/frequenciaNotifica,p);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 24 / frequenciaNotifica, p);
         } else {
             notifica = 0;
         }
