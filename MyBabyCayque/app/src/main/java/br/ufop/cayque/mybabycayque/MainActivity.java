@@ -1,5 +1,6 @@
 package br.ufop.cayque.mybabycayque;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import br.ufop.cayque.mybabycayque.add.AddMedicamentosActivity;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.DadosBebe;
 
@@ -82,12 +84,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -159,6 +161,9 @@ public class MainActivity extends AppCompatActivity
                     .beginTransaction()
                     .replace(R.id.frame_container, new OutrosFragment())
                     .commit();
+        } else if (id == R.id.nav_somUtero){
+            Intent it = new Intent(this, SomUteroActivity.class);
+            startActivity(it);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
