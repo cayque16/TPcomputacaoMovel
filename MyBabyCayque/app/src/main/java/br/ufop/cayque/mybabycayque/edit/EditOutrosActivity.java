@@ -61,6 +61,9 @@ public class EditOutrosActivity extends AppCompatActivity {
         cal.set(Calendar.HOUR_OF_DAY, outros.get(position).getHoraInicio());
         cal.set(Calendar.MINUTE, outros.get(position).getMinuInicio());
 
+        hInicio = cal.get(Calendar.HOUR_OF_DAY);
+        mInicio = cal.get(Calendar.MINUTE);
+
         timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         data.setText(String.format("%02d", outros.get(position).getDiaInicio()) + "/" +

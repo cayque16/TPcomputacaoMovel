@@ -52,6 +52,9 @@ public class AddOutrosActivity extends AppCompatActivity {
         data.setText(dateFormat.format(cal.getTime()));
         horaInicio.setText(timeFormat.format(cal.getTime()));
 
+        hInicio = cal.get(Calendar.HOUR_OF_DAY);
+        mInicio = cal.get(Calendar.MINUTE);
+
         data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

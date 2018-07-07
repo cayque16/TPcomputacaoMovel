@@ -79,8 +79,12 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         dateFormat = DateFormat.getDateInstance();
         timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
+
         data.setText(dateFormat.format(cal.getTime()));
         hora.setText(timeFormat.format(cal.getTime()));
+
+        hInicio = cal.get(Calendar.HOUR_OF_DAY);
+        mInicio = cal.get(Calendar.MINUTE);
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override

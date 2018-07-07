@@ -67,6 +67,9 @@ public class EditMamadeirasActivity extends AppCompatActivity {
         cal.set(Calendar.HOUR_OF_DAY, mamadeiras.get(position).getHoraInicio());
         cal.set(Calendar.MINUTE, mamadeiras.get(position).getMinuInicio());
 
+        hInicio = cal.get(Calendar.HOUR_OF_DAY);
+        mInicio = cal.get(Calendar.MINUTE);
+
         timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         data.setText(String.format("%02d", mamadeiras.get(position).getDiaInicio()) + "/" +
@@ -130,7 +133,7 @@ public class EditMamadeirasActivity extends AppCompatActivity {
             }
         };
 
-        duracao.setText(mamadeiras.get(position).getDuracao());
+        duracao.setText(Integer.toString(mamadeiras.get(position).getDuracao()));
 
         quantidade.setText(Float.toString(mamadeiras.get(position).getQuantidade()));
 

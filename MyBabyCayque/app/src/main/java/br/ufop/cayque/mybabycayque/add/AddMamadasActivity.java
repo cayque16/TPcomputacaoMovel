@@ -58,7 +58,6 @@ public class AddMamadasActivity extends AppCompatActivity {
 
         data.setText(dateFormat.format(cal.getTime()));
         horaInicio.setText(timeFormat.format(cal.getTime()));
-        duracao.setText(timeFormat.format(cal.getTime()));
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override

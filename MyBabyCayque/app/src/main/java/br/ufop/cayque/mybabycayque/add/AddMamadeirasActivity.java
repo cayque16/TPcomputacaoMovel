@@ -60,7 +60,9 @@ public class AddMamadeirasActivity extends AppCompatActivity {
 
         data.setText(dateFormat.format(cal.getTime()));
         horaI.setText(timeFormat.format(cal.getTime()));
-        duracao.setText(timeFormat.format(cal.getTime()));
+
+        hInicio = cal.get(Calendar.HOUR_OF_DAY);
+        mInicio = cal.get(Calendar.MINUTE);
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override

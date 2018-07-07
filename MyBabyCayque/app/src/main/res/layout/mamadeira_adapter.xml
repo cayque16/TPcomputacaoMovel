@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="De: 15:00:00"
+                android:text="Hora: 15:00:00"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -64,8 +64,24 @@
                 android:id="@+id/adapMamadeiraDuracao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:text="Duração: 15 minutos"
-                android:layout_gravity="right"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/adapMamadeiraNota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Texto aqui"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -79,14 +95,5 @@
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/adapMamadeiraNota"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Texto aqui"
-            android:textSize="15dp"
-            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

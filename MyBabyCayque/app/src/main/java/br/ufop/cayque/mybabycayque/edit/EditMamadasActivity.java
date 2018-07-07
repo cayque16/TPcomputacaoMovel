@@ -30,7 +30,6 @@ public class EditMamadasActivity extends AppCompatActivity {
     private EditText data, horaI, duracao, anotacao;
     private int dia, mes, ano;
     private int hInicio, mInicio;
-    private int hTermino, mTermino;
     private RadioButton dir, esq, amb;
     int position;
     private Calendar cal = new GregorianCalendar();
@@ -39,7 +38,6 @@ public class EditMamadasActivity extends AppCompatActivity {
     private AlertDialog alerta;
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
-    private TimePickerDialog.OnTimeSetListener timeDialogTermino;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +66,9 @@ public class EditMamadasActivity extends AppCompatActivity {
 
         cal.set(Calendar.HOUR_OF_DAY, mamadas.get(position).getHoraInicio());
         cal.set(Calendar.MINUTE, mamadas.get(position).getMinuInicio());
+
+        hInicio = cal.get(Calendar.HOUR_OF_DAY);
+        mInicio = cal.get(Calendar.MINUTE);
 
         timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
@@ -133,7 +134,7 @@ public class EditMamadasActivity extends AppCompatActivity {
         };
 
 
-        duracao.setText(mamadas.get(position).getDuracao());
+        duracao.setText(Integer.toString(mamadas.get(position).getDuracao()));
 
         if (mamadas.get(position).getPeito().equals("Direito")) {
             dir.setChecked(true);

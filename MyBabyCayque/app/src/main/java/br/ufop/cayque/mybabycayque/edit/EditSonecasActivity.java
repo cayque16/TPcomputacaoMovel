@@ -29,7 +29,6 @@ public class EditSonecasActivity extends AppCompatActivity {
     private EditText dataI, horaInicio, duracao, anotacao;
     private int diaI, mesI, anoI;
     private int hInicio, mInicio;
-    private int hTermino, mTermino;
     int position;
     private Calendar cal = new GregorianCalendar();
     private DateFormat timeFormat;
@@ -64,6 +63,9 @@ public class EditSonecasActivity extends AppCompatActivity {
 
         cal.set(Calendar.HOUR_OF_DAY, sonecas.get(position).getHoraInicio());
         cal.set(Calendar.MINUTE, sonecas.get(position).getMinuInicio());
+
+        hInicio = cal.get(Calendar.HOUR_OF_DAY);
+        mInicio = cal.get(Calendar.MINUTE);
 
         timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
@@ -141,34 +143,7 @@ public class EditSonecasActivity extends AppCompatActivity {
             }
         });
 
-        timeDialogTermino = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
-                hTermino = i;
-                mTermino = i1;
-
-                String juncao = horas + minutos;
-                duracao.setText(juncao);
-            }
-        };
-
-        duracao.setText(sonecas.get(position).getDuracao());
+        duracao.setText(Integer.toString(sonecas.get(position).getDuracao()));
 
         anotacao.setText(sonecas.get(position).getAnotacao());
     }

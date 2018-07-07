@@ -23,13 +23,12 @@ import br.ufop.cayque.mybabycayque.models.Sonecas;
 
 public class AddSonecaActivity extends AppCompatActivity {
 
-    private EditText dataI, dataT, horaInicio, duracao, anotacao;
+    private EditText dataI, horaInicio, duracao, anotacao;
     private int diaI, mesI, anoI;
     private int hInicio, mInicio;
     private Calendar cal = new GregorianCalendar();
     private DateFormat dateFormat, timeFormat;
     private DatePickerDialog.OnDateSetListener dateDialogI;
-    private DatePickerDialog.OnDateSetListener dateDialogT;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
 
     @Override
@@ -57,8 +56,9 @@ public class AddSonecaActivity extends AppCompatActivity {
 
         dataI.setText(dateFormat.format(cal.getTime()));
         horaInicio.setText(timeFormat.format(cal.getTime()));
-        dataT.setText(dateFormat.format(cal.getTime()));
-        duracao.setText(timeFormat.format(cal.getTime()));
+
+        hInicio = cal.get(Calendar.HOUR_OF_DAY);
+        mInicio = cal.get(Calendar.MINUTE);
 
         dataI.setOnClickListener(new View.OnClickListener() {
             @Override

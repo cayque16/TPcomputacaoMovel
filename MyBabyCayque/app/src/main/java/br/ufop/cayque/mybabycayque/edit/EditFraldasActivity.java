@@ -66,6 +66,9 @@ public class EditFraldasActivity extends AppCompatActivity {
         cal.set(Calendar.HOUR_OF_DAY, fraldas.get(position).getHoraInicio());
         cal.set(Calendar.MINUTE, fraldas.get(position).getMinuInicio());
 
+        hInicio = cal.get(Calendar.HOUR_OF_DAY);
+        mInicio = cal.get(Calendar.MINUTE);
+
         timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
         data.setText(String.format("%02d", fraldas.get(position).getDiaInicio()) + "/" +
