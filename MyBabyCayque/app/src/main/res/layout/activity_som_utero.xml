@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,13 +8,23 @@
     tools:context="br.ufop.cayque.mybabycayque.SomUteroActivity">
 
     <ImageButton
-        android:id="@+id/buttonPlayPause"
+        android:id="@+id/buttonPlay"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center|center_vertical"
-        android:onClick="playPause"
+        android:onClick="Play"
         android:src="@drawable/play"
         android:background="@null"
         android:text="Play" />
 
-</FrameLayout>
+    <ImageButton
+        android:id="@+id/buttonPause"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center|center_vertical"
+        android:onClick="Pause"
+        android:src="@drawable/pause"
+        android:background="@null"
+        android:text="Play" />
+
+</LinearLayout>
