@@ -23,15 +23,13 @@ import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
-import br.ufop.cayque.mybabycayque.models.Mamadas;
 import br.ufop.cayque.mybabycayque.models.Mamadeiras;
 
 public class EditMamadeirasActivity extends AppCompatActivity {
 
-    private EditText data, horaI, horaT, quantidade, anotacao;
+    private EditText data, horaI, duracao, quantidade, anotacao;
     private int dia, mes, ano;
     private int hInicio, mInicio;
-    private int hTermino, mTermino;
     private RadioButton sim, nao;
     int position;
     private Calendar cal = new GregorianCalendar();
@@ -40,7 +38,6 @@ public class EditMamadeirasActivity extends AppCompatActivity {
     private AlertDialog alerta;
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
-    private TimePickerDialog.OnTimeSetListener timeDialogTermino;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +54,7 @@ public class EditMamadeirasActivity extends AppCompatActivity {
 
         data = findViewById(R.id.dataEditMamadeiraInicio);
         horaI = findViewById(R.id.horaEditMamadeiraInicio);
-        horaT = findViewById(R.id.horaEditMamadeiraTermino);
+        duracao = findViewById(R.id.horaEditMamadeiraDuracao);
         sim = findViewById(R.id.radioEditButtonSim);
         nao = findViewById(R.id.radioEditButtonNao);
         quantidade = findViewById(R.id.quantidadeEditMamadeira);
@@ -133,50 +130,7 @@ public class EditMamadeirasActivity extends AppCompatActivity {
             }
         };
 
-        horaT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TimePickerDialog dialog = new TimePickerDialog(
-                        EditMamadeirasActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        timeDialogTermino,
-                        0, 0, true);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-
-        timeDialogTermino = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
-                hTermino = i;
-                mTermino = i1;
-
-                String juncao = horas + minutos;
-                horaT.setText(juncao);
-            }
-        };
-
-
-        horaT.setText(String.format("%02d", mamadeiras.get(position).getHoraTermino()) + ":" +
-                String.format("%02d", mamadeiras.get(position).getMinuTermino()) + ":" +
-                String.format("%02d", mamadeiras.get(position).getSeguTermino()));
+        duracao.setText(mamadeiras.get(position).getDuracao());
 
         quantidade.setText(Float.toString(mamadeiras.get(position).getQuantidade()));
 
@@ -198,6 +152,8 @@ public class EditMamadeirasActivity extends AppCompatActivity {
     public void salvaMamadeira(View view) {
         int tudo;
         float quanti;
+        int tempoDuracao;
+        tempoDuracao = Integer.parseInt(duracao.getText().toString());
         quanti = Float.valueOf(quantidade.getText().toString());
         if (sim.isChecked()) {
             tudo = 1;
@@ -206,7 +162,7 @@ public class EditMamadeirasActivity extends AppCompatActivity {
         }
         int id = mamadeiras.get(position).getId();
         Mamadeiras mamadeiras = new Mamadeiras("Mamadeira", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hTermino, mTermino, 0, quanti, tudo, anotacao.getText().toString());
+                tempoDuracao, quanti, tudo, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMamadeiras().set(position, mamadeiras);
         HistoricoSingleton.getInstance().saveMamadeiras(this);

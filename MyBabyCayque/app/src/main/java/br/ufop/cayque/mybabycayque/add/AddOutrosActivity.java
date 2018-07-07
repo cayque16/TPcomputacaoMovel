@@ -117,8 +117,8 @@ public class AddOutrosActivity extends AppCompatActivity {
 
     public void salvaOutro(View view) {
         int id = GeraIdSingleton.getInstance().geraId(this);
-        Outros outros = new Outros("Outro",id,dia,mes,ano,hInicio,mInicio,0,
-                dia,mes,ano,hInicio,mInicio,0,nota.getText().toString());
+        Outros outros = new Outros("Outro", id, dia, mes, ano, hInicio, mInicio, 0,
+                0, nota.getText().toString());
 
         HistoricoSingleton.getInstance().getOutros().add(outros);
         HistoricoSingleton.getInstance().saveOutros(this);

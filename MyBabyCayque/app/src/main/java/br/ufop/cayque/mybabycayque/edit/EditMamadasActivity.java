@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -23,13 +22,12 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
-import br.ufop.cayque.mybabycayque.add.AddMamadasActivity;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.Mamadas;
 
 public class EditMamadasActivity extends AppCompatActivity {
 
-    private EditText data, horaI, horaT, anotacao;
+    private EditText data, horaI, duracao, anotacao;
     private int dia, mes, ano;
     private int hInicio, mInicio;
     private int hTermino, mTermino;
@@ -58,7 +56,7 @@ public class EditMamadasActivity extends AppCompatActivity {
 
         data = findViewById(R.id.dataEditMamadaInicio);
         horaI = findViewById(R.id.horaEditaMamadaInicio);
-        horaT = findViewById(R.id.horaEditMamadaTermino);
+        duracao = findViewById(R.id.horaEditMamadaDuracao);
         dir = findViewById(R.id.radioEditButtonDirei);
         esq = findViewById(R.id.radioEditButtonEsque);
         amb = findViewById(R.id.radioEditButtonAmbos);
@@ -134,50 +132,8 @@ public class EditMamadasActivity extends AppCompatActivity {
             }
         };
 
-        horaT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TimePickerDialog dialog = new TimePickerDialog(
-                        EditMamadasActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        timeDialogTermino,
-                        0, 0, true);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
 
-        timeDialogTermino = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
-                hTermino = i;
-                mTermino = i1;
-
-                String juncao = horas + minutos;
-                horaT.setText(juncao);
-            }
-        };
-
-
-        horaT.setText(String.format("%02d", mamadas.get(position).getHoraTermino()) + ":" +
-                String.format("%02d", mamadas.get(position).getMinuTermino()) + ":" +
-                String.format("%02d", mamadas.get(position).getSeguTermino()));
+        duracao.setText(mamadas.get(position).getDuracao());
 
         if (mamadas.get(position).getPeito().equals("Direito")) {
             dir.setChecked(true);
@@ -199,6 +155,8 @@ public class EditMamadasActivity extends AppCompatActivity {
 
     public void salvaMamada(View view) {
         String peito;
+        int tempoDuracao;
+        tempoDuracao = Integer.parseInt(duracao.getText().toString());
         if (dir.isChecked()) {
             peito = "Direito";
         } else if (esq.isChecked()) {
@@ -208,7 +166,7 @@ public class EditMamadasActivity extends AppCompatActivity {
         }
         int id = mamadas.get(position).getId();
         Mamadas mamadas = new Mamadas("Mamada", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hTermino, mTermino, 0, peito, anotacao.getText().toString());
+                tempoDuracao, peito, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMamadas().set(position, mamadas);
         mamadas.editHistorico(this);

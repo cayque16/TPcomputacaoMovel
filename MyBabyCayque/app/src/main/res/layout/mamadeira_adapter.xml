@@ -61,10 +61,11 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/adapMamadeiraHtermino"
+                android:id="@+id/adapMamadeiraDuracao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" até: 20:00:00"
+                android:text="Duração: 15 minutos"
+                android:layout_gravity="right"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 

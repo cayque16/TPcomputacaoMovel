@@ -22,8 +22,8 @@ public class Medicamentos extends Atividades {
     private int notificacao; //1 sim 0 nao
     private int frequenciaNotifica;
 
-    public Medicamentos(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String nome, String unidadeMedi, String dose, String anotacao, int notificacao, int frequenciaNotifica) {
-        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino, anotacao);
+    public Medicamentos(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int duracao, String nome, String unidadeMedi, String dose, String anotacao, int notificacao, int frequenciaNotifica) {
+        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, duracao, anotacao);
         this.nome = nome;
         this.unidadeMedi = unidadeMedi;
         this.dose = dose;
@@ -32,7 +32,7 @@ public class Medicamentos extends Atividades {
     }
 
     protected Medicamentos(Parcel in) {
-        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readString());
+        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readString());
         this.nome = in.readString();
         this.unidadeMedi = in.readString();
         this.dose = in.readString();
@@ -137,12 +137,7 @@ public class Medicamentos extends Atividades {
         parcel.writeInt(getHoraInicio());
         parcel.writeInt(getMinuInicio());
         parcel.writeInt(getSeguInicio());
-        parcel.writeInt(getDiaTermino());
-        parcel.writeInt(getMesTermino());
-        parcel.writeInt(getAnoTermino());
-        parcel.writeInt(getHoraTermino());
-        parcel.writeInt(getMinuTermino());
-        parcel.writeInt(getSeguTermino());
+        parcel.writeInt(getDuracao());
         parcel.writeString(getAnotacao());
         parcel.writeString(nome);
         parcel.writeString(unidadeMedi);

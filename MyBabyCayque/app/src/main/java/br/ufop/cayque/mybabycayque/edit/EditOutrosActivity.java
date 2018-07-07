@@ -158,7 +158,7 @@ public class EditOutrosActivity extends AppCompatActivity {
     public void salvaOutro(View view) {
         int id = outros.get(position).getId();
         Outros outros = new Outros("Outro", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, nota.getText().toString());
+                0, nota.getText().toString());
 
         HistoricoSingleton.getInstance().getOutros().set(position, outros);
         HistoricoSingleton.getInstance().saveOutros(this);

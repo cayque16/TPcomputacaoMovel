@@ -23,17 +23,14 @@ import br.ufop.cayque.mybabycayque.models.Sonecas;
 
 public class AddSonecaActivity extends AppCompatActivity {
 
-    private EditText dataI, dataT, horaInicio, horaTermino,anotacao;
+    private EditText dataI, dataT, horaInicio, duracao, anotacao;
     private int diaI, mesI, anoI;
-    private int diaT, mesT, anoT;
-    private int hInicio,mInicio;
-    private int hTermino,mTermino;
+    private int hInicio, mInicio;
     private Calendar cal = new GregorianCalendar();
     private DateFormat dateFormat, timeFormat;
     private DatePickerDialog.OnDateSetListener dateDialogI;
     private DatePickerDialog.OnDateSetListener dateDialogT;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
-    private TimePickerDialog.OnTimeSetListener timeDialogTermino;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +42,13 @@ public class AddSonecaActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        diaI = diaT = cal.get(Calendar.DAY_OF_MONTH);
-        mesI = mesT = cal.get(Calendar.MONTH) + 1;
-        anoI = anoT = cal.get(Calendar.YEAR);
+        diaI = cal.get(Calendar.DAY_OF_MONTH);
+        mesI = cal.get(Calendar.MONTH) + 1;
+        anoI = cal.get(Calendar.YEAR);
 
         dataI = findViewById(R.id.dataAddSonecaInicio);
-        dataT = findViewById(R.id.dataAddSonecaTermino);
         horaInicio = findViewById(R.id.horaAddSonecaInicio);
-        horaTermino = findViewById(R.id.horaAddSonecaTermino);
+        duracao = findViewById(R.id.horaAddSonecaDuracao);
         anotacao = findViewById(R.id.anotaAddSoneca);
 
         dateFormat = DateFormat.getDateInstance();
@@ -62,7 +58,7 @@ public class AddSonecaActivity extends AppCompatActivity {
         dataI.setText(dateFormat.format(cal.getTime()));
         horaInicio.setText(timeFormat.format(cal.getTime()));
         dataT.setText(dateFormat.format(cal.getTime()));
-        horaTermino.setText(timeFormat.format(cal.getTime()));
+        duracao.setText(timeFormat.format(cal.getTime()));
 
         dataI.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,33 +87,6 @@ public class AddSonecaActivity extends AppCompatActivity {
             }
         };
 
-        dataT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog dialog = new DatePickerDialog(
-                        AddSonecaActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        dateDialogT,
-                        anoT, mesT, diaT);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-
-        dateDialogT = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = day + "/" + month + "/" + year;
-
-                diaT = day;
-                mesT = month;
-                anoT = year;
-
-                dataT.setText(date);
-            }
-        };
-
         horaInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,46 +112,6 @@ public class AddSonecaActivity extends AppCompatActivity {
                 horaInicio.setText(timeFormat.format(cal.getTime()));
             }
         };
-
-        horaTermino.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TimePickerDialog dialog = new TimePickerDialog(
-                        AddSonecaActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        timeDialogTermino,
-                        0, 0, true);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-
-        timeDialogTermino = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
-                hTermino = i;
-                mTermino = i1;
-
-                String juncao = horas + minutos;
-                horaTermino.setText(juncao);
-            }
-        };
     }
 
     @Override
@@ -192,9 +121,11 @@ public class AddSonecaActivity extends AppCompatActivity {
     }
 
     public void salvaSoneca(View view) {
+        int tempoDuracao;
+        tempoDuracao = Integer.parseInt(duracao.getText().toString());
         int id = GeraIdSingleton.getInstance().geraId(this);
-        Sonecas sonecas = new Sonecas("Soneca",id,diaI,mesI,anoI,hInicio,mInicio,0,
-                diaT,mesT,anoT,hTermino,mTermino,0,0,anotacao.getText().toString());
+        Sonecas sonecas = new Sonecas("Soneca", id, diaI, mesI, anoI, hInicio, mInicio, 0,
+                tempoDuracao, 0, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getSonecas().add(sonecas);
         HistoricoSingleton.getInstance().saveSonecas(this);

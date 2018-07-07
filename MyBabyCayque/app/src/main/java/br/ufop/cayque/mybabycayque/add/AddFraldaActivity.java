@@ -135,7 +135,7 @@ public class AddFraldaActivity extends AppCompatActivity {
         }
         int id = GeraIdSingleton.getInstance().geraId(this);
         Fraldas fraldas = new Fraldas("Fralda", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, motivo, anotacao.getText().toString());
+                0, motivo, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getFraldas().add(fraldas);
         HistoricoSingleton.getInstance().saveFraldas(this);

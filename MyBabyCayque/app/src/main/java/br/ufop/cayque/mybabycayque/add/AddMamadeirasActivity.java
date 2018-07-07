@@ -24,15 +24,13 @@ import br.ufop.cayque.mybabycayque.models.Mamadeiras;
 
 public class AddMamadeirasActivity extends AppCompatActivity {
 
-    private EditText data, horaI, horaT, quanti, anotacao;
+    private EditText data, horaI, duracao, quanti, anotacao;
     private RadioButton sim, nao;
     private int dia, mes, ano;
     private int hInicio, mInicio;
-    private int hTermino, mTermino;
     private Calendar cal = new GregorianCalendar();
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
-    private TimePickerDialog.OnTimeSetListener timeDialogTermino;
     private DateFormat dateFormat, timeFormat;
 
     @Override
@@ -42,7 +40,7 @@ public class AddMamadeirasActivity extends AppCompatActivity {
 
         data = findViewById(R.id.dataAddMamadeiraInicio);
         horaI = findViewById(R.id.horaAddMamadeiraInicio);
-        horaT = findViewById(R.id.horaAddMamadeiraTermino);
+        duracao = findViewById(R.id.horaAddMamadeiraDuracao);
         quanti = findViewById(R.id.quantidadeAddMamadeira);
         sim = findViewById(R.id.radioAddButtonSim);
         nao = findViewById(R.id.radioAddButtonNao);
@@ -62,7 +60,7 @@ public class AddMamadeirasActivity extends AppCompatActivity {
 
         data.setText(dateFormat.format(cal.getTime()));
         horaI.setText(timeFormat.format(cal.getTime()));
-        horaT.setText(timeFormat.format(cal.getTime()));
+        duracao.setText(timeFormat.format(cal.getTime()));
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,45 +116,6 @@ public class AddMamadeirasActivity extends AppCompatActivity {
             }
         };
 
-        horaT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TimePickerDialog dialog = new TimePickerDialog(
-                        AddMamadeirasActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        timeDialogTermino,
-                        0, 0, true);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-
-        timeDialogTermino = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
-                hTermino = i;
-                mTermino = i1;
-
-                String juncao = horas + minutos;
-                horaT.setText(juncao);
-            }
-        };
 
     }
 
@@ -169,6 +128,8 @@ public class AddMamadeirasActivity extends AppCompatActivity {
     public void salvaMamadeira(View view) {
         int tudo;
         float quantidade;
+        int tempoDuracao;
+        tempoDuracao = Integer.parseInt(duracao.getText().toString());
         quantidade = Float.valueOf(quanti.getText().toString());
         if (sim.isChecked()) {
             tudo = 1;
@@ -177,7 +138,7 @@ public class AddMamadeirasActivity extends AppCompatActivity {
         }
         int id = GeraIdSingleton.getInstance().geraId(this);
         Mamadeiras mamadeiras = new Mamadeiras("Mamadeira", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hTermino, mTermino, 0, quantidade, tudo, anotacao.getText().toString());
+                tempoDuracao, quantidade, tudo, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMamadeiras().add(mamadeiras);
         HistoricoSingleton.getInstance().saveMamadeiras(this);

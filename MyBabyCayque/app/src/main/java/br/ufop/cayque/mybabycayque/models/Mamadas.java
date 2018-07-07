@@ -12,17 +12,17 @@ import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
  * Created by cayqu on 16/05/2018.
  */
 
-public class Mamadas extends Atividades{
+public class Mamadas extends Atividades {
 
     private String peito;
 
-    public Mamadas(String tipo, int id,int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String peito,String anotacao) {
-        super(tipo, id,diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino,anotacao);
+    public Mamadas(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int duracao, String peito, String anotacao) {
+        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, duracao, anotacao);
         this.peito = peito;
     }
 
     protected Mamadas(Parcel in) {
-        super(in.readString(), in.readInt(), in.readInt(),in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(),in.readString());
+        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readString());
         this.peito = in.readString();
     }
 
@@ -56,8 +56,8 @@ public class Mamadas extends Atividades{
     public void editHistorico(Context context) {
         int sizeArray = HistoricoSingleton.getInstance().getAtividades().size();
         for (int i = 0; i < sizeArray; i++) {
-            if (HistoricoSingleton.getInstance().getAtividades().get(i).getId() == this.getId()){
-                HistoricoSingleton.getInstance().getAtividades().set(i,this);
+            if (HistoricoSingleton.getInstance().getAtividades().get(i).getId() == this.getId()) {
+                HistoricoSingleton.getInstance().getAtividades().set(i, this);
                 HistoricoSingleton.getInstance().saveAtividades(context);
                 break;
             }
@@ -68,7 +68,7 @@ public class Mamadas extends Atividades{
     public void removeHistorico(Context context) {
         int sizeArray = HistoricoSingleton.getInstance().getAtividades().size();
         for (int i = 0; i < sizeArray; i++) {
-            if (HistoricoSingleton.getInstance().getAtividades().get(i).getId() == this.getId()){
+            if (HistoricoSingleton.getInstance().getAtividades().get(i).getId() == this.getId()) {
                 HistoricoSingleton.getInstance().getAtividades().remove(i);
                 HistoricoSingleton.getInstance().saveAtividades(context);
                 break;
@@ -91,12 +91,7 @@ public class Mamadas extends Atividades{
         parcel.writeInt(getHoraInicio());
         parcel.writeInt(getMinuInicio());
         parcel.writeInt(getSeguInicio());
-        parcel.writeInt(getDiaTermino());
-        parcel.writeInt(getMesTermino());
-        parcel.writeInt(getAnoTermino());
-        parcel.writeInt(getHoraTermino());
-        parcel.writeInt(getMinuTermino());
-        parcel.writeInt(getSeguTermino());
+        parcel.writeInt(getDuracao());
         parcel.writeString(getAnotacao());
         parcel.writeString(peito);
     }

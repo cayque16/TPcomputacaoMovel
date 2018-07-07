@@ -32,15 +32,6 @@
                 android:text="De 15/04/1994"
                 android:textSize="15dp"
                 android:textStyle="bold" />
-            <TextView
-                android:id="@+id/adapSonecaDataF"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="até 15/04/1994"
-                android:textSize="15dp"
-                android:textStyle="bold" />
-
 
         </LinearLayout>
 
@@ -60,11 +51,11 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/adapSonecaHtermino"
+                android:id="@+id/adapSonecaDuracao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=" até 20:00:00"
+                android:text="Duração: 15 minutos"
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>

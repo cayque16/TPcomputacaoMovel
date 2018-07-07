@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -22,15 +21,13 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import br.ufop.cayque.mybabycayque.R;
-import br.ufop.cayque.mybabycayque.add.AddSonecaActivity;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.Sonecas;
 
 public class EditSonecasActivity extends AppCompatActivity {
 
-    private EditText dataI, dataT, horaInicio, horaTermino, anotacao;
+    private EditText dataI, horaInicio, duracao, anotacao;
     private int diaI, mesI, anoI;
-    private int diaT, mesT, anoT;
     private int hInicio, mInicio;
     private int hTermino, mTermino;
     int position;
@@ -57,14 +54,13 @@ public class EditSonecasActivity extends AppCompatActivity {
         position = it.getIntExtra("position", 0);
 
         dataI = findViewById(R.id.dataEditSonecaInicio);
-        dataT = findViewById(R.id.dataEditSonecaTermino);
         horaInicio = findViewById(R.id.horaEditSonecaInicio);
-        horaTermino = findViewById(R.id.horaEditSonecaTermino);
+        duracao = findViewById(R.id.horaEditSonecaDuracao);
         anotacao = findViewById(R.id.anotaEditSoneca);
 
-        diaI = diaT = sonecas.get(position).getDiaInicio();
-        mesI = mesT = sonecas.get(position).getMesInico();
-        anoI = anoT = sonecas.get(position).getAnoInicio();
+        diaI = sonecas.get(position).getDiaInicio();
+        mesI = sonecas.get(position).getMesInico();
+        anoI = sonecas.get(position).getAnoInicio();
 
         cal.set(Calendar.HOUR_OF_DAY, sonecas.get(position).getHoraInicio());
         cal.set(Calendar.MINUTE, sonecas.get(position).getMinuInicio());
@@ -74,10 +70,6 @@ public class EditSonecasActivity extends AppCompatActivity {
         dataI.setText(String.format("%02d", sonecas.get(position).getDiaInicio()) + "/" +
                 String.format("%02d", sonecas.get(position).getMesInico()) + "/" +
                 String.format("%02d", sonecas.get(position).getAnoInicio()));
-
-        dataT.setText(String.format("%02d", sonecas.get(position).getDiaTermino()) + "/" +
-                String.format("%02d", sonecas.get(position).getMesTermino()) + "/" +
-                String.format("%02d", sonecas.get(position).getAnoTermino()));
 
         dataI.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,32 +98,6 @@ public class EditSonecasActivity extends AppCompatActivity {
             }
         };
 
-        dataT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog dialog = new DatePickerDialog(
-                        EditSonecasActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        dateDialogT,
-                        anoT, mesT, diaT);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-
-        dateDialogT = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                String date = day + "/" + month + "/" + year;
-
-                diaT = day;
-                mesT = month;
-                anoT = year;
-
-                dataT.setText(date);
-            }
-        };
 
         horaInicio.setText(String.format("%02d", sonecas.get(position).getHoraInicio()) + ":" +
                 String.format("%02d", sonecas.get(position).getMinuInicio()));
@@ -162,7 +128,7 @@ public class EditSonecasActivity extends AppCompatActivity {
             }
         };
 
-        horaTermino.setOnClickListener(new View.OnClickListener() {
+        duracao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TimePickerDialog dialog = new TimePickerDialog(
@@ -198,12 +164,11 @@ public class EditSonecasActivity extends AppCompatActivity {
                 mTermino = i1;
 
                 String juncao = horas + minutos;
-                horaTermino.setText(juncao);
+                duracao.setText(juncao);
             }
         };
 
-        horaTermino.setText(String.format("%02d", sonecas.get(position).getHoraTermino()) + ":" +
-                String.format("%02d", sonecas.get(position).getMinuTermino()));
+        duracao.setText(sonecas.get(position).getDuracao());
 
         anotacao.setText(sonecas.get(position).getAnotacao());
     }
@@ -215,9 +180,11 @@ public class EditSonecasActivity extends AppCompatActivity {
     }
 
     public void salvaSoneca(View view) {
+        int tempoDuracao;
+        tempoDuracao = Integer.parseInt(duracao.getText().toString());
         int id = sonecas.get(position).getId();
         Sonecas sonecas = new Sonecas("Soneca", id, diaI, mesI, anoI, hInicio, mInicio, 0,
-                diaI, mesI, anoI, hTermino, mTermino, 0, 0, anotacao.getText().toString());
+                tempoDuracao, 0, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getSonecas().set(position, sonecas);
         HistoricoSingleton.getInstance().saveSonecas(this);

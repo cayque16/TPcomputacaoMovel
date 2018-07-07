@@ -54,10 +54,10 @@ public class MamadeirasAdapter extends BaseAdapter {
         tv1.setText("Data: " + conversor(mamadeiras.getDiaInicio()) + "/" + conversor(mamadeiras.getMesInico()) + "/" + conversor(mamadeiras.getAnoInicio()));
 
         TextView tv2 = v.findViewById(R.id.adapMamadeiraHinicio);
-        tv2.setText("De " + conversor(mamadeiras.getHoraInicio()) + ":" + conversor(mamadeiras.getMinuInicio()));
+        tv2.setText("Hora: " + conversor(mamadeiras.getHoraInicio()) + ":" + conversor(mamadeiras.getMinuInicio()));
 
-        TextView tv3 = v.findViewById(R.id.adapMamadeiraHtermino);
-        tv3.setText(" até " + conversor(mamadeiras.getHoraTermino()) + ":" + conversor(mamadeiras.getMinuTermino()));
+        TextView tv3 = v.findViewById(R.id.adapMamadeiraDuracao);
+        tv3.setText("Duração: " + mamadeiras.getDuracao() + " minutos");
 
         TextView tv4 = v.findViewById(R.id.adapMamadeiraTomou);
         if (mamadeiras.getTomouTudo() == 1) {

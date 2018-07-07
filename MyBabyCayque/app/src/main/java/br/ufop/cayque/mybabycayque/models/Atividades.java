@@ -15,12 +15,10 @@ public abstract class Atividades implements Parcelable, Serializable, Comparable
     private int id;
     private int diaInicio, mesInico, anoInicio;
     private int horaInicio, minuInicio, seguInicio;
-    private int diaTermino, mesTermino, anoTermino;
-    private int horaTermino, minuTermino, seguTermino;
+    private int duracao; //em minutos
 
     public Atividades(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio,
-                      int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino,
-                      int horaTermino, int minuTermino, int seguTermino, String anotacao) {
+                      int minuInicio, int seguInicio, int duracao, String anotacao) {
         this.id = id;
         this.tipo = tipo;
         this.diaInicio = diaInicio;
@@ -29,12 +27,7 @@ public abstract class Atividades implements Parcelable, Serializable, Comparable
         this.horaInicio = horaInicio;
         this.minuInicio = minuInicio;
         this.seguInicio = seguInicio;
-        this.diaTermino = diaTermino;
-        this.mesTermino = mesTermino;
-        this.anoTermino = anoTermino;
-        this.horaTermino = horaTermino;
-        this.minuTermino = minuTermino;
-        this.seguTermino = seguTermino;
+        this.duracao = duracao;
         this.anotacao = anotacao;
     }
 
@@ -74,30 +67,6 @@ public abstract class Atividades implements Parcelable, Serializable, Comparable
         this.anoInicio = anoInicio;
     }
 
-    public int getDiaTermino() {
-        return diaTermino;
-    }
-
-    public void setDiaTermino(int diaTermino) {
-        this.diaTermino = diaTermino;
-    }
-
-    public int getMesTermino() {
-        return mesTermino;
-    }
-
-    public void setMesTermino(int mesTermino) {
-        this.mesTermino = mesTermino;
-    }
-
-    public int getAnoTermino() {
-        return anoTermino;
-    }
-
-    public void setAnoTermino(int anoTermino) {
-        this.anoTermino = anoTermino;
-    }
-
     public int getHoraInicio() {
         return horaInicio;
     }
@@ -122,28 +91,12 @@ public abstract class Atividades implements Parcelable, Serializable, Comparable
         this.seguInicio = seguInicio;
     }
 
-    public int getHoraTermino() {
-        return horaTermino;
+    public int getDuracao() {
+        return duracao;
     }
 
-    public void setHoraTermino(int horaTermino) {
-        this.horaTermino = horaTermino;
-    }
-
-    public int getMinuTermino() {
-        return minuTermino;
-    }
-
-    public void setMinuTermino(int minuTermino) {
-        this.minuTermino = minuTermino;
-    }
-
-    public int getSeguTermino() {
-        return seguTermino;
-    }
-
-    public void setSeguTermino(int seguTermino) {
-        this.seguTermino = seguTermino;
+    public void setDuracao(int duracao) {
+        this.duracao = duracao;
     }
 
     public String getAnotacao() {

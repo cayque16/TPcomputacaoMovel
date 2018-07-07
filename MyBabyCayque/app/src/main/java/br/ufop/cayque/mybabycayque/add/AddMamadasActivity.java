@@ -24,15 +24,13 @@ import br.ufop.cayque.mybabycayque.models.Mamadas;
 
 public class AddMamadasActivity extends AppCompatActivity {
 
-    private EditText data, horaInicio, horaTermino, anotacao;
+    private EditText data, horaInicio, duracao, anotacao;
     private RadioGroup radioGroupPeito;
     private int dia, mes, ano;
     private int hInicio, mInicio;
-    private int hTermino, mTermino;
     private Calendar cal = new GregorianCalendar();
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
-    private TimePickerDialog.OnTimeSetListener timeDialogTermino;
     private DateFormat dateFormat, timeFormat;
 
     @Override
@@ -51,7 +49,7 @@ public class AddMamadasActivity extends AppCompatActivity {
 
         data = findViewById(R.id.dataAddMamadaInicio);
         horaInicio = findViewById(R.id.horaAddMamadaInicio);
-        horaTermino = findViewById(R.id.horaAddMamadaTermino);
+        duracao = findViewById(R.id.horaAddMamadaDuracao);
         radioGroupPeito = findViewById(R.id.radioAddGroupPeito);
         anotacao = findViewById(R.id.anotaAddMamada);
 
@@ -60,7 +58,7 @@ public class AddMamadasActivity extends AppCompatActivity {
 
         data.setText(dateFormat.format(cal.getTime()));
         horaInicio.setText(timeFormat.format(cal.getTime()));
-        horaTermino.setText(timeFormat.format(cal.getTime()));
+        duracao.setText(timeFormat.format(cal.getTime()));
 
         data.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,52 +107,13 @@ public class AddMamadasActivity extends AppCompatActivity {
                 hInicio = i;
                 mInicio = i1;
 
-                cal.set(Calendar.HOUR_OF_DAY,i);
-                cal.set(Calendar.MINUTE,i1);
+                cal.set(Calendar.HOUR_OF_DAY, i);
+                cal.set(Calendar.MINUTE, i1);
 
                 horaInicio.setText(timeFormat.format(cal.getTime()));
             }
         };
 
-        horaTermino.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TimePickerDialog dialog = new TimePickerDialog(
-                        AddMamadasActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        timeDialogTermino,
-                        0, 0, true);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-
-        timeDialogTermino = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                String horas;
-                String minutos;
-
-                if (i < 10) {
-                    horas = "0" + i + ":";
-                } else {
-                    horas = i + ":";
-                }
-
-                if (i1 < 10) {
-                    minutos = "0" + i1 + ":00";
-                } else {
-                    minutos = i1 + ":00";
-
-                }
-
-                hTermino = i;
-                mTermino = i1;
-
-                String juncao = horas + minutos;
-                horaTermino.setText(juncao);
-            }
-        };
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -169,6 +128,8 @@ public class AddMamadasActivity extends AppCompatActivity {
 
     public void salvaMamada(View view) {
         String peito;
+        int tempoDuracao;
+        tempoDuracao = Integer.parseInt(duracao.getText().toString());
         if (radioGroupPeito.getCheckedRadioButtonId() == R.id.radioAddButtonDirei) {
             peito = "Direito";
         } else if (radioGroupPeito.getCheckedRadioButtonId() == R.id.radioAddButtonEsque) {
@@ -178,7 +139,7 @@ public class AddMamadasActivity extends AppCompatActivity {
         }
         int id = GeraIdSingleton.getInstance().geraId(this);
         Mamadas mamadas = new Mamadas("Mamada", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hTermino, mTermino, 0, peito, anotacao.getText().toString());
+                tempoDuracao, peito, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getMamadas().add(mamadas);
         HistoricoSingleton.getInstance().saveMamadas(this);

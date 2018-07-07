@@ -1,7 +1,11 @@
 package br.ufop.cayque.mybabycayque.add;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -42,6 +46,7 @@ public class AddMedicamentosActivity extends AppCompatActivity {
     private Switch notificar;
     private int frequenciaNotifica = 0;
     private TextView textoNotifica;
+    private AlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,14 +194,19 @@ public class AddMedicamentosActivity extends AppCompatActivity {
 
     public void salvaMedicamento(View view) {
         int id = GeraIdSingleton.getInstance().geraId(this);
+        Intent it = new Intent(this,TelaNotificacao.class);
+        PendingIntent p = PendingIntent.getActivity(this,0,it,0);
         int notifica;
+        long time = cal.getTimeInMillis();
         if (notificar.isChecked()) {
             notifica = 1;
+            alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,1000*60*24/frequenciaNotifica,p);
         } else {
             notifica = 0;
         }
         Medicamentos medicamentos = new Medicamentos("Medicamento", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(), notifica, frequenciaNotifica);
+                0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(), notifica, frequenciaNotifica);
 
         HistoricoSingleton.getInstance().getMedicamentos().add(medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);

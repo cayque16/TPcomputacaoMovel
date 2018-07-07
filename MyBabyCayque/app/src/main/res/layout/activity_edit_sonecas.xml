@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="8dp"
+    android:orientation="vertical"
     tools:context="br.ufop.cayque.mybabycayque.edit.EditSonecasActivity">
 
     <android.support.design.widget.TextInputLayout
@@ -18,19 +18,6 @@
             android:layout_height="wrap_content"
             android:focusableInTouchMode="false"
             android:hint="Data de ínicio..." />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/dataEditSonecaTermino"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusableInTouchMode="false"
-            android:hint="Data de término..." />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -52,11 +39,10 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/horaEditSonecaTermino"
+            android:id="@+id/horaEditSonecaDuracao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusableInTouchMode="false"
-            android:hint="Hora de término..." />
+            android:hint="Duração em minutos..." />
 
     </android.support.design.widget.TextInputLayout>
 

@@ -153,7 +153,7 @@ public class EditFraldasActivity extends AppCompatActivity {
         }
         int id = fraldas.get(position).getId();
         Fraldas fraldas = new Fraldas("Fralda", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, motivo, anotacao.getText().toString());
+                0, motivo, anotacao.getText().toString());
 
         HistoricoSingleton.getInstance().getFraldas().set(position, fraldas);
         HistoricoSingleton.getInstance().saveFraldas(this);

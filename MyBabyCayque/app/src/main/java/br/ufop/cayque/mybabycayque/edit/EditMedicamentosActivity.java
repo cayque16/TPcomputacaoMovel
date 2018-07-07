@@ -238,7 +238,7 @@ public class EditMedicamentosActivity extends AppCompatActivity {
     public void salvaMedicamento(View view) {
         int id = medicamentos.get(position).getId();
         Medicamentos medicamentos = new Medicamentos("Medicamento", id, dia, mes, ano, hInicio, mInicio, 0,
-                dia, mes, ano, hInicio, mInicio, 0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(), notifica, frequenciaNotifica);
+                0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(), notifica, frequenciaNotifica);
 
         HistoricoSingleton.getInstance().getMedicamentos().set(position, medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);

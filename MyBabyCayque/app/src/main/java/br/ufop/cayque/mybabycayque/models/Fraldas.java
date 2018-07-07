@@ -14,13 +14,13 @@ import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 public class Fraldas extends Atividades {
     private String motivo; //xixi ou coco
 
-    public Fraldas(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int diaTermino, int mesTermino, int anoTermino, int horaTermino, int minuTermino, int seguTermino, String motivo, String anotacao) {
-        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, diaTermino, mesTermino, anoTermino, horaTermino, minuTermino, seguTermino, anotacao);
+    public Fraldas(String tipo, int id, int diaInicio, int mesInico, int anoInicio, int horaInicio, int minuInicio, int seguInicio, int duracao, String motivo, String anotacao) {
+        super(tipo, id, diaInicio, mesInico, anoInicio, horaInicio, minuInicio, seguInicio, duracao, anotacao);
         this.motivo = motivo;
     }
 
     protected Fraldas(Parcel in) {
-        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readString());
+        super(in.readString(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readInt(), in.readString());
         this.motivo = in.readString();
     }
 
@@ -89,12 +89,7 @@ public class Fraldas extends Atividades {
         parcel.writeInt(getHoraInicio());
         parcel.writeInt(getMinuInicio());
         parcel.writeInt(getSeguInicio());
-        parcel.writeInt(getDiaTermino());
-        parcel.writeInt(getMesTermino());
-        parcel.writeInt(getAnoTermino());
-        parcel.writeInt(getHoraTermino());
-        parcel.writeInt(getMinuTermino());
-        parcel.writeInt(getSeguTermino());
+        parcel.writeInt(getDuracao());
         parcel.writeString(getAnotacao());
         parcel.writeString(motivo);
     }

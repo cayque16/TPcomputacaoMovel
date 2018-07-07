@@ -26,19 +26,6 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/dataAddSonecaTermino"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusableInTouchMode="false"
-            android:hint="Data de término..." />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
             android:id="@+id/horaAddSonecaInicio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,11 +39,10 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/horaAddSonecaTermino"
+            android:id="@+id/horaAddSonecaDuracao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusableInTouchMode="false"
-            android:hint="Hora de término..." />
+            android:hint="Duração em minutos..." />
 
     </android.support.design.widget.TextInputLayout>
 

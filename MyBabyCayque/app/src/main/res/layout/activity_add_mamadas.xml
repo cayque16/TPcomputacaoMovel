@@ -39,11 +39,10 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/horaAddMamadaTermino"
+            android:id="@+id/horaAddMamadaDuracao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusableInTouchMode="false"
-            android:hint="Hora de término..." />
+            android:hint="Duração em minutos..." />
 
     </android.support.design.widget.TextInputLayout>
 
