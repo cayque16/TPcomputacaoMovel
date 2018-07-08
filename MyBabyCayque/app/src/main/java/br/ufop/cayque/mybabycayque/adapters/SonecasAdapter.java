@@ -48,7 +48,7 @@ public class SonecasAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService
                         (Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(R.layout.soneca_adapter, null);
+        View v = inflater.inflate(R.layout.adapter_soneca, null);
 
         TextView tv1 = v.findViewById(R.id.adapSonecaDataI);
         tv1.setText("Data: " + conversor(sonecas.getDiaInicio()) + "/" + conversor(sonecas.getMesInico()) + "/" + conversor(sonecas.getAnoInicio()));

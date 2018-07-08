@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import br.ufop.cayque.mybabycayque.R;
@@ -50,13 +48,13 @@ public class MedicamentosAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater)
                 context.getSystemService
                         (Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflater.inflate(R.layout.medicamento_adapter, null);
+        View v = inflater.inflate(R.layout.adapter_medicamento, null);
 
         TextView tv1 = v.findViewById(R.id.adapMedicamentoData);
         tv1.setText("Data: " + conversor(medicamentos.getDiaInicio()) + "/" + conversor(medicamentos.getMesInico()) + "/" + conversor(medicamentos.getAnoInicio()));
 
         TextView tv2 = v.findViewById(R.id.adapMedicamentoHinicio);
-        tv2.setText("De " + conversor(medicamentos.getHoraInicio()) + ":" + conversor(medicamentos.getMinuInicio()));
+        tv2.setText("Hora: " + conversor(medicamentos.getHoraInicio()) + ":" + conversor(medicamentos.getMinuInicio()));
 
         TextView tv3 = v.findViewById(R.id.adapMedicamentoDose);
         tv3.setText(medicamentos.getDose() + " " + medicamentos.getUnidadeMedi() + " (s)");

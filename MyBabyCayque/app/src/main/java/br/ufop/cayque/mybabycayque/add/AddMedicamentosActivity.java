@@ -24,6 +24,7 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
@@ -40,7 +41,7 @@ public class AddMedicamentosActivity extends AppCompatActivity {
     private static final String[] FREQUENCIAS = {"Todo dia", "De 12 em 12 horas", "De 8 em 8 horas", "De 6 em 6 horas", "De 4 em 4 horas"};
     private int dia, mes, ano;
     private int hInicio, mInicio;
-    private Calendar cal = new GregorianCalendar();
+    private Calendar cal;
     private DateFormat dateFormat, timeFormat;
     private DatePickerDialog.OnDateSetListener dateDialog;
     private TimePickerDialog.OnTimeSetListener timeDialogInicio;
@@ -58,6 +59,9 @@ public class AddMedicamentosActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        cal = new GregorianCalendar();
+        cal.setTimeZone(TimeZone.getDefault());
 
         dia = cal.get(Calendar.DAY_OF_MONTH);
         mes = cal.get(Calendar.MONTH) + 1;
@@ -203,25 +207,32 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         PendingIntent p = PendingIntent.getActivity(this, 0, it, 0);
         int notifica;
         long time = cal.getTimeInMillis();
+        long diferenca = time - System.currentTimeMillis();
         if (notificar.isChecked()) {
             notifica = 1;
             alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 24 / frequenciaNotifica, p);
+//            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 24 / frequenciaNotifica, p);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, time, p);
+            Toast.makeText(this, "Alarme ativado " + diferenca + " segundos", Toast.LENGTH_SHORT).show();
+            anotacao.setText(Long.toString(diferenca));
         } else {
             notifica = 0;
         }
         Medicamentos medicamentos = new Medicamentos("Medicamento", id, dia, mes, ano, hInicio, mInicio, 0,
-                0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(), notifica, frequenciaNotifica);
+                0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(),
+                notifica, frequenciaNotifica);
 
         HistoricoSingleton.getInstance().getMedicamentos().add(medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);
         medicamentos.addHistorico(this);
-        Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }
 
     public void habilitaNotificacao(View view) {
         textoNotifica.setEnabled(notificar.isChecked());
         frequencia.setEnabled(notificar.isChecked());
+        if (!notificar.isChecked())
+            frequencia.setSelection(0);
     }
 }

@@ -255,7 +255,7 @@ public class EditMedicamentosActivity extends AppCompatActivity {
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 24 / frequenciaNotifica, p);
         } else {
             notifica = 0;
-            alarmManager.cancel(p);
+            //alarmManager.cancel(p);
         }
         Medicamentos medicamentos = new Medicamentos("Medicamento", id, dia, mes, ano, hInicio, mInicio, 0,
                 0, nome.getText().toString(), unidadeSele, quanti.getText().toString(), anotacao.getText().toString(), notifica, frequenciaNotifica);
@@ -276,6 +276,8 @@ public class EditMedicamentosActivity extends AppCompatActivity {
     public void habilitaNotificacao(View view) {
         textoNotifica.setEnabled(notificar.isChecked());
         frequencia.setEnabled(notificar.isChecked());
+        if(!notificar.isChecked())
+            frequencia.setSelection(0);
     }
 
     private void inicializaSpinnerFrequencias() {
