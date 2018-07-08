@@ -35,7 +35,7 @@ public class NotificacaoActivity extends AppCompatActivity {
         CharSequence name = "channel_name";
         String description = "channel_description";
 
-        int importance = NotificationManager.IMPORTANCE_LOW;
+        int importance = NotificationManager.IMPORTANCE_MAX;
 
         if (Build.VERSION.SDK_INT >= 26) {
             NotificationChannel mChannel = new NotificationChannel(id, name, importance);
@@ -57,6 +57,7 @@ public class NotificacaoActivity extends AppCompatActivity {
                 .setOngoing(false)
                 .setContentIntent(p)
                 .setChannelId(id);
+        //mBuilder.setPriority(NotificationCompat.PRIORITY_MAX);
         mNotificationManager.notify(0, mBuilder.build());
         finish();
     }

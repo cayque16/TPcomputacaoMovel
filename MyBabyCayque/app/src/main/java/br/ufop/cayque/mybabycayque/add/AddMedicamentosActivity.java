@@ -211,12 +211,10 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         PendingIntent p = PendingIntent.getActivity(this, 0, it, 0);
         int notifica;
         long time = (cal.getTimeInMillis() * -1) + (somaFrequencia * 1000);
-        long diferenca = time - System.currentTimeMillis();
         if (notificar.isChecked()) {
             notifica = 1;
             alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
             alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 24 / frequenciaNotifica, p);
-            anotacao.setText(Long.toString(diferenca / 1000));
         } else {
             notifica = 0;
         }
