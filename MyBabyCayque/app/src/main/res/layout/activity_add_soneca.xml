@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="8dp"
+    android:orientation="vertical"
     tools:context="br.ufop.cayque.mybabycayque.add.AddSonecaActivity">
 
     <android.support.design.widget.TextInputLayout
@@ -42,7 +42,8 @@
             android:id="@+id/horaAddSonecaDuracao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Duração em minutos..." />
+            android:hint="Duração em minutos..."
+            android:inputType="number" />
 
     </android.support.design.widget.TextInputLayout>
 

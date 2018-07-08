@@ -31,7 +31,7 @@ import java.util.GregorianCalendar;
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.Medicamentos;
-import br.ufop.cayque.mybabycayque.notificacao.TelaNotificacao;
+import br.ufop.cayque.mybabycayque.notificacao.NotificacaoActivity;
 
 public class EditMedicamentosActivity extends AppCompatActivity {
 
@@ -245,7 +245,7 @@ public class EditMedicamentosActivity extends AppCompatActivity {
 
     public void salvaMedicamento(View view) {
         int id = medicamentos.get(position).getId();
-        Intent it = new Intent(this, TelaNotificacao.class);
+        Intent it = new Intent(this, NotificacaoActivity.class);
         PendingIntent p = PendingIntent.getActivity(this, 0, it, 0);
         int notifica;
         long time = cal.getTimeInMillis();

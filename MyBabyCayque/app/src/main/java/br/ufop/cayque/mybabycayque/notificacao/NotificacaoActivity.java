@@ -21,7 +21,7 @@ import br.ufop.cayque.mybabycayque.models.DadosBebe;
  * Created by cayqu on 07/07/2018.
  */
 
-public class TelaNotificacao extends AppCompatActivity {
+public class NotificacaoActivity extends AppCompatActivity {
 
     public static NotificationCompat.Builder mBuilder;
     public static NotificationManager mNotificationManager;
@@ -30,8 +30,8 @@ public class TelaNotificacao extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        String id = "channel_name";
+        //configura um canal de notificação
+        String id = "channel_id";
         CharSequence name = "channel_name";
         String description = "channel_description";
 
@@ -41,6 +41,7 @@ public class TelaNotificacao extends AppCompatActivity {
             NotificationChannel mChannel = new NotificationChannel(id, name, importance);
             mChannel.setDescription(description);
             mChannel.enableLights(true);
+
             mChannel.setLightColor(Color.RED);
             mChannel.enableVibration(true);
             mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 100});
@@ -53,7 +54,7 @@ public class TelaNotificacao extends AppCompatActivity {
                 .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle("Medicamento")
                 .setContentText("Hora do medicamento do(a) " + DadosBebe.getInstance().getNome())
-                .setOngoing(true)
+                .setOngoing(false)
                 .setContentIntent(p)
                 .setChannelId(id);
         mNotificationManager.notify(0, mBuilder.build());

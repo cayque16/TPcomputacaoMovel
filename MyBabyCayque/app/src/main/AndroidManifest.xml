@@ -33,7 +33,8 @@
         <activity android:name=".edit.EditSonecasActivity" />
         <activity android:name=".edit.EditMedicamentosActivity" />
         <activity android:name=".edit.EditOutrosActivity" />
-        <activity android:name=".SomUteroActivity"></activity>
+        <activity android:name=".SomUteroActivity" />
+        <activity android:name=".notificacao.NotificacaoActivity"></activity>
     </application>
 
 </manifest>

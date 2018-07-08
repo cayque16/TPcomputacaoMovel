@@ -42,7 +42,8 @@
             android:id="@+id/horaAddMamadeiraDuracao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Duração em minutos..." />
+            android:hint="Duração em minutos..."
+            android:inputType="number" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -55,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Quantidade (ml)..."
-            android:inputType="number"/>
+            android:inputType="number" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -115,11 +116,11 @@
             android:id="@+id/btnDadosAddMamadaSalvar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginTop="8dp"
+            android:layout_weight="1"
             android:background="@drawable/botao_salvar"
-            android:text="Salvar"
             android:onClick="salvaMamadeira"
+            android:text="Salvar"
             android:textColor="#FFFFFF" />
 
     </LinearLayout>

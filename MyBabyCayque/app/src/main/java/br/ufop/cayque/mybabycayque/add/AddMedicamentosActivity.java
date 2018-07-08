@@ -1,6 +1,7 @@
 package br.ufop.cayque.mybabycayque.add;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
@@ -26,11 +27,12 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
+import br.ufop.cayque.mybabycayque.MainActivity;
 import br.ufop.cayque.mybabycayque.R;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.GeraIdSingleton;
 import br.ufop.cayque.mybabycayque.models.Medicamentos;
-import br.ufop.cayque.mybabycayque.notificacao.TelaNotificacao;
+import br.ufop.cayque.mybabycayque.notificacao.NotificacaoActivity;
 
 public class AddMedicamentosActivity extends AppCompatActivity {
 
@@ -44,11 +46,12 @@ public class AddMedicamentosActivity extends AppCompatActivity {
     private Calendar cal;
     private DateFormat dateFormat, timeFormat;
     private DatePickerDialog.OnDateSetListener dateDialog;
-    private TimePickerDialog.OnTimeSetListener timeDialogInicio;
+    private TimePickerDialog timeDialogInicio;
     private Switch notificar;
     private int frequenciaNotifica = Medicamentos.TODO_DIA;
     private TextView textoNotifica;
     private AlarmManager alarmManager;
+    private long somaFrequencia = 86400;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,28 +123,24 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         hora.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerDialog dialog = new TimePickerDialog(
-                        AddMedicamentosActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        timeDialogInicio,
-                        cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+                timeDialogInicio.show();
             }
         });
 
-        timeDialogInicio = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                hInicio = i;
-                mInicio = i1;
-
-                cal.set(Calendar.HOUR_OF_DAY, i);
-                cal.set(Calendar.MINUTE, i1);
-
-                hora.setText(timeFormat.format(cal.getTime()));
-            }
-        };
+        timeDialogInicio = new TimePickerDialog(this, AlertDialog.THEME_HOLO_LIGHT,
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                        cal.set(Calendar.HOUR_OF_DAY, i);
+                        cal.set(Calendar.MINUTE, i1);
+                        hInicio = cal.get(Calendar.HOUR_OF_DAY);
+                        mInicio = cal.get(Calendar.MINUTE);
+                        hora.setText(timeFormat.format(cal.getTime()));
+                    }
+                },
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE),
+                true);
     }
 
     private void inicializaSpinnerUnidades() {
@@ -170,18 +169,23 @@ public class AddMedicamentosActivity extends AppCompatActivity {
                 switch (i) {
                     case 0:
                         frequenciaNotifica = Medicamentos.TODO_DIA;
+                        somaFrequencia = 86400;
                         break;
                     case 1:
                         frequenciaNotifica = Medicamentos.DOZE_EM_DOZE;
+                        somaFrequencia = 43200;
                         break;
                     case 2:
                         frequenciaNotifica = Medicamentos.OITO_EM_OITO;
+                        somaFrequencia = 28800;
                         break;
                     case 3:
                         frequenciaNotifica = Medicamentos.SEIS_EM_SEIS;
+                        somaFrequencia = 21600;
                         break;
                     case 4:
                         frequenciaNotifica = Medicamentos.QUATRO_EM_QUATRO;
+                        somaFrequencia = 14400;
                         break;
                     default:
                         frequenciaNotifica = 0;
@@ -203,18 +207,16 @@ public class AddMedicamentosActivity extends AppCompatActivity {
 
     public void salvaMedicamento(View view) {
         int id = GeraIdSingleton.getInstance().geraId(this);
-        Intent it = new Intent(this, TelaNotificacao.class);
+        Intent it = new Intent(this, NotificacaoActivity.class);
         PendingIntent p = PendingIntent.getActivity(this, 0, it, 0);
         int notifica;
-        long time = cal.getTimeInMillis();
+        long time = (cal.getTimeInMillis() * -1) + (somaFrequencia * 1000);
         long diferenca = time - System.currentTimeMillis();
         if (notificar.isChecked()) {
             notifica = 1;
             alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-//            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 24 / frequenciaNotifica, p);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, time, p);
-            Toast.makeText(this, "Alarme ativado " + diferenca + " segundos", Toast.LENGTH_SHORT).show();
-            anotacao.setText(Long.toString(diferenca));
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 24 / frequenciaNotifica, p);
+            anotacao.setText(Long.toString(diferenca / 1000));
         } else {
             notifica = 0;
         }
@@ -225,7 +227,7 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         HistoricoSingleton.getInstance().getMedicamentos().add(medicamentos);
         HistoricoSingleton.getInstance().saveMedicamentos(this);
         medicamentos.addHistorico(this);
-        // Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Item salvo com sucesso!!!", Toast.LENGTH_SHORT).show();
         finish();
     }
 

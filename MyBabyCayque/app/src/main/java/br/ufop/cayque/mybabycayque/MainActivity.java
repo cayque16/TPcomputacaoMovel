@@ -17,7 +17,7 @@ import android.widget.TextView;
 import br.ufop.cayque.mybabycayque.add.AddMedicamentosActivity;
 import br.ufop.cayque.mybabycayque.controllers.HistoricoSingleton;
 import br.ufop.cayque.mybabycayque.models.DadosBebe;
-import br.ufop.cayque.mybabycayque.notificacao.TelaNotificacao;
+import br.ufop.cayque.mybabycayque.notificacao.NotificacaoActivity;
 
 
 public class MainActivity extends AppCompatActivity
@@ -175,8 +175,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        if (TelaNotificacao.mNotificationManager != null) {
-            TelaNotificacao.mNotificationManager.cancel(0);
+        if (NotificacaoActivity.mNotificationManager != null) {
+            NotificacaoActivity.mNotificationManager.cancel(0);
         }
     }
 }
