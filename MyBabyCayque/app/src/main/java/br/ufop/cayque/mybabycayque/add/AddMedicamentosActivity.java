@@ -86,7 +86,6 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         dateFormat = DateFormat.getDateInstance();
         timeFormat = DateFormat.getTimeInstance(DateFormat.SHORT);
 
-
         data.setText(dateFormat.format(cal.getTime()));
         hora.setText(timeFormat.format(cal.getTime()));
 
@@ -210,11 +209,12 @@ public class AddMedicamentosActivity extends AppCompatActivity {
         Intent it = new Intent(this, NotificacaoActivity.class);
         PendingIntent p = PendingIntent.getActivity(this, 0, it, 0);
         int notifica;
-        long time = (cal.getTimeInMillis() * -1) + (somaFrequencia * 1000);
+        long time = (cal.getTimeInMillis() ) + (somaFrequencia * 1000);
+        long diferenca = (time - System.currentTimeMillis()) / 1000;
         if (notificar.isChecked()) {
             notifica = 1;
             alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 60 * 24 / frequenciaNotifica, p);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 1000 * 3600 * 24 / frequenciaNotifica, p);
         } else {
             notifica = 0;
         }
