@@ -114,18 +114,17 @@ public class HomeFragment extends Fragment {
 
         Collections.sort(HistoricoSingleton.getInstance().getAtividades());
 
-        if (HistoricoSingleton.getInstance().getAtividades().isEmpty()) {
-            textVazia.setVisibility(View.VISIBLE);
-        } else {
-            textVazia.setVisibility(View.INVISIBLE);
-        }
+        mensagemListaVazia();
 
         listView.setAdapter(new AtividadesAdapter(HistoricoSingleton.getInstance().getAtividades(), getContext()));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String tipo = HistoricoSingleton.getInstance().getAtividades().get(i).getTipo();
-                int id = HistoricoSingleton.getInstance().getAtividades().get(i).getId();
+//                String tipo = HistoricoSingleton.getInstance().getAtividades().get(i).getTipo();
+//                int id = HistoricoSingleton.getInstance().getAtividades().get(i).getId();
+                Atividades atividade = (Atividades) adapterView.getItemAtPosition(i);
+                String tipo = atividade.getTipo();
+                int id = atividade.getId();
                 int sizeArray;
 
                 if (tipo.equals("Mamada")) {
@@ -265,6 +264,14 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void mensagemListaVazia() {
+        if (HistoricoSingleton.getInstance().getAtividades().isEmpty()) {
+            textVazia.setVisibility(View.VISIBLE);
+        } else {
+            textVazia.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void testaLimpa() {
@@ -448,7 +455,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        listView.setAdapter(new AtividadesAdapter(HistoricoSingleton.getInstance().getAtividades(), getContext()));
+//        listView.setAdapter(new AtividadesAdapter(HistoricoSingleton.getInstance().getAtividades(), getContext()));
+        mensagemListaVazia();
     }
 
     public String conversor(int valor) {
